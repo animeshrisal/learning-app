@@ -1,0 +1,34 @@
+import express, { Request, Response, NextFunction } from "express";
+import "reflect-metadata";
+import cors from "cors";
+import helmet from "helmet";
+import bodyParser from "body-parser";
+import routes from "./routes";
+import { adminMessage, socket } from "./middleware/webSocket";
+import { Server } from "http";
+import * as dotenv from "dotenv";
+
+const app = express();
+const path = require("path");
+const http = require("http");
+
+// Call midlewares
+app.use(cors());
+app.use(helmet());
+app.use(bodyParser.json());
+
+dotenv.config();
+
+//Set all routes from routes folder
+// register express routes from defined application routes
+
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("/", function (req: Request, res: Response) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+app.use("/api/v1", routes);
+
+const server: Server = app.listen(8000);
+socket(server);
