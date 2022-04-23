@@ -1,6 +1,7 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import * as bcrypt from "bcryptjs";
 import { Role } from "@prisma/client";
+import { hashPassword } from "../helpers/auth";
 
 const prisma: PrismaClient = new PrismaClient();
 
@@ -26,6 +27,4 @@ main()
     await prisma.$disconnect();
   });
 
-function hashPassword(string) {
-  return bcrypt.hashSync(string, 8);
-}
+
