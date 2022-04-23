@@ -2,9 +2,13 @@ import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import { validate } from "class-validator";
 
-import { User } from "../entity/User";
 import config from "../config/config";
-import { AppDataSource } from "../data-source";
+import { prisma } from "../prisma/prisma";
+import {
+  checkIfUnencryptedPasswordIsValid,
+  hashPassword,
+} from "../helpers/auth";
+import { User } from "@prisma/client";
 
 class AuthController {
   static login = async (req: Request, res: Response) => {
@@ -15,16 +19,19 @@ class AuthController {
     }
 
     //Get user from database
-    const userRepository = AppDataSource.getRepository(User);
-    let user: User;
+    let user = await prisma.user.findUnique({
+      where: {
+        username,
+      },
+    });
     try {
-      user = await userRepository.findOneOrFail({ where: { username } });
+      // user = await userRepository.findOneOrFail({ where: { username } });
     } catch (error) {
       res.status(401).send();
     }
 
     //Check if encrypted password match
-    if (!user.checkIfUnencryptedPasswordIsValid(password)) {
+    if (!checkIfUnencryptedPasswordIsValid(password, user.password)) {
       res.status(401).send();
       return;
     }
@@ -51,30 +58,36 @@ class AuthController {
     }
 
     //Get user from the database
-    const userRepository = AppDataSource.getRepository(User);
-    let user: User;
-    try {
-      user = await userRepository.findOneOrFail(id);
-    } catch (id) {
-      res.status(401).send();
-    }
+    //Get user from database
+    let user: User = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
 
     //Check if old password matchs
-    if (!user.checkIfUnencryptedPasswordIsValid(oldPassword)) {
+    if (!checkIfUnencryptedPasswordIsValid(oldPassword, user.password)) {
       res.status(401).send();
       return;
     }
 
     //Validate de model (password lenght)
-    user.password = newPassword;
     const errors = await validate(user);
     if (errors.length > 0) {
       res.status(400).send(errors);
       return;
     }
     //Hash the new password and save
-    user.hashPassword();
-    userRepository.save(user);
+    const password: string = hashPassword(newPassword);
+
+    await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        password,
+      },
+    });
 
     res.status(204).send();
   };
