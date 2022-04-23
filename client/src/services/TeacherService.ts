@@ -4,7 +4,7 @@ import {
   handleResponse,
   URL,
 } from "../helpers";
-import { ClassroomState } from "../models/states/ClassroomState";
+import { Classroom, ClassroomState } from "../models/states/ClassroomState";
 
 const getClassrooms = () => {
   return fetch(`${URL}/teacher/classroom/`, authenticatedGetRequestOption())
@@ -25,13 +25,13 @@ const getClassroom = (id: string) => {
     });
 };
 
-const postClassroom = (classroom: ClassroomState) => {
+const postClassroom = (classroom: any): Promise<Classroom> => {
   return fetch(
     `${URL}/teacher/classroom/`,
     authenticatedRequestGenerator(classroom, "POST")
   )
     .then(handleResponse)
-    .then((classroom) => {
+    .then((classroom: Classroom) => {
       return classroom;
     });
 };

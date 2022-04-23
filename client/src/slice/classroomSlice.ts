@@ -8,10 +8,17 @@ import { teacherDashboardService } from "../services/TeacherService";
 
 export const retrieveClassroomList = createAsyncThunk(
   "classroom/retrieveClassroomList",
-  async (): Promise<ClassroomState> => {
-    const response: Classroom[] =
-      await teacherDashboardService.getClassrooms();
-    return { isLoading: false, classroomList: response };
+  async (): Promise<Classroom[]> => {
+    const response: Classroom[] = await teacherDashboardService.getClassrooms();
+    return response;
+  }
+);
+
+export const addClassroom = createAsyncThunk(
+  "classroom/addClassroom",
+  async (): Promise<Classroom> => {
+    const response: Classroom = await teacherDashboardService.postClassroom({});
+    return response;
   }
 );
 
@@ -32,7 +39,18 @@ export const classroomSlice = createSlice({
     builder.addCase(
       retrieveClassroomList.fulfilled,
       (state: ClassroomState, { payload }) => {
-        return { ...payload }
+        return { ...state, classroomList: payload, isLoading: false };
+      }
+    );
+
+    builder.addCase(
+      addClassroom.fulfilled,
+      (state: ClassroomState, { payload }) => {
+        return {
+          ...state,
+          isLoading: state.isLoading,
+          classroomList: [payload, ...state.classroomList],
+        };
       }
     );
   },
