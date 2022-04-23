@@ -36,7 +36,7 @@ const postClassroom = (classroom: any): Promise<Classroom> => {
     });
 };
 
-const updateClassroom = (classroom: ClassroomState, classroomId: string) => {
+const updateClassroom = (classroom: any, classroomId: string) => {
   return fetch(
     `${URL}/teacher/classroom/${classroomId}/`,
     authenticatedRequestGenerator(classroom, "PUT")
@@ -47,9 +47,21 @@ const updateClassroom = (classroom: ClassroomState, classroomId: string) => {
     });
 };
 
+const deleteClassroom = (classroomId: string): Promise<string> => {
+  return fetch(
+    `${URL}/teacher/classroom/${classroomId}/delete`,
+    authenticatedRequestGenerator({}, "DELETE")
+  )
+    .then(handleResponse)
+    .then(() => {
+      return classroomId;
+    });
+};
+
 export const teacherDashboardService = {
   getClassroom,
   getClassrooms,
   postClassroom,
   updateClassroom,
+  deleteClassroom
 };

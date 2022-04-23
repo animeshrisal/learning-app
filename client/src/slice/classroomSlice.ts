@@ -22,6 +22,25 @@ export const addClassroom = createAsyncThunk(
   }
 );
 
+export const updateClassroom = createAsyncThunk(
+  "classroom/addClassroom",
+  async (): Promise<Classroom> => {
+    const response: Classroom = await teacherDashboardService.updateClassroom(
+      {},
+      "a"
+    );
+    return response;
+  }
+);
+
+export const deleteClassroom = createAsyncThunk(
+  "classroom/deleteClassroom",
+  async (): Promise<string> => {
+    const response: string = await teacherDashboardService.deleteClassroom("a");
+    return response;
+  }
+);
+
 const initialState: ClassroomState = {
   isLoading: false,
   classroomList: [],
@@ -54,6 +73,47 @@ export const classroomSlice = createSlice({
           ...state,
           isLoading: state.isLoading,
           classroomList: [payload, ...state.classroomList],
+        };
+      }
+    );
+
+    builder.addCase(
+      updateClassroom.pending,
+      (state: ClassroomState, { payload }) => {
+        state.isLoading = true;
+      }
+    );
+
+    builder.addCase(
+      updateClassroom.fulfilled,
+      (state: ClassroomState, { payload }) => {
+        const index = state.classroomList.findIndex(
+          (classroom) => classroom.id === payload.id
+        );
+        state.classroomList[index] = payload;
+        state.isLoading = false;
+      }
+    );
+
+    builder.addCase(
+      updateClassroom.fulfilled,
+      (state: ClassroomState, { payload }) => {
+        const index = state.classroomList.findIndex(
+          (classroom) => classroom.id === payload.id
+        );
+        state.classroomList[index] = payload;
+        state.isLoading = false;
+      }
+    );
+
+    builder.addCase(
+      deleteClassroom.fulfilled,
+      (state: ClassroomState, { payload }) => {
+        return {
+          ...state,
+          classroomList: state.classroomList.filter(
+            (item) => item.id !== payload
+          ),
         };
       }
     );
