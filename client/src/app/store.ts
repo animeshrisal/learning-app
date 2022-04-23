@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import authReducer from '../features/auth/authSlice';
+import authReducer from '../slice/authSlice';
+import classroomReducer from '../slice/classroomSlice';
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer
+    auth: authReducer,
+    classroom: classroomReducer
   },
 });
 
