@@ -1,7 +1,9 @@
 function authHeader(): HeadersInit {
   const user = localStorage.getItem("user");
+
   if (user) {
-    return { Authorization: `JWT ${JSON.parse(user).access}` };
+    console.log(JSON.parse(user).token);
+    return { Authorization: JSON.parse(user).token };
   } else {
     return {};
   }

@@ -2,7 +2,7 @@ export interface AuthState {
     username?: string;
     firstName?: string;
     lastName?: string;
-    jwt?: string;
+    token?: string;
     email?: string;
     role?: "USER" | "TEACHER" | "ADMIN" | "";
     isLoading?: boolean;

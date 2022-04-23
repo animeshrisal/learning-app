@@ -21,7 +21,7 @@ function login(user: UserLoginRequest): Promise<AuthState> {
   return fetch(`${URL}/auth/login`, requestOptions)
     .then(handleResponse)
     .then((user: AuthState) => {
-      if (user.jwt) {
+      if (user.token) {
         localStorage.setItem("user", JSON.stringify(user));
       }
       return user;
@@ -45,7 +45,7 @@ function register(user: UserRegisterRequest ): Promise<AuthState>{
   return fetch(`${URL}/auth/users/`, requestOptions)
     .then(handleResponse)
     .then((user: AuthState) => {
-      if (user.jwt) {
+      if (user.token) {
         localStorage.setItem("user", JSON.stringify(user));
       }
       return user;

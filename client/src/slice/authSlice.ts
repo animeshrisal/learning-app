@@ -19,7 +19,7 @@ const initialState: AuthState = {
   username: "",
   firstName: "",
   lastName: "",
-  jwt: "",
+  token: "",
   email: "",
   role: "",
 };
