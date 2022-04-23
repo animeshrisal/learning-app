@@ -1,9 +1,7 @@
-import React, { ChangeEventHandler, ReactEventHandler, useState } from "react";
-import logo from "./logo.svg";
+import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
@@ -13,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import { Theme } from "@mui/system";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../features/auth/authSlice";
+import { loginUser } from "../../slice/authSlice";
 
 function Login() {
 
