@@ -26,6 +26,8 @@ model User {
   Comment            Comment[]
   Annoucement        Annoucement[]
   UserLesson         UserLesson[]
+
+  UserQuestion UserQuestion[]
 }
 
 model Category {
@@ -59,6 +61,16 @@ model Lesson {
   Classroom   Classroom?   @relation(fields: [classroomId], references: [id])
   classroomId String?
   UserLesson  UserLesson[]
+
+  nextId      String? @unique
+  next        Lesson? @relation("NextLesson", fields: [nextId], references: [id])
+  currentNext Lesson? @relation("NextLesson")
+
+  previousId      String? @unique
+  previous        Lesson? @relation("PreviousLesson", fields: [previousId], references: [id])
+  currentPrevious Lesson? @relation("PreviousLesson")
+
+  @@unique([id, order])
 }
 
 model Quiz {
@@ -82,8 +94,9 @@ model Question {
   correctChoice Int
   order         Int
 
-  Quiz   Quiz?   @relation(fields: [quizId], references: [id])
-  quizId String?
+  Quiz         Quiz?          @relation(fields: [quizId], references: [id])
+  quizId       String?
+  UserQuestion UserQuestion[]
 }
 
 model UserLesson {
@@ -96,11 +109,22 @@ model UserLesson {
   @@id([userId, lessonId])
 }
 
+model UserQuestion {
+  user       User     @relation(fields: [userId], references: [id])
+  question   Question @relation(fields: [questionId], references: [id])
+  userId     String
+  questionId String
+
+  completed Boolean
+
+  @@id([userId, questionId])
+}
+
 model Comment {
-  id      String @id @default(cuid())
-  comment String
-  user    User   @relation(fields: [userId], references: [id])
-  userId  String
+  id        String   @id @default(cuid())
+  comment   String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
   createdAt DateTime @default(now())
 
 }
@@ -112,5 +136,5 @@ model Annoucement {
   userId      String
   classroom   Classroom @relation(fields: [classroomId], references: [id])
   classroomId String
-  createdAt DateTime @default(now())
+  createdAt   DateTime  @default(now())
 }
