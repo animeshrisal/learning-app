@@ -3,9 +3,9 @@ import {
   createAsyncThunk,
   createSlice,
 } from "@reduxjs/toolkit";
-import { UserLoginRequest } from "../../models/requests/UserRequest";
-import { AuthState } from "../../models/states/AuthState";
-import { authenticationService } from "../../services/AuthService";
+import { UserLoginRequest } from "../models/requests/UserRequest";
+import { AuthState } from "../models/states/AuthState";
+import { authenticationService } from "../services/AuthService";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
