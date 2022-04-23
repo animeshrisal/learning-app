@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import auth from "./auth";
-import user from "./user";
+import user from "./admin/user";
 
 const routes = Router();
 

@@ -12,7 +12,6 @@ import { User } from "@prisma/client";
 
 class AuthController {
   static login = async (req: Request, res: Response) => {
-    //Check if username and password are set
     let { username, password } = req.body;
     if (!(username && password)) {
       res.status(400).send();
@@ -25,7 +24,6 @@ class AuthController {
       },
     });
     try {
-      // user = await userRepository.findOneOrFail({ where: { username } });
     } catch (error) {
       res.status(401).send();
     }
@@ -57,27 +55,23 @@ class AuthController {
       res.status(400).send();
     }
 
-    //Get user from the database
-    //Get user from database
     let user: User = await prisma.user.findUnique({
       where: {
         id,
       },
     });
 
-    //Check if old password matchs
     if (!checkIfUnencryptedPasswordIsValid(oldPassword, user.password)) {
       res.status(401).send();
       return;
     }
 
-    //Validate de model (password lenght)
     const errors = await validate(user);
     if (errors.length > 0) {
       res.status(400).send(errors);
       return;
     }
-    //Hash the new password and save
+
     const password: string = hashPassword(newPassword);
 
     await prisma.user.update({
