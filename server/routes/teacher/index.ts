@@ -12,14 +12,14 @@ import { checkRole } from "../../middleware/checkRole";
 const router = Router();
 
 //Get all users
-router.get("/classrooms", [checkJwt, checkRole(["TEACHER"])], listClassroom);
+router.get("/classroom", [checkJwt, checkRole(["TEACHER"])], listClassroom);
 
 // Get one user
-router.get("/:id", [checkJwt, checkRole(["TEACHER"])], getClassroom);
+router.get("/classroom/:id", [checkJwt, checkRole(["TEACHER"])], getClassroom);
 
 //Create a new classroom
-router.post("/create", [checkJwt, checkRole(["TEACHER"])], createClassroom);
-router.put("/:id/update", [checkJwt, checkRole(["TEACHER"])], updateClassroom);
+router.post("/classroom/create", [checkJwt, checkRole(["TEACHER"])], createClassroom);
+router.put("/classroom/:id/update", [checkJwt, checkRole(["TEACHER"])], updateClassroom);
 router.delete(
   "/:id/delete",
   [checkJwt, checkRole(["TEACHER"])],
