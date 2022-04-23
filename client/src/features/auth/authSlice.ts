@@ -38,8 +38,7 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(loginUser.fulfilled, (state: AuthState, { payload }) => {
-      state.isLoading = false;
-      state = payload as unknown as AuthState;
+      return {...payload, isLoading: false}
     });
 
     builder.addCase(loginUser.rejected, (state: AuthState, { payload }) => {
