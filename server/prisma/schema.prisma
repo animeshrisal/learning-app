@@ -25,6 +25,7 @@ model User {
   classroomTeacherId String?
   Comment            Comment[]
   Annoucement        Annoucement[]
+  UserLesson         UserLesson[]
 }
 
 model Category {
@@ -55,9 +56,9 @@ model Lesson {
   description String
   body        String
 
-
-  Classroom   Classroom? @relation(fields: [classroomId], references: [id])
+  Classroom   Classroom?   @relation(fields: [classroomId], references: [id])
   classroomId String?
+  UserLesson  UserLesson[]
 }
 
 model Quiz {
@@ -66,8 +67,33 @@ model Quiz {
   Classroom   Classroom? @relation(fields: [classroomId], references: [id])
   classroomId String?
 
-  name  String
-  state Int    @default(1)
+  name     String
+  state    Int        @default(1)
+  question Question[]
+}
+
+model Question {
+  id            String @id @default(cuid())
+  question      String
+  firstChoice   String
+  secondChoice  String
+  thirdChoice   String
+  fourthChoice  String
+  correctChoice Int
+  order         Int
+
+  Quiz   Quiz?   @relation(fields: [quizId], references: [id])
+  quizId String?
+}
+
+model UserLesson {
+  user      User    @relation(fields: [userId], references: [id])
+  lesson    Lesson  @relation(fields: [lessonId], references: [id])
+  userId    String
+  lessonId  String
+  completed Boolean
+
+  @@id([userId, lessonId])
 }
 
 model Comment {
@@ -75,6 +101,8 @@ model Comment {
   comment String
   user    User   @relation(fields: [userId], references: [id])
   userId  String
+  createdAt DateTime @default(now())
+
 }
 
 model Annoucement {
@@ -84,4 +112,5 @@ model Annoucement {
   userId      String
   classroom   Classroom @relation(fields: [classroomId], references: [id])
   classroomId String
+  createdAt DateTime @default(now())
 }
