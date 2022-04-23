@@ -49,7 +49,7 @@ model Classroom {
   subject     String
   description String
 
-  activeStatus String
+  activeStatus Boolean @default(true)
   lessons      Lesson[]
 
   quizzes     Quiz[]

@@ -11,102 +11,87 @@ import {
 import { User } from "@prisma/client";
 import { UserResponse } from "../model/UserResponse";
 
-class AuthController {
-  static login = async (req: Request, res: Response) => {
-    console.log(req.body);
-    const username: string = req.body.username;
-    let password: string = req.body.password;
-    console.log(req.body);
+export const login = async (req: Request, res: Response) => {
+  console.log(req.body);
+  const username: string = req.body.username;
+  let password: string = req.body.password;
+  console.log(req.body);
 
-    if (!(username && password)) {
-      res.status(400).send();
-    }
+  if (!(username && password)) {
+    res.status(400).send();
+  }
 
-    //Get user from database
-    let user: User = await prisma.user.findFirst({
-      where: {
-        username: username,
-      },
-    });
-    try {
-    } catch (error) {
-      res.status(401).send();
-    }
+  let user: User = await prisma.user.findFirst({
+    where: {
+      username: username,
+    },
+  });
+  try {
+  } catch (error) {
+    res.status(401).send();
+  }
 
-    //Check if encrypted password match
-    console.log("AAAA");
+  if (!checkIfUnencryptedPasswordIsValid(password, user.password)) {
+    res.status(401).send();
+    return;
+  }
 
-    if (!checkIfUnencryptedPasswordIsValid(password, user.password)) {
-      res.status(401).send();
-      return;
-    }
+  //Sing JWT, valid for 1 hour
+  const token = jwt.sign(
+    { userId: user.id, username: user.username },
+    config.jwtSecret,
+    { expiresIn: "1h" }
+  );
 
-    //Sing JWT, valid for 1 hour
-    const token = jwt.sign(
-      { userId: user.id, username: user.username },
-      config.jwtSecret,
-      { expiresIn: "1h" }
-    );
+  const userResponse: UserResponse = await getUserResponse(user);
 
-    const userResponse: UserResponse = await AuthController.getUserResponse(
-      user
-    );
+  res.send({
+    ...userResponse,
+    token,
+  });
+};
 
-    res.send({
-      ...userResponse,
-      token,
-    });
-  };
+export const changePassword = async (req: Request, res: Response) => {
+  const id = res.locals.jwtPayload.userId;
 
-  static changePassword = async (req: Request, res: Response) => {
-    //Get ID from JWT
-    const id = res.locals.jwtPayload.userId;
+  const { oldPassword, newPassword } = req.body;
+  if (!(oldPassword && newPassword)) {
+    res.status(400).send();
+  }
 
-    //Get parameters from the body
-    const { oldPassword, newPassword } = req.body;
-    if (!(oldPassword && newPassword)) {
-      res.status(400).send();
-    }
+  let user: User = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
 
-    let user: User = await prisma.user.findUnique({
-      where: {
-        id,
-      },
-    });
+  if (!checkIfUnencryptedPasswordIsValid(oldPassword, user.password)) {
+    res.status(401).send();
+    return;
+  }
 
-    if (!checkIfUnencryptedPasswordIsValid(oldPassword, user.password)) {
-      res.status(401).send();
-      return;
-    }
+  const errors = await validate(user);
+  if (errors.length > 0) {
+    res.status(400).send(errors);
+    return;
+  }
 
-    const errors = await validate(user);
-    if (errors.length > 0) {
-      res.status(400).send(errors);
-      return;
-    }
+  const password: string = hashPassword(newPassword);
 
-    const password: string = hashPassword(newPassword);
-
-    await prisma.user.update({
-      where: {
-        id,
-      },
-      data: {
-        password,
-      },
-    });
-
-    res.status(204).send();
-  };
-
-  static getUserResponse = async (user: User): Promise<UserResponse> => {
-    const {
+  await prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
       password,
-      classroomStudentId,
-      classroomTeacherId,
-      ...userResponse
-    } = user;
-    return userResponse;
-  };
-}
-export default AuthController;
+    },
+  });
+
+  res.status(204).send();
+};
+
+export const getUserResponse = async (user: User): Promise<UserResponse> => {
+  const { password, classroomStudentId, classroomTeacherId, ...userResponse } =
+    user;
+  return userResponse;
+};
