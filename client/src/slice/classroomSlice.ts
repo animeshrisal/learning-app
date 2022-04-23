@@ -23,7 +23,7 @@ export const addClassroom = createAsyncThunk(
 );
 
 export const updateClassroom = createAsyncThunk(
-  "classroom/addClassroom",
+  "classroom/updateClassroom",
   async (): Promise<Classroom> => {
     const response: Classroom = await teacherDashboardService.updateClassroom(
       {},
@@ -81,17 +81,6 @@ export const classroomSlice = createSlice({
       updateClassroom.pending,
       (state: ClassroomState, { payload }) => {
         state.isLoading = true;
-      }
-    );
-
-    builder.addCase(
-      updateClassroom.fulfilled,
-      (state: ClassroomState, { payload }) => {
-        const index = state.classroomList.findIndex(
-          (classroom) => classroom.id === payload.id
-        );
-        state.classroomList[index] = payload;
-        state.isLoading = false;
       }
     );
 
