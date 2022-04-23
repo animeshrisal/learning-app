@@ -10,11 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  TEACHER
+  ADMIN
+}
+
 model User {
   id        String  @id @default(cuid())
   username  String? @unique
   email     String  @unique
-  role      Int     @default(1)
+  role      Role     @default(USER)
   password  String
   firstName String?
   lastName  String?
@@ -29,6 +35,8 @@ model User {
 
   UserQuestion UserQuestion[]
 }
+
+
 
 model Category {
   id   String @id @default(cuid())

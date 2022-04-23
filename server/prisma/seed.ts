@@ -1,13 +1,14 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import * as bcrypt from "bcryptjs";
+import { Role } from "@prisma/client";
 
 const prisma: PrismaClient = new PrismaClient();
 
 const admin: Prisma.UserCreateInput = {
-  name: "admin",
+  username: "admin",
   password: hashPassword("admin123"),
-  email: "animeshrisal99@gmail.com",
-  role: 0,
+  email: "animeshrisal2@gmail.com",
+  role: Role.USER,
 };
 
 async function main() {
