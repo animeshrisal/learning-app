@@ -1,6 +1,10 @@
+export interface Classroom {
+    id: string;
+    subject: string;
+    activeStatus: boolean;
+}
+
 export interface ClassroomState {
-  id: string;
-  subject: string;
-  description: string;
-  activeStatus: boolean;
+    isLoading: boolean;
+    classroomList: Classroom[];
 }
