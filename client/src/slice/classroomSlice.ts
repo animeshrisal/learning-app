@@ -1,18 +1,17 @@
-import { buttonUnstyledClasses } from "@mui/base";
 import {
   ActionReducerMapBuilder,
   createAsyncThunk,
   createSlice,
 } from "@reduxjs/toolkit";
-import { ClassroomState } from "../models/states/ClassroomState";
+import { Classroom, ClassroomState } from "../models/states/ClassroomState";
 import { teacherDashboardService } from "../services/TeacherService";
 
 export const retrieveClassroomList = createAsyncThunk(
   "classroom/retrieveClassroomList",
-  async () => {
-    const response: ClassroomState =
+  async (): Promise<ClassroomState> => {
+    const response: Classroom[] =
       await teacherDashboardService.getClassrooms();
-    return response;
+    return { isLoading: false, classroomList: response };
   }
 );
 
@@ -26,18 +25,14 @@ export const classroomSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder: ActionReducerMapBuilder<ClassroomState>) => {
-    builder.addCase(
-      retrieveClassroomList.pending,
-      (state: ClassroomState) => {
-        state.isLoading = true;
-      }
-    );
+    builder.addCase(retrieveClassroomList.pending, (state: ClassroomState) => {
+      state.isLoading = true;
+    });
 
     builder.addCase(
       retrieveClassroomList.fulfilled,
-      (state: ClassroomState, {payload}) => {
-        state.isLoading = false;
-        state.classroomList = payload.classroomList;
+      (state: ClassroomState, { payload }) => {
+        return { ...payload }
       }
     );
   },
