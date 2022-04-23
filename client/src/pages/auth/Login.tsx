@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
 
-function App() {
+function Login() {
   return (
     <div className="App">
       <header className="App-header">
@@ -53,4 +53,4 @@ function App() {
   );
 }
 
-export default App;
+export default Login;
