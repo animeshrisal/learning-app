@@ -43,6 +43,10 @@ export const classroomSlice = createSlice({
       }
     );
 
+    builder.addCase(addClassroom.pending, (state: ClassroomState) => {
+      state.isLoading = true;
+    });
+
     builder.addCase(
       addClassroom.fulfilled,
       (state: ClassroomState, { payload }) => {
