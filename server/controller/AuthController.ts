@@ -9,18 +9,23 @@ import {
   hashPassword,
 } from "../helpers/auth";
 import { User } from "@prisma/client";
+import { UserResponse } from "../model/UserResponse";
 
 class AuthController {
   static login = async (req: Request, res: Response) => {
-    let { username, password } = req.body;
+    console.log(req.body);
+    const username: string = req.body.username;
+    let password: string = req.body.password;
+    console.log(req.body);
+
     if (!(username && password)) {
       res.status(400).send();
     }
 
     //Get user from database
-    let user = await prisma.user.findUnique({
+    let user: User = await prisma.user.findFirst({
       where: {
-        username,
+        username: username,
       },
     });
     try {
@@ -29,6 +34,8 @@ class AuthController {
     }
 
     //Check if encrypted password match
+    console.log("AAAA");
+
     if (!checkIfUnencryptedPasswordIsValid(password, user.password)) {
       res.status(401).send();
       return;
@@ -41,8 +48,14 @@ class AuthController {
       { expiresIn: "1h" }
     );
 
-    //Send the jwt in the response
-    res.send(token);
+    const userResponse: UserResponse = await AuthController.getUserResponse(
+      user
+    );
+
+    res.send({
+      ...userResponse,
+      token,
+    });
   };
 
   static changePassword = async (req: Request, res: Response) => {
@@ -84,6 +97,16 @@ class AuthController {
     });
 
     res.status(204).send();
+  };
+
+  static getUserResponse = async (user: User): Promise<UserResponse> => {
+    const {
+      password,
+      classroomStudentId,
+      classroomTeacherId,
+      ...userResponse
+    } = user;
+    return userResponse;
   };
 }
 export default AuthController;

@@ -18,9 +18,9 @@ enum Role {
 
 model User {
   id        String  @id @default(cuid())
-  username  String? @unique
+  username  String  @unique
   email     String  @unique
-  role      Role     @default(USER)
+  role      Role    @default(USER)
   password  String
   firstName String?
   lastName  String?
@@ -35,8 +35,6 @@ model User {
 
   UserQuestion UserQuestion[]
 }
-
-
 
 model Category {
   id   String @id @default(cuid())

@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from "express";
-import "reflect-metadata";
 import cors from "cors";
 import helmet from "helmet";
 import bodyParser from "body-parser";
@@ -11,10 +10,12 @@ import * as dotenv from "dotenv";
 const app = express();
 const path = require("path");
 const http = require("http");
+const multer = require("multer");
+const upload = multer();
 
 // Call midlewares
-app.use(cors());
 app.use(helmet());
+app.use(cors());
 app.use(bodyParser.json());
 
 dotenv.config();

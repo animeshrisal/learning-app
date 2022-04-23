@@ -18,7 +18,7 @@ function login(user: UserLoginRequest): Promise<AuthState> {
     body: formData,
   };
 
-  return fetch(`${URL}/auth/jwt/create/`, requestOptions)
+  return fetch(`${URL}/auth/login`, requestOptions)
     .then(handleResponse)
     .then((user: AuthState) => {
       if (user.jwt) {
