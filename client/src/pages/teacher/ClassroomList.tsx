@@ -7,7 +7,10 @@ import AddClassroomDialogue from "../../components/AddClassroomDialogue";
 import ClassroomCard from "../../components/ClassroomCard";
 import { RootState } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
-import { addClassroom, retrieveClassroomList } from "../../slice/classroomSlice";
+import {
+  addClassroom,
+  retrieveClassroomList,
+} from "../../slice/classroomSlice";
 import { Classroom } from "../../models/states/ClassroomState";
 
 const TeacherClassList = (props: any): JSX.Element => {
