@@ -36,7 +36,7 @@ export const listClassroom = async (req: Request, res: Response) => {
 };
 
 export const getClassroom = async (req: Request, res: Response) => {
-  const id: string = req.params.classroomId;
+  const id: string = req.params.id;
   const classroom: Classroom = await prisma.classroom.findUnique({
     where: {
       id,
