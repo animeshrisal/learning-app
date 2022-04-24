@@ -11,11 +11,17 @@ const app = express();
 const path = require("path");
 const http = require("http");
 const multer = require("multer");
-const upload = multer();
+const upload = multer({ dest: "uploads/" });
 
 // Call midlewares
-app.use(helmet());
-app.use(cors());
+app.use(cors({ origin: '*'}));
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+    crossOriginEmbedderPolicy: false,
+  })
+);
+
 app.use(bodyParser.json());
 
 dotenv.config();
@@ -31,5 +37,6 @@ app.get("/", function (req: Request, res: Response) {
 
 app.use("/api/v1", routes);
 
+app.use("/uploads", express.static("uploads"));
 const server: Server = app.listen(8000);
 socket(server);

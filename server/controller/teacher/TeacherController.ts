@@ -5,13 +5,25 @@ import { validate } from "class-validator";
 import { prisma } from "../../prisma/prisma";
 import { Classroom } from "@prisma/client";
 
+interface MulterRequest extends Request {
+  file: any;
+}
+
 export const createClassroom = async (req: Request, res: Response) => {
-  const { subject, description } = req.body;
+  const { subject, description, image, activeStatus } = req.body;
+  const userId = res.locals.jwtPayload.userId;
+  console.log(req.body);
+  console.log((req as MulterRequest).file);
+
+  const booleanValue = "true" ? true : false;
 
   const classroom: Classroom = await prisma.classroom.create({
     data: {
       subject,
       description,
+      activeStatus: booleanValue,
+      image: (req as MulterRequest).file.filename,
+      userId,
     },
   });
 
