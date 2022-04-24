@@ -51,8 +51,8 @@ export const updateClassroom = createAsyncThunk(
 
 export const deleteClassroom = createAsyncThunk(
   "classroom/deleteClassroom",
-  async (): Promise<string> => {
-    const response: string = await teacherDashboardService.deleteClassroom("a");
+  async (classroomId: string): Promise<string> => {
+    const response: string = await teacherDashboardService.deleteClassroom(classroomId);
     return response;
   }
 );
