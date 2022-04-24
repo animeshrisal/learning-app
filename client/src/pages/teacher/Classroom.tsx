@@ -52,7 +52,7 @@ const TeacherClass = (): JSX.Element => {
   }, [classroomId, dispatch]);
 
   const goToAddLessonPage = (action = "post", id = 0) => {
-    navigate(`add_lesson/`, { state: { action, id } });
+    navigate(`create/`, { state: { action, id } });
   };
 
   const goToQuizList = () => {
