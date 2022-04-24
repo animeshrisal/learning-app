@@ -1,5 +1,8 @@
 import { handleResponse, URL } from "../helpers";
-import { UserLoginRequest, UserRegisterRequest } from "../models/requests/UserRequest";
+import {
+  UserLoginRequest,
+  UserRegisterRequest,
+} from "../models/requests/UserRequest";
 import { AuthState } from "../models/states/AuthState";
 
 export const authenticationService = {
@@ -28,7 +31,7 @@ function login(user: UserLoginRequest): Promise<AuthState> {
     });
 }
 
-function register(user: UserRegisterRequest ): Promise<AuthState>{
+function register(user: UserRegisterRequest): Promise<AuthState> {
   const formData = new FormData();
   formData.append("username", user.username);
   formData.append("password", user.password);
@@ -55,4 +58,3 @@ function register(user: UserRegisterRequest ): Promise<AuthState>{
 function logout() {
   localStorage.removeItem("user");
 }
-

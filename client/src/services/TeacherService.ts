@@ -112,7 +112,7 @@ const updateLesson = (
 
 const deleteLesson = (
   classroomId: string,
-  lessonId: string,
+  lessonId: string
 ): Promise<string> => {
   return fetch(
     `${URL}/teacher/classroom/${classroomId}/lesson/${lessonId}`,
