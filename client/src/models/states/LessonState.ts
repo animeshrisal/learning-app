@@ -1,11 +1,11 @@
 export interface Lesson {
-    id: string;
-    order: number;
+    id?: string;
+    order?: number;
     name: string;
     description: string;
     body: string;
-    nextId: string;
-    previousId: string;
+    nextId?: string;
+    previousId?: string;
 }
 
 export interface LessonState{
