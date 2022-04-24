@@ -11,7 +11,7 @@ import { checkRole } from "../../middleware/checkRole";
 import multer, { Multer } from "multer";
 
 const router: Router = Router();
-const upload: Multer = multer({ dest: 'uploads/' })
+const upload: Multer = multer({ dest: "uploads/" });
 
 //Get all users
 router.get("/classroom", [checkJwt, checkRole(["TEACHER"])], listClassroom);
@@ -20,8 +20,16 @@ router.get("/classroom", [checkJwt, checkRole(["TEACHER"])], listClassroom);
 router.get("/classroom/:id", [checkJwt, checkRole(["TEACHER"])], getClassroom);
 
 //Create a new classroom
-router.post("/classroom/create", [checkJwt, upload.single('image'), checkRole(["TEACHER"])], createClassroom);
-router.put("/classroom/:id/update", [checkJwt,upload.single('image'), checkRole(["TEACHER"])], updateClassroom);
+router.post(
+  "/classroom/create",
+  [checkJwt, checkRole(["TEACHER"]), upload.single("image")],
+  createClassroom
+);
+router.put(
+  "/classroom/:id/update",
+  [checkJwt, checkRole(["TEACHER"]), upload.single("image")],
+  updateClassroom
+);
 router.delete(
   "/:id/delete",
   [checkJwt, checkRole(["TEACHER"])],

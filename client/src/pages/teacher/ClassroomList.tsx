@@ -30,7 +30,6 @@ const TeacherClassList = (props: any): JSX.Element => {
   };
 
   const addNewClassroom = (classroom: Classroom) => {
-    console.log(classroom)
     dispatch(addClassroom(classroom));
   };
 
