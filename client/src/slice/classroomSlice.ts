@@ -17,17 +17,25 @@ export const retrieveClassroomList = createAsyncThunk(
 export const addClassroom = createAsyncThunk(
   "classroom/addClassroom",
   async (classroom: Classroom): Promise<Classroom> => {
-    const response: Classroom = await teacherDashboardService.postClassroom(classroom);
+    const response: Classroom = await teacherDashboardService.postClassroom(
+      classroom
+    );
     return response;
   }
 );
 
 export const updateClassroom = createAsyncThunk(
   "classroom/updateClassroom",
-  async (): Promise<Classroom> => {
+  async ({
+    classroom,
+    classroomId,
+  }: {
+    classroom: Classroom;
+    classroomId: string;
+  }): Promise<Classroom> => {
     const response: Classroom = await teacherDashboardService.updateClassroom(
-      {},
-      "a"
+      classroom,
+      classroomId
     );
     return response;
   }

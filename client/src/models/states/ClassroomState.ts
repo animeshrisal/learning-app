@@ -3,6 +3,7 @@ export interface Classroom {
     subject: string;
     description: string;
     activeStatus: boolean;
+    image: string;
 }
 
 export interface ClassroomState {
