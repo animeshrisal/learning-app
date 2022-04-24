@@ -1,6 +1,7 @@
 export interface Classroom {
     id: string;
     subject: string;
+    description: string;
     activeStatus: boolean;
 }
 

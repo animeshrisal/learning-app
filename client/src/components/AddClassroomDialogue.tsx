@@ -13,8 +13,8 @@ import React, { useEffect, useState } from "react";
 const AddClassroomDialogue = (props: any): JSX.Element => {
   const [subject, setSubject] = useState("");
   const [description, setDescription] = useState("");
-  const [banner, setBanner] = useState<HTMLImageElement | null>(null);
-  const [activeStatus, setActiveStatus] = useState(true);
+  const [image, setImage] = useState<any>(null);
+  const [activeStatus, setActiveStatus] = useState<boolean>(true);
   const [imageUrl, setImageUrl] = useState("");
 
   const handleClose = () => {
@@ -23,7 +23,7 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
 
   const addClassroom = () => {
     props.addClassroom(
-      { subject, description, banner, activeStatus },
+      { subject, description, image, activeStatus },
       props.state
     );
     setSubject("");
@@ -31,11 +31,15 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
     handleClose();
   };
 
-//   useEffect(() => {
-//     if (banner) {
-//       setImageUrl(URL.createObjectURL(banner));
-//     }
-//   }, [banner]);
+  useEffect(() => {
+    if (image) {
+      setImageUrl(URL.createObjectURL(image));
+    }
+  }, [image]);
+
+  const handleImage = (e: any) => {
+    setImage(e.target.files[0])
+  }
 
   const handleSubject = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSubject(e.target.value);
@@ -77,22 +81,22 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
           autoComplete="description"
           autoFocus
         />
-        {/* <input
+        <input
           accept="image/*"
           type="file"
           id="select-image"
           style={{ display: "none" }}
-          onChange={(e: React.ChangeEvent<HTMLImageElement>) => setBanner(e.target.value[0])}
-        /> */}
+          onChange={handleImage}
+        />
         <label htmlFor="select-image">
           <Button variant="contained" color="primary" component="span">
             Upload Image
           </Button>
         </label>
-        {imageUrl && banner && (
+        {imageUrl && image && (
           <Box mt={2} textAlign="center">
             <div>Image Preview:</div>
-            <img src={imageUrl} alt={banner.name} height="100px" />
+            <img src={imageUrl} alt={"asd"} height="100px" />
           </Box>
         )}
       </DialogContent>

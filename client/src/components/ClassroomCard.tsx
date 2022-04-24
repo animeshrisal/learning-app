@@ -17,7 +17,7 @@ const ClassroomCard = (props: any): JSX.Element => {
       <CardMedia
         component="img"
         height="140"
-        image={`http://localhost:8000${props.banner}`}
+        image={`http://localhost:8000/uploads/${props.image}`}
         alt="green iguana"
       />
       <CardContent>

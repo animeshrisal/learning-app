@@ -7,7 +7,8 @@ import AddClassroomDialogue from "../../components/AddClassroomDialogue";
 import ClassroomCard from "../../components/ClassroomCard";
 import { RootState } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
-import { retrieveClassroomList } from "../../slice/classroomSlice";
+import { addClassroom, retrieveClassroomList } from "../../slice/classroomSlice";
+import { Classroom } from "../../models/states/ClassroomState";
 
 const TeacherClassList = (props: any): JSX.Element => {
   const navigate = useNavigate();
@@ -28,7 +29,10 @@ const TeacherClassList = (props: any): JSX.Element => {
     setOpenModal(false);
   };
 
-  const addClassroom = (classroom: any) => {};
+  const addNewClassroom = (classroom: Classroom) => {
+    console.log(classroom)
+    dispatch(addClassroom(classroom));
+  };
 
   const goToClassroomPage = (id: any) => {
     navigate(`${id}`);
@@ -52,7 +56,7 @@ const TeacherClassList = (props: any): JSX.Element => {
         ))}
         <AddClassroomDialogue
           openModal={openModal}
-          addClassroom={addClassroom}
+          addClassroom={addNewClassroom}
           handleClose={handleClose}
           state="Add"
         />

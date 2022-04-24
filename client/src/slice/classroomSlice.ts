@@ -16,8 +16,8 @@ export const retrieveClassroomList = createAsyncThunk(
 
 export const addClassroom = createAsyncThunk(
   "classroom/addClassroom",
-  async (): Promise<Classroom> => {
-    const response: Classroom = await teacherDashboardService.postClassroom({});
+  async (classroom: Classroom): Promise<Classroom> => {
+    const response: Classroom = await teacherDashboardService.postClassroom(classroom);
     return response;
   }
 );

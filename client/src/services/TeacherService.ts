@@ -25,9 +25,9 @@ const getClassroom = (id: string) => {
     });
 };
 
-const postClassroom = (classroom: any): Promise<Classroom> => {
+const postClassroom = (classroom: Classroom): Promise<Classroom> => {
   return fetch(
-    `${URL}/teacher/classroom/`,
+    `${URL}/teacher/classroom/create`,
     authenticatedRequestGenerator(classroom, "POST")
   )
     .then(handleResponse)
