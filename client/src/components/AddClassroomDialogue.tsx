@@ -9,6 +9,9 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/store";
+import { Classroom } from "../models/states/ClassroomState";
 
 const AddClassroomDialogue = (props: any): JSX.Element => {
   const [subject, setSubject] = useState("");
@@ -16,6 +19,20 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
   const [image, setImage] = useState<any>(null);
   const [activeStatus, setActiveStatus] = useState<boolean>(true);
   const [imageUrl, setImageUrl] = useState("");
+
+  const classroom = useSelector((state: RootState) =>
+    state.classroom.classroomList.find(
+      (classroom) => classroom.id === props.classroomId
+    )
+  );
+
+  useEffect(() => {
+    if (props.state === "Edit" && classroom) {
+      setSubject(classroom.subject);
+      setDescription(classroom.description);
+      setActiveStatus(classroom.activeStatus);
+    }
+  }, [props.state, classroom]);
 
   const handleClose = () => {
     props.handleClose();
@@ -31,15 +48,9 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
     handleClose();
   };
 
-  useEffect(() => {
-    if (image) {
-      setImageUrl(URL.createObjectURL(image));
-    }
-  }, [image]);
-
   const handleImage = (e: any) => {
-    setImage(e.target.files[0])
-  }
+    setImage(e.target.files[0]);
+  };
 
   const handleSubject = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSubject(e.target.value);

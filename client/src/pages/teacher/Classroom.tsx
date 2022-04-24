@@ -18,15 +18,16 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import EditIcon from "@mui/icons-material/Edit";
-import { updateClassroom } from "../../slice/classroomSlice";
+import { retrieveClassroom, updateClassroom } from "../../slice/classroomSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Classroom } from "../../models/states/ClassroomState";
 import { RootState } from "../../app/store";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
+import Edit from "@mui/icons-material/Edit";
 
 export type RouteParams = {
   classroomId: string;
@@ -42,6 +43,13 @@ const TeacherClass = (): JSX.Element => {
       (classroom) => classroom.id === classroomId
     )
   );
+  
+
+  useEffect(() => {
+    if (classroomId) {
+      dispatch(retrieveClassroom(classroomId));
+    }
+  }, [classroomId, dispatch]);
 
   const goToAddLessonPage = (action = "post", id = 0) => {
     navigate(`add_lesson/`, { state: { action, id } });
@@ -133,6 +141,9 @@ const TeacherClass = (): JSX.Element => {
             )}
           </Grid> */}
         </Grid>
+        <Fab onClick={handleClickOpen} color="secondary" aria-label="add">
+          <Edit />
+        </Fab>
         <AddClassroomDialogue
           state="Edit"
           classroomId={classroom.id}
@@ -142,8 +153,7 @@ const TeacherClass = (): JSX.Element => {
         />
       </Container>
     );
-  }
-  else {
+  } else {
     return <CircularProgress />;
   }
 };

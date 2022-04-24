@@ -14,6 +14,14 @@ export const retrieveClassroomList = createAsyncThunk(
   }
 );
 
+export const retrieveClassroom = createAsyncThunk(
+  "classroom/retrieveClassroom",
+  async (classroomId: string): Promise<Classroom> => {
+    const response: Classroom = await teacherDashboardService.getClassroom(classroomId);
+    return response;
+  }
+);
+
 export const addClassroom = createAsyncThunk(
   "classroom/addClassroom",
   async (classroom: Classroom): Promise<Classroom> => {
@@ -67,6 +75,24 @@ export const classroomSlice = createSlice({
       retrieveClassroomList.fulfilled,
       (state: ClassroomState, { payload }) => {
         return { ...state, classroomList: payload, isLoading: false };
+      }
+    );
+
+    builder.addCase(retrieveClassroom.pending, (state: ClassroomState) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(
+      retrieveClassroom.fulfilled,
+      (state: ClassroomState, { payload }) => {
+        const index: number = state.classroomList.findIndex(classroom => classroom.id === payload.id)
+
+        if(index === -1) {
+          state.classroomList.push(payload)
+        } else {
+          state.classroomList[index] = payload
+        }
+        state.isLoading = true;
       }
     );
 
