@@ -16,7 +16,10 @@ function App() {
           <Route path="/auth/login/" element={<Login />} />
           <Route path="/teacher/" element={<TeacherClassList />} />
           <Route path="/teacher/:classroomId" element={<TeacherClass />} />
-          <Route path="/teacher/:classroomId/create" element={<AddLessonPage />} />
+          <Route
+            path="/teacher/:classroomId/create"
+            element={<AddLessonPage />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
