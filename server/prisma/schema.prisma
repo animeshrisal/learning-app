@@ -54,6 +54,8 @@ model Classroom {
   Annoucement Annoucement[]
   User        User?         @relation(fields: [userId], references: [id])
   userId      String?
+
+  image String?
 }
 
 model Lesson {
