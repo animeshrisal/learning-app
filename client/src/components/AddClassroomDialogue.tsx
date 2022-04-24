@@ -31,6 +31,7 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
       setSubject(classroom.subject);
       setDescription(classroom.description);
       setActiveStatus(classroom.activeStatus);
+      setImageUrl(`http://localhost:8000/uploads/${classroom.image}`);
     }
   }, [props.state, classroom]);
 
@@ -50,6 +51,7 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
 
   const handleImage = (e: any) => {
     setImage(e.target.files[0]);
+    setImageUrl(URL.createObjectURL(e.target.files[0]));
   };
 
   const handleSubject = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -104,7 +106,7 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
             Upload Image
           </Button>
         </label>
-        {imageUrl && image && (
+        {imageUrl && (
           <Box mt={2} textAlign="center">
             <div>Image Preview:</div>
             <img src={imageUrl} alt={"asd"} height="100px" />
