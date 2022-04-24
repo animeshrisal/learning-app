@@ -42,7 +42,7 @@ const updateClassroom = (
   classroomId: string
 ): Promise<Classroom> => {
   return fetch(
-    `${URL}/teacher/classroom/${classroomId}/`,
+    `${URL}/teacher/classroom/${classroomId}/update`,
     authenticatedRequestGenerator(classroom, "PUT")
   )
     .then(handleResponse)

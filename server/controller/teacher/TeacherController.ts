@@ -15,7 +15,7 @@ export const createClassroom = async (req: Request, res: Response) => {
   console.log(req.body);
   console.log((req as MulterRequest).file);
 
-  const booleanValue = "true" ? true : false;
+  const booleanValue = activeStatus === 'true' ? true : false;
 
   const classroom: Classroom = await prisma.classroom.create({
     data: {
@@ -46,15 +46,19 @@ export const getClassroom = async (req: Request, res: Response) => {
 };
 
 export const updateClassroom = async (req: Request, res: Response) => {
-  const { subject, description } = req.body;
-  const id: string = req.params.classroomId;
+  const { subject, description, activeStatus } = req.body;
+  const id: string = req.params.id;
+  console.log(req.body)
+  const booleanValue = activeStatus === 'true' ? true : false;
   const classroom: Classroom = await prisma.classroom.update({
     where: {
-      id,
+      id
     },
     data: {
       subject,
       description,
+      activeStatus: booleanValue,
+      image: (req as MulterRequest).file.filename,
     },
   });
   res.send(classroom);

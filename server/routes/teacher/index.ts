@@ -21,7 +21,7 @@ router.get("/classroom/:id", [checkJwt, checkRole(["TEACHER"])], getClassroom);
 
 //Create a new classroom
 router.post("/classroom/create", [checkJwt, upload.single('image'), checkRole(["TEACHER"])], createClassroom);
-router.put("/classroom/:id/update", [checkJwt, checkRole(["TEACHER"])], updateClassroom);
+router.put("/classroom/:id/update", [checkJwt,upload.single('image'), checkRole(["TEACHER"])], updateClassroom);
 router.delete(
   "/:id/delete",
   [checkJwt, checkRole(["TEACHER"])],
