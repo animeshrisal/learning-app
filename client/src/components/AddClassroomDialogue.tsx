@@ -11,7 +11,6 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
-import { Classroom } from "../models/states/ClassroomState";
 
 const AddClassroomDialogue = (props: any): JSX.Element => {
   const [subject, setSubject] = useState("");
