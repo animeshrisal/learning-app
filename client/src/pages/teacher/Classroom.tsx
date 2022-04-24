@@ -43,7 +43,6 @@ const TeacherClass = (): JSX.Element => {
       (classroom) => classroom.id === classroomId
     )
   );
-  
 
   useEffect(() => {
     if (classroomId) {
