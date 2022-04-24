@@ -14,19 +14,20 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../slice/authSlice";
 
 function Login() {
-
   const theme: Theme = createTheme();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => setUsername(event.target.value);
-  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value);
+  const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setUsername(event.target.value);
+  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setPassword(event.target.value);
 
   const dispatch = useDispatch();
 
   const handleLogin = () => {
-    dispatch(loginUser({username, password}))
-  }
+    dispatch(loginUser({ username, password }));
+  };
 
   return (
     <ThemeProvider theme={theme}>
