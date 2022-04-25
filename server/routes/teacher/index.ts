@@ -5,7 +5,11 @@ import {
   listClassroom,
   updateClassroom,
   deleteClassroom,
-} from "../../controller/teacher/TeacherController";
+} from "../../controller/teacher/ClassroomController";
+
+import {
+} from "../../controller/teacher/LessonController";
+
 import { checkJwt } from "../../middleware/checkJwt";
 import { checkRole } from "../../middleware/checkRole";
 import multer, { Multer } from "multer";
@@ -32,6 +36,30 @@ router.put(
 );
 router.delete(
   "/:id/delete",
+  [checkJwt, checkRole(["TEACHER"])],
+  deleteClassroom
+);
+
+
+//Get all users
+router.get("/classroom/:id/lesson", [checkJwt, checkRole(["TEACHER"])], );
+
+// Get one user
+router.get("/classroom/:id/lesson/:id", [checkJwt, checkRole(["TEACHER"])], getClassroom);
+
+//Create a new classroom
+router.post(
+  "/classroom/:id/lesson/create",
+  [checkJwt, checkRole(["TEACHER"]), upload.single("image")],
+  createClassroom
+);
+router.put(
+  "/classroom/:id/lesson/:id/update",
+  [checkJwt, checkRole(["TEACHER"]), upload.single("image")],
+  updateClassroom
+);
+router.delete(
+  "/classroom/:id/lesson/:id/delete",
   [checkJwt, checkRole(["TEACHER"])],
   deleteClassroom
 );
