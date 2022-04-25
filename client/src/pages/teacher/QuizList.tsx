@@ -1,5 +1,5 @@
 import { Chip, Fab, Grid, IconButton, Paper } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate, useParams } from "react-router-dom";
 import AddQuizDialogue from "../../components/AddQuizDialogue";
@@ -11,8 +11,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Quiz } from "../../models/states/QuizState";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
+import { retrieveQuizList } from "../../slice/quizSlice";
 
 const stateChip = (state: number): JSX.Element => {
   if (state === 0) {
@@ -31,6 +32,13 @@ const QuizList = (props: any): JSX.Element => {
   const quizList = useSelector((state: RootState) => state.quiz.quizList);
 
   const [openModal, setOpenModal] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (classroomId) {
+      dispatch(retrieveQuizList(classroomId));
+    }
+  }, [dispatch, classroomId]);
 
   const handleClickOpen: React.MouseEventHandler<HTMLButtonElement> = () => {
     setOpenModal(true);
@@ -39,7 +47,9 @@ const QuizList = (props: any): JSX.Element => {
   const handleClose: React.MouseEventHandler<HTMLAnchorElement> = () => {
     setOpenModal(false);
   };
-  const addQuiz = (quiz: Quiz) => {};
+  const addQuiz = (quiz: Quiz) => {
+    dispatch(addQuiz(quiz));
+  };
 
   const goToQuizPage = (id: string | undefined) => {
     navigate(`${id}`);
