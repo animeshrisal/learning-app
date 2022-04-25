@@ -86,7 +86,7 @@ const getLesson = (classroomId: string, lessonId: string): Promise<Lesson> => {
 
 const postLesson = (classroomId: string, lesson: Lesson): Promise<Lesson> => {
   return fetch(
-    `${URL}/teacher/classroom/${classroomId}/lesson`,
+    `${URL}/teacher/classroom/${classroomId}/lesson/create`,
     authenticatedRequestGenerator(lesson, "POST")
   )
     .then(handleResponse)
