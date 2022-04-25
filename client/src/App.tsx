@@ -23,11 +23,11 @@ function App() {
             element={<AddLessonPage />}
           />
           <Route
-            path="classroom/:classroomId/quizList"
+            path="/teacher/:classroomId/quizList"
             element={<QuizList />}
           />
           <Route
-            path="classroom/:classroomId/quizList/:quizId"
+            path="/teacher/:classroomId/quizList/:quizId"
             element={<Quiz />}
           />
         </Routes>
