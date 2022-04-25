@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -10,11 +10,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import { Theme } from "@mui/system";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../slice/authSlice";
+import { RootState } from "../../app/store";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const theme: Theme = createTheme();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,6 +27,13 @@ function Login() {
     setPassword(event.target.value);
 
   const dispatch = useDispatch();
+  const authState = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (authState.token !== "") {
+      navigate(`/teacher/`);
+    }
+  }, [authState.token, navigate]);
 
   const handleLogin = () => {
     dispatch(loginUser({ username, password }));
