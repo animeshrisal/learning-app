@@ -7,11 +7,22 @@ import {
   deleteClassroom,
 } from "../../controller/teacher/ClassroomController";
 
-import { createLesson, deleteLesson, getLesson, listLessons, updateLesson } from "../../controller/teacher/LessonController";
+import {
+  createLesson,
+  deleteLesson,
+  getLesson,
+  listLessons,
+  updateLesson,
+} from "../../controller/teacher/LessonController";
 
 import { checkJwt } from "../../middleware/checkJwt";
 import { checkRole } from "../../middleware/checkRole";
 import multer, { Multer } from "multer";
+import {
+  createQuiz,
+  getQuiz,
+  listQuizzes,
+} from "../../controller/teacher/QuizController";
 
 const router: Router = Router();
 const upload: Multer = multer({ dest: "uploads/" });
@@ -39,12 +50,19 @@ router.delete(
   deleteClassroom
 );
 
-
 //Get all users
-router.get("/classroom/:classroomId/lesson", [checkJwt, checkRole(["TEACHER"])], listLessons);
+router.get(
+  "/classroom/:classroomId/lesson",
+  [checkJwt, checkRole(["TEACHER"])],
+  listLessons
+);
 
 // Get one user
-router.get("/classroom/:classroomId/lesson/:id", [checkJwt, checkRole(["TEACHER"])], getLesson);
+router.get(
+  "/classroom/:classroomId/lesson/:id",
+  [checkJwt, checkRole(["TEACHER"])],
+  getLesson
+);
 
 //Create a new classroom
 router.post(
@@ -61,6 +79,27 @@ router.delete(
   "/classroom/:classroomId/lesson/:id/delete",
   [checkJwt, checkRole(["TEACHER"])],
   deleteLesson
+);
+
+//Get all users
+router.get(
+  "/classroom/:classroomId/quiz",
+  [checkJwt, checkRole(["TEACHER"])],
+  listQuizzes
+);
+
+// Get one user
+router.get(
+  "/classroom/:classroomId/quiz/:id",
+  [checkJwt, checkRole(["TEACHER"])],
+  getQuiz
+);
+
+//Create a new classroom
+router.post(
+  "/classroom/:classroomId/quiz/create",
+  [checkJwt, checkRole(["TEACHER"])],
+  createQuiz
 );
 
 export default router;
