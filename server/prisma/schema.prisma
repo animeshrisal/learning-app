@@ -84,8 +84,8 @@ model Lesson {
 model Quiz {
   id String @id @default(cuid())
 
-  Classroom   Classroom? @relation(fields: [classroomId], references: [id])
-  classroomId String?
+  Classroom   Classroom @relation(fields: [classroomId], references: [id])
+  classroomId String
 
   name     String
   state    Int        @default(1)
