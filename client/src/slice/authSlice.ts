@@ -15,7 +15,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-const initialState: AuthState = {
+let initialState: AuthState = {
   username: "",
   firstName: "",
   lastName: "",
@@ -23,6 +23,13 @@ const initialState: AuthState = {
   email: "",
   role: "",
 };
+
+
+const user = localStorage.getItem("user");
+if (user !== null) {
+  initialState = JSON.parse(user)
+}
+
 
 export const authSlice = createSlice({
   name: "auth",
