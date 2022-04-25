@@ -13,6 +13,7 @@ export const createQuiz = async (req: Request, res: Response) => {
   const quiz: Quiz = await prisma.quiz.create({
     data: {
       name,
+      classroomId
     },
   });
 

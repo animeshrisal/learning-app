@@ -179,7 +179,7 @@ const getQuestions = (
 
 const postQuiz = (classroomId: string, quiz: Quiz): Promise<Quiz> => {
   return fetch(
-    `${URL}/teacher/classroom/${classroomId}/quiz/`,
+    `${URL}/teacher/classroom/${classroomId}/quiz/create`,
     authenticatedRequestGenerator(quiz, "POST")
   )
     .then(handleResponse)

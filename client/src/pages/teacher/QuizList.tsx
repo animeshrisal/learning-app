@@ -13,7 +13,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Quiz } from "../../models/states/QuizState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { retrieveQuizList } from "../../slice/quizSlice";
+import { addQuiz, retrieveQuizList } from "../../slice/quizSlice";
 
 const stateChip = (state: number): JSX.Element => {
   if (state === 0) {
@@ -47,8 +47,10 @@ const QuizList = (props: any): JSX.Element => {
   const handleClose: React.MouseEventHandler<HTMLAnchorElement> = () => {
     setOpenModal(false);
   };
-  const addQuiz = (quiz: Quiz) => {
-    dispatch(addQuiz(quiz));
+  const createQuiz = (quiz: Quiz) => {
+    if (classroomId) {
+      dispatch(addQuiz({ classroomId, quiz }));
+    }
   };
 
   const goToQuizPage = (id: string | undefined) => {
@@ -92,7 +94,7 @@ const QuizList = (props: any): JSX.Element => {
         </TableContainer>
         <AddQuizDialogue
           openModal={openModal}
-          addQuiz={addQuiz}
+          addQuiz={createQuiz}
           handleClose={handleClose}
           state="Add"
         />
