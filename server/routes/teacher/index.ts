@@ -7,8 +7,7 @@ import {
   deleteClassroom,
 } from "../../controller/teacher/ClassroomController";
 
-import {
-} from "../../controller/teacher/LessonController";
+import { createLesson, deleteLesson, updateLesson } from "../../controller/teacher/LessonController";
 
 import { checkJwt } from "../../middleware/checkJwt";
 import { checkRole } from "../../middleware/checkRole";
@@ -42,26 +41,26 @@ router.delete(
 
 
 //Get all users
-router.get("/classroom/:id/lesson", [checkJwt, checkRole(["TEACHER"])], );
+router.get("/classroom/:classroomId/lesson", [checkJwt, checkRole(["TEACHER"])], );
 
 // Get one user
-router.get("/classroom/:id/lesson/:id", [checkJwt, checkRole(["TEACHER"])], getClassroom);
+router.get("/classroom/:classroomId/lesson/:id", [checkJwt, checkRole(["TEACHER"])], getClassroom);
 
 //Create a new classroom
 router.post(
-  "/classroom/:id/lesson/create",
-  [checkJwt, checkRole(["TEACHER"]), upload.single("image")],
-  createClassroom
+  "/classroom/:classroomId/lesson/create",
+  [checkJwt, checkRole(["TEACHER"])],
+  createLesson
 );
 router.put(
-  "/classroom/:id/lesson/:id/update",
-  [checkJwt, checkRole(["TEACHER"]), upload.single("image")],
-  updateClassroom
+  "/classroom/:classroomId/lesson/:id/update",
+  [checkJwt, checkRole(["TEACHER"])],
+  updateLesson
 );
 router.delete(
-  "/classroom/:id/lesson/:id/delete",
+  "/classroom/:classroomId/lesson/:id/delete",
   [checkJwt, checkRole(["TEACHER"])],
-  deleteClassroom
+  deleteLesson
 );
 
 export default router;
