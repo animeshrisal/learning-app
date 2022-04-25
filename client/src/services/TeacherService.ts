@@ -6,6 +6,8 @@ import {
 } from "../helpers";
 import { Classroom } from "../models/states/ClassroomState";
 import { Lesson } from "../models/states/LessonState";
+import { Question } from "../models/states/QuestionState";
+import { Quiz } from "../models/states/QuizState";
 
 const getClassrooms = (): Promise<Classroom[]> => {
   return fetch(`${URL}/teacher/classroom/`, authenticatedGetRequestOption())
@@ -124,15 +126,136 @@ const deleteLesson = (
     });
 };
 
+const getQuizzes = (classroomId: string): Promise<Quiz[]> => {
+  return fetch(
+    `${URL}/teacher/classroom/${classroomId}/quiz/`,
+    authenticatedGetRequestOption()
+  )
+    .then(handleResponse)
+    .then((quizzes) => {
+      return quizzes;
+    });
+};
+
+const getQuiz = (classroomId: string, quizId: string): Promise<Quiz> => {
+  return fetch(
+    `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/`,
+    authenticatedGetRequestOption()
+  )
+    .then(handleResponse)
+    .then((quiz) => {
+      return quiz;
+    });
+};
+
+const getQuestion = (
+  classroomId: string,
+  quizId: string,
+  questionId: string
+): Promise<Question> => {
+  return fetch(
+    `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/question/${questionId}/`,
+    authenticatedGetRequestOption()
+  )
+    .then(handleResponse)
+    .then((quiz) => {
+      return quiz;
+    });
+};
+
+const getQuestions = (classroomId: string, quizId: string): Promise<Question[]> => {
+  return fetch(
+    `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/question/`,
+    authenticatedGetRequestOption()
+  )
+    .then(handleResponse)
+    .then((quiz) => {
+      return quiz;
+    });
+};
+
+const postQuiz = (classroomId: string, quiz: Quiz): Promise<Quiz> => {
+  return fetch(
+    `${URL}/teacher/classroom/${classroomId}/quiz/`,
+    authenticatedRequestGenerator(quiz, "POST")
+  )
+    .then(handleResponse)
+    .then((quiz) => {
+      return quiz;
+    });
+};
+
+const postQuestion = (
+  classroomId: string,
+  quizId: string,
+  question: string
+): Promise<Question> => {
+  return fetch(
+    `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/question/`,
+    authenticatedRequestGenerator(question, "POST")
+  )
+    .then(handleResponse)
+    .then((quiz) => {
+      return quiz;
+    });
+};
+
+const updateQuestion = (
+  classroomId: string,
+  quizId: string,
+  questionId: string,
+  question: Question
+): Promise<Question> => {
+  return fetch(
+    `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/question/${questionId}/`,
+    authenticatedRequestGenerator(question, "PUT")
+  )
+    .then(handleResponse)
+    .then((question) => {
+      return question;
+    });
+};
+
+const setQuizAsActive = (classroomId: string, quizId: string): Promise<Question> => {
+  return fetch(
+    `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/active`,
+    authenticatedRequestGenerator({}, "PUT")
+  )
+    .then(handleResponse)
+    .then((quiz) => {
+      return quiz;
+    });
+};
+
+const setQuizAsArchived = (classroomId: string, quizId: string): Promise<Quiz> => {
+  return fetch(
+    `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/archive`,
+    authenticatedRequestGenerator({}, "PUT")
+  )
+    .then(handleResponse)
+    .then((quiz) => {
+      return quiz;
+    });
+};
+
 export const teacherDashboardService = {
+  deleteClassroom,
+  deleteLesson,
   getClassroom,
   getClassrooms,
-  postClassroom,
-  updateClassroom,
-  deleteClassroom,
-  getLessons,
   getLesson,
+  getLessons,
+  getQuestion,
+  getQuestions,
+  getQuiz,
+  getQuizzes,
+  postClassroom,
   postLesson,
+  postQuestion,
+  postQuiz,
+  setQuizAsActive,
+  setQuizAsArchived,
+  updateClassroom,
   updateLesson,
-  deleteLesson,
+  updateQuestion,
 };
