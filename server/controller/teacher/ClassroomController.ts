@@ -73,3 +73,4 @@ export const deleteClassroom = async (req: Request, res: Response) => {
   });
   res.status(204);
 };
+
