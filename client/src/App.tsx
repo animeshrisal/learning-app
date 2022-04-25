@@ -5,6 +5,8 @@ import TeacherClassList from "./pages/teacher/ClassroomList";
 import Navbar from "./components/Navbar";
 import TeacherClass from "./pages/teacher/Classroom";
 import AddLessonPage from "./pages/teacher/AddLesson";
+import QuizList from "./pages/teacher/QuizList";
+import { Quiz } from "@mui/icons-material";
 
 function App() {
   return (
@@ -19,6 +21,14 @@ function App() {
           <Route
             path="/teacher/:classroomId/create"
             element={<AddLessonPage />}
+          />
+          <Route
+            path="classroom/:classroomId/quizList"
+            element={<QuizList />}
+          />
+          <Route
+            path="classroom/:classroomId/quizList/:quizId"
+            element={<Quiz />}
           />
         </Routes>
       </BrowserRouter>

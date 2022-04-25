@@ -59,7 +59,7 @@ const TeacherClass = (): JSX.Element => {
   };
 
   const goToQuizList = () => {
-    navigate(`quiz_list/`);
+    navigate(`quizList/`);
   };
 
   const [openModal, setOpenModal] = useState<boolean>(false);

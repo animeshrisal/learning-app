@@ -41,7 +41,7 @@ const QuizList = (props: any): JSX.Element => {
   };
   const addQuiz = (quiz: Quiz) => {};
 
-  const goToQuizPage = (id: string) => {
+  const goToQuizPage = (id: string | undefined) => {
     navigate(`${id}`);
   };
 
