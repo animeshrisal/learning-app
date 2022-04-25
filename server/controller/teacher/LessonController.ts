@@ -29,7 +29,7 @@ export const createLesson = async (req: Request, res: Response) => {
       description,
       body,
       classroomId: classroomId,
-      order: 1,
+      order: previousLesson !== null ? previousLesson.order + 1 : 1,
       previousId: previousLesson !== null ? previousLesson.id : null,
     },
   });
