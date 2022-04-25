@@ -9,7 +9,6 @@ import {
   IconButton,
   Paper,
   Skeleton,
-  Switch,
   Table,
   TableBody,
   TableCell,
@@ -28,6 +27,7 @@ import { Classroom } from "../../models/states/ClassroomState";
 import { RootState } from "../../app/store";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
 import Edit from "@mui/icons-material/Edit";
+import { retrieveLessonList } from "../../slice/lessonSlice";
 
 export type RouteParams = {
   classroomId: string;
@@ -44,13 +44,17 @@ const TeacherClass = (): JSX.Element => {
     )
   );
 
+  const isLoading = useSelector((state: RootState) => state.lesson.isLoading);
+  const lessonList = useSelector((state: RootState) => state.lesson.lessonList);
+
   useEffect(() => {
     if (classroomId) {
       dispatch(retrieveClassroom(classroomId));
+      dispatch(retrieveLessonList(classroomId));
     }
   }, [classroomId, dispatch]);
 
-  const goToAddLessonPage = (action = "post", id = 0) => {
+  const goToAddLessonPage = (action = "post", id: String | undefined = "") => {
     navigate(`create/`, { state: { action, id } });
   };
 
@@ -100,8 +104,8 @@ const TeacherClass = (): JSX.Element => {
           <Grid item xs={4}>
             <Button onClick={() => goToQuizList()}>Go to quiz</Button>
           </Grid>
-          {/* <Grid item xs={12}>
-            {isSuccess ? (
+          <Grid item xs={12}>
+            {isLoading ? (
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
@@ -111,7 +115,7 @@ const TeacherClass = (): JSX.Element => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {classroomLesson.results.map((row) => (
+                    {lessonList.map((row) => (
                       <TableRow
                         key={row.id}
                         sx={{
@@ -138,7 +142,7 @@ const TeacherClass = (): JSX.Element => {
             ) : (
               <Skeleton animation="wave" />
             )}
-          </Grid> */}
+          </Grid>
         </Grid>
         <Fab onClick={handleClickOpen} color="secondary" aria-label="add">
           <Edit />
