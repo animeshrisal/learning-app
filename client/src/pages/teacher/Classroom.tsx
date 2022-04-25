@@ -105,7 +105,7 @@ const TeacherClass = (): JSX.Element => {
             <Button onClick={() => goToQuizList()}>Go to quiz</Button>
           </Grid>
           <Grid item xs={12}>
-            {isLoading ? (
+            {!isLoading ? (
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
