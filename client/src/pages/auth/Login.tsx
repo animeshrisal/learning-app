@@ -31,9 +31,22 @@ function Login() {
 
   useEffect(() => {
     if (authState.token !== "") {
-      navigate(`/teacher/`);
+      switch (authState.role) {
+        case "ADMIN": {
+          navigate("/admin");
+          break;
+        }
+        case "TEACHER": {
+          navigate("/teacher/");
+          break;
+        }
+        case "USER": {
+          navigate("/student/");
+          break;
+        }
+      }
     }
-  }, [authState.token, navigate]);
+  }, [authState.token, authState.role, navigate]);
 
   const handleLogin = () => {
     dispatch(loginUser({ username, password }));
