@@ -16,17 +16,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addLesson } from "../../slice/lessonSlice";
 import { Lesson } from "../../models/states/LessonState";
 import { RootState } from "../../app/store";
-import { CookieTwoTone } from "@mui/icons-material";
-
-type AddLessonLocationState = {
-  action: string;
-  id: string;
-}
 
 const theme: Theme = createTheme();
 
 const AddLessonPage = (props: any) => {
-  const { state } : {state: any} = useLocation();
+  const { state }: { state: any } = useLocation();
 
   const dispatch = useDispatch();
 
@@ -42,7 +36,7 @@ const AddLessonPage = (props: any) => {
   const [body, setBody] = useState<string>("");
 
   useEffect(() => {
-    console.log(lesson)
+    console.log(lesson);
     if (state.action === "edit" && lesson) {
       setName(lesson.name);
       setDescription(lesson.description);
