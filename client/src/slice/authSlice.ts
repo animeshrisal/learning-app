@@ -24,12 +24,10 @@ let initialState: AuthState = {
   role: "",
 };
 
-
 const user = localStorage.getItem("user");
 if (user !== null) {
-  initialState = JSON.parse(user)
+  initialState = JSON.parse(user);
 }
-
 
 export const authSlice = createSlice({
   name: "auth",

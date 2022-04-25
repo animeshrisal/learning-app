@@ -22,10 +22,7 @@ function App() {
             path="/teacher/:classroomId/create"
             element={<AddLessonPage />}
           />
-          <Route
-            path="/teacher/:classroomId/quizList"
-            element={<QuizList />}
-          />
+          <Route path="/teacher/:classroomId/quizList" element={<QuizList />} />
           <Route
             path="/teacher/:classroomId/quizList/:quizId"
             element={<Quiz />}
