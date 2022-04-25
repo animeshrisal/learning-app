@@ -16,7 +16,7 @@ export const createLesson = async (req: Request, res: Response) => {
 
   const previousLesson = await prisma.lesson.findFirst({
     where: {
-      classroomId,
+      classroomId: classroomId,
     },
     orderBy: {
       order: "desc",
@@ -28,21 +28,22 @@ export const createLesson = async (req: Request, res: Response) => {
       name,
       description,
       body,
-      classroomId,
+      classroomId: classroomId,
       order: 1,
-      previousId: previousLesson.id,
+      previousId: previousLesson !== null ? previousLesson.id : null,
     },
   });
 
-  await prisma.lesson.update({
-    where: {
-      classroomId
-    },
-    data: {
-      nextId: lesson.classroomId,
-    },
-  });
-
+  if (previousLesson !== null) {
+    await prisma.lesson.update({
+      where: {
+        id: previousLesson.id,
+      },
+      data: {
+        nextId: lesson.id,
+      },
+    });
+  }
   res.send(lesson);
 };
 
@@ -64,7 +65,6 @@ export const getLesson = async (req: Request, res: Response) => {
 export const updateLesson = async (req: Request, res: Response) => {
   const { subject, description, activeStatus } = req.body;
   const id: string = req.params.id;
-  console.log(req.body);
   const booleanValue = activeStatus === "true" ? true : false;
   const classroom: Classroom = await prisma.classroom.update({
     where: {
