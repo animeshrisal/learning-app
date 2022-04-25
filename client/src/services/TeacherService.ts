@@ -163,7 +163,10 @@ const getQuestion = (
     });
 };
 
-const getQuestions = (classroomId: string, quizId: string): Promise<Question[]> => {
+const getQuestions = (
+  classroomId: string,
+  quizId: string
+): Promise<Question[]> => {
   return fetch(
     `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/question/`,
     authenticatedGetRequestOption()
@@ -216,7 +219,10 @@ const updateQuestion = (
     });
 };
 
-const setQuizAsActive = (classroomId: string, quizId: string): Promise<Question> => {
+const setQuizAsActive = (
+  classroomId: string,
+  quizId: string
+): Promise<Question> => {
   return fetch(
     `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/active`,
     authenticatedRequestGenerator({}, "PUT")
@@ -227,7 +233,10 @@ const setQuizAsActive = (classroomId: string, quizId: string): Promise<Question>
     });
 };
 
-const setQuizAsArchived = (classroomId: string, quizId: string): Promise<Quiz> => {
+const setQuizAsArchived = (
+  classroomId: string,
+  quizId: string
+): Promise<Quiz> => {
   return fetch(
     `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/archive`,
     authenticatedRequestGenerator({}, "PUT")
