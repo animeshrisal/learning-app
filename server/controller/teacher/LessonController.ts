@@ -5,10 +5,6 @@ import { validate } from "class-validator";
 import { prisma } from "../../prisma/prisma";
 import { Classroom, Lesson } from "@prisma/client";
 
-interface MulterRequest extends Request {
-  file: any;
-}
-
 export const createLesson = async (req: Request, res: Response) => {
   const { name, description, body } = req.body;
 
@@ -71,26 +67,24 @@ export const getLesson = async (req: Request, res: Response) => {
 };
 
 export const updateLesson = async (req: Request, res: Response) => {
-  const { subject, description, activeStatus } = req.body;
+  const { name, description, body } = req.body;
   const id: string = req.params.id;
-  const booleanValue = activeStatus === "true" ? true : false;
-  const classroom: Classroom = await prisma.classroom.update({
+  const lesson: Lesson = await prisma.lesson.update({
     where: {
       id,
     },
     data: {
-      subject,
+      name,
       description,
-      activeStatus: booleanValue,
-      image: (req as MulterRequest).file.filename,
+      body,
     },
   });
-  res.send(classroom);
+  res.send(lesson);
 };
 
 export const deleteLesson = async (req: Request, res: Response) => {
   const id: string = req.params.classroomId;
-  const classroom: Classroom = await prisma.classroom.delete({
+  await prisma.lesson.delete({
     where: {
       id,
     },
