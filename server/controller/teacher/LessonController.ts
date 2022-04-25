@@ -48,8 +48,16 @@ export const createLesson = async (req: Request, res: Response) => {
 };
 
 export const listLessons = async (req: Request, res: Response) => {
-  const classrooms: Classroom[] = await prisma.classroom.findMany();
-  res.send(classrooms);
+  const classroomId: string = req.params.classroomId;
+  const lessons: Lesson[] = await prisma.lesson.findMany({
+    where: {
+      classroomId: classroomId,
+    },
+    orderBy: {
+      order: "asc",
+    },
+  });
+  res.send(lessons);
 };
 
 export const getLesson = async (req: Request, res: Response) => {

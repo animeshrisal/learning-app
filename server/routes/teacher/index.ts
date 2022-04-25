@@ -7,7 +7,7 @@ import {
   deleteClassroom,
 } from "../../controller/teacher/ClassroomController";
 
-import { createLesson, deleteLesson, updateLesson } from "../../controller/teacher/LessonController";
+import { createLesson, deleteLesson, getLesson, listLessons, updateLesson } from "../../controller/teacher/LessonController";
 
 import { checkJwt } from "../../middleware/checkJwt";
 import { checkRole } from "../../middleware/checkRole";
@@ -41,10 +41,10 @@ router.delete(
 
 
 //Get all users
-router.get("/classroom/:classroomId/lesson", [checkJwt, checkRole(["TEACHER"])], );
+router.get("/classroom/:classroomId/lesson", [checkJwt, checkRole(["TEACHER"])], listLessons);
 
 // Get one user
-router.get("/classroom/:classroomId/lesson/:id", [checkJwt, checkRole(["TEACHER"])], getClassroom);
+router.get("/classroom/:classroomId/lesson/:id", [checkJwt, checkRole(["TEACHER"])], getLesson);
 
 //Create a new classroom
 router.post(
