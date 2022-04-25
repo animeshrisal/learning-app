@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 const AddQuizDialogue = (props: any) => {
 
-    const [name, setName] = useState('')
+    const [name, setName] = useState<string>('')
 
     const handleClose = () => {
         props.handleClose()
