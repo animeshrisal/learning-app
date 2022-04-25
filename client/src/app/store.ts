@@ -2,12 +2,14 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import authReducer from '../slice/authSlice';
 import classroomReducer from '../slice/classroomSlice';
 import lessonReducer from '../slice/lessonSlice';
+import quizReducer from '../slice/quizSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     classroom: classroomReducer,
-    lesson: lessonReducer
+    lesson: lessonReducer,
+    quiz: quizReducer
   },
 });
 
