@@ -66,8 +66,8 @@ model Lesson {
   description String
   body        String
 
-  Classroom   Classroom?   @relation(fields: [classroomId], references: [id])
-  classroomId String?
+  Classroom   Classroom   @relation(fields: [classroomId], references: [id])
+  classroomId String
   UserLesson  UserLesson[]
 
   nextId      String? @unique
