@@ -39,3 +39,30 @@ export const getQuiz = async (req: Request, res: Response) => {
   });
   res.send(quiz);
 };
+
+export const setQuizAsActive = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
+  const quiz: Quiz = await prisma.quiz.update({
+    where: {
+      id,
+    },
+    data: {
+      state: 1
+    }
+  });
+  res.send(quiz);
+};
+
+export const setQuizAsArchived = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
+  const quiz: Quiz = await prisma.quiz.update({
+    where: {
+      id,
+    },
+    data: {
+      state: 2
+    }
+  });
+  res.send(quiz);
+};
+

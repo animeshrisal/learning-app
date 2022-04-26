@@ -22,6 +22,8 @@ import {
   createQuiz,
   getQuiz,
   listQuizzes,
+  setQuizAsActive,
+  setQuizAsArchived,
 } from "../../controller/teacher/QuizController";
 import { createQuestion, getQuestion, listQuestions } from "../../controller/teacher/QuestionController";
 
@@ -103,6 +105,20 @@ router.post(
   createQuiz
 );
 
+//Create a new classroom
+router.post(
+  "/classroom/:classroomId/quiz/:quizId/setAsActive",
+  [checkJwt, checkRole(["TEACHER"])],
+  setQuizAsActive
+);
+
+//Create a new classroom
+router.post(
+  "/classroom/:classroomId/quiz/:quizId/setAsArchived",
+  [checkJwt, checkRole(["TEACHER"])],
+  setQuizAsArchived
+);
+
 //Get all users
 router.get(
   "/classroom/:classroomId/quiz/:quizId/question",
@@ -123,5 +139,7 @@ router.post(
   [checkJwt, checkRole(["TEACHER"])],
   createQuestion
 );
+
+
 
 export default router;
