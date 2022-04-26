@@ -191,7 +191,7 @@ const postQuiz = (classroomId: string, quiz: Quiz): Promise<Quiz> => {
 const postQuestion = (
   classroomId: string,
   quizId: string,
-  question: string
+  question: Question
 ): Promise<Question> => {
   return fetch(
     `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/question/`,
