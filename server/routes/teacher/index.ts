@@ -23,6 +23,7 @@ import {
   getQuiz,
   listQuizzes,
 } from "../../controller/teacher/QuizController";
+import { createQuestion, getQuestion, listQuestions } from "../../controller/teacher/QuestionController";
 
 const router: Router = Router();
 const upload: Multer = multer({ dest: "uploads/" });
@@ -90,7 +91,7 @@ router.get(
 
 // Get one user
 router.get(
-  "/classroom/:classroomId/quiz/:id",
+  "/classroom/:classroomId/quiz/:quizId",
   [checkJwt, checkRole(["TEACHER"])],
   getQuiz
 );
@@ -100,6 +101,27 @@ router.post(
   "/classroom/:classroomId/quiz/create",
   [checkJwt, checkRole(["TEACHER"])],
   createQuiz
+);
+
+//Get all users
+router.get(
+  "/classroom/:classroomId/quiz/:quizId/question",
+  [checkJwt, checkRole(["TEACHER"])],
+  listQuestions
+);
+
+// Get one user
+router.get(
+  "/classroom/:classroomId/quiz/:quizId/question/:questionId",
+  [checkJwt, checkRole(["TEACHER"])],
+  getQuestion
+);
+
+//Create a new classroom
+router.post(
+  "/classroom/:classroomId/quiz/:quizId/question/:questionId/create",
+  [checkJwt, checkRole(["TEACHER"])],
+  createQuestion
 );
 
 export default router;
