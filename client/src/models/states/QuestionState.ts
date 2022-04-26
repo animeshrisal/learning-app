@@ -10,6 +10,6 @@ export interface Question {
 }
 
 export interface QuestionState {
-  questions: Question[];
+  questionList: Question[];
   isLoading: boolean;
 }
