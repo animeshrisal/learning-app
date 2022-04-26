@@ -34,12 +34,13 @@ export const createQuestion = async (req: Request, res: Response) => {
       fourthChoice,
       correctChoice,
       quizId,
+      previousId: previousQuestion !== null ? previousQuestion.id : null,
       order: previousQuestion !== null ? previousQuestion.order + 1 : 1,
     },
   });
 
   if (previousQuestion !== null) {
-    await prisma.lesson.update({
+    await prisma.question.update({
       where: {
         id: previousQuestion.id,
       },
