@@ -3,13 +3,15 @@ import authReducer from '../slice/authSlice';
 import classroomReducer from '../slice/classroomSlice';
 import lessonReducer from '../slice/lessonSlice';
 import quizReducer from '../slice/quizSlice';
+import questionReducer from '../slice/questionSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     classroom: classroomReducer,
     lesson: lessonReducer,
-    quiz: quizReducer
+    quiz: quizReducer,
+    question: questionReducer
   },
 });
 

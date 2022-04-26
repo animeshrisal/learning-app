@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 import TeacherClass from "./pages/teacher/Classroom";
 import AddLessonPage from "./pages/teacher/AddLesson";
 import QuizList from "./pages/teacher/QuizList";
-import { Quiz } from "@mui/icons-material";
+import Quiz from "./pages/teacher/Quiz";
 
 function App() {
   return (
