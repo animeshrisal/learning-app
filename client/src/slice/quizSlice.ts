@@ -91,6 +91,14 @@ export const quizSlice = createSlice({
     builder.addCase(addQuiz.pending, (state: QuizState) => {
       state.isLoading = true;
     });
+
+    builder.addCase(addQuiz.fulfilled, (state: QuizState, payload) => {
+      return {
+        ...state,
+        isLoading: false,
+        lessonList: [payload, ...state.quizList],
+      };
+    });
   },
 });
 

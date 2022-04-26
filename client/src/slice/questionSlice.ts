@@ -107,6 +107,14 @@ export const questionSlice = createSlice({
     builder.addCase(addQuestion.pending, (state: QuestionState) => {
       state.isLoading = true;
     });
+
+    builder.addCase(addQuestion.fulfilled, (state: QuestionState, payload) => {
+      return {
+        ...state,
+        isLoading: false,
+        lessonList: [payload, ...state.questionList],
+      };
+    });
   },
 });
 
