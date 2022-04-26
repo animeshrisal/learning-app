@@ -135,7 +135,7 @@ export const lessonSlice = createSlice({
     builder.addCase(addLesson.fulfilled, (state: LessonState, { payload }) => {
       return {
         ...state,
-        isLoading: state.isLoading,
+        isLoading: false,
         lessonList: [payload, ...state.lessonList],
       };
     });
