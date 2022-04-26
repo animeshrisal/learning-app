@@ -194,7 +194,7 @@ const postQuestion = (
   question: Question
 ): Promise<Question> => {
   return fetch(
-    `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/question/`,
+    `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/create/`,
     authenticatedRequestGenerator(question, "POST")
   )
     .then(handleResponse)

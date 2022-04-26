@@ -119,7 +119,7 @@ router.get(
 
 //Create a new classroom
 router.post(
-  "/classroom/:classroomId/quiz/:quizId/question/:questionId/create",
+  "/classroom/:classroomId/quiz/:quizId/create",
   [checkJwt, checkRole(["TEACHER"])],
   createQuestion
 );
