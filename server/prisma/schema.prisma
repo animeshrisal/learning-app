@@ -66,7 +66,7 @@ model Lesson {
   description String
   body        String
 
-  Classroom   Classroom   @relation(fields: [classroomId], references: [id])
+  Classroom   Classroom    @relation(fields: [classroomId], references: [id])
   classroomId String
   UserLesson  UserLesson[]
 
@@ -105,6 +105,15 @@ model Question {
   Quiz         Quiz?          @relation(fields: [quizId], references: [id])
   quizId       String?
   UserQuestion UserQuestion[]
+
+  nextId      String?   @unique
+  next        Question? @relation("NextQuestion", fields: [nextId], references: [id])
+  currentNext Question? @relation("NextQuestion")
+
+  previousId      String?   @unique
+  previous        Question? @relation("PreviousQuestion", fields: [previousId], references: [id])
+  currentPrevious Question? @relation("PreviousQuestion")
+
 }
 
 model UserLesson {
