@@ -50,6 +50,41 @@ export const addQuiz = createAsyncThunk(
   }
 );
 
+export const setQuizAsActive = createAsyncThunk(
+  "quiz/setQuizAsActive",
+  async ({
+    quizId,
+    classroomId,
+  }: {
+    classroomId: string;
+    quizId: string;
+  }): Promise<Quiz> => {
+    console.log("AAAAA")
+    const response: Quiz = await teacherDashboardService.setQuizAsActive(
+      classroomId,
+      quizId
+    );
+    return response;
+  }
+);
+
+export const setQuizAsArchived = createAsyncThunk(
+  "quiz/setQuizAsArchived",
+  async ({
+    quizId,
+    classroomId,
+  }: {
+    classroomId: string;
+    quizId: string;
+  }): Promise<Quiz> => {
+    const response: Quiz = await teacherDashboardService.setQuizAsArchived(
+      classroomId,
+      quizId
+    );
+    return response;
+  }
+);
+
 const initialState: QuizState = {
   isLoading: false,
   quizList: [],
@@ -99,6 +134,36 @@ export const quizSlice = createSlice({
         lessonList: [payload, ...state.quizList],
       };
     });
+
+    builder.addCase(setQuizAsActive.pending, (state: QuizState, payload) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(
+      setQuizAsActive.fulfilled,
+      (state: QuizState, { payload }) => {
+        const index = state.quizList.findIndex(
+          (quiz) => quiz.id === payload.id
+        );
+        state.quizList[index] = payload;
+        state.isLoading = false;
+      }
+    );
+
+    builder.addCase(setQuizAsArchived.pending, (state: QuizState, payload) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(
+      setQuizAsArchived.fulfilled,
+      (state: QuizState, { payload }) => {
+        const index = state.quizList.findIndex(
+          (quiz) => quiz.id === payload.id
+        );
+        state.quizList[index] = payload;
+        state.isLoading = false;
+      }
+    );
   },
 });
 

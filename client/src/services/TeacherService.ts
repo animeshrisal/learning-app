@@ -222,7 +222,7 @@ const updateQuestion = (
 const setQuizAsActive = (
   classroomId: string,
   quizId: string
-): Promise<Question> => {
+): Promise<Quiz> => {
   return fetch(
     `${URL}/teacher/classroom/${classroomId}/quiz/${quizId}/active`,
     authenticatedRequestGenerator({}, "PUT")

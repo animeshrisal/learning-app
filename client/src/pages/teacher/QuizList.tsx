@@ -15,10 +15,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { addQuiz, retrieveQuizList } from "../../slice/quizSlice";
 
-const stateChip = (state: number): JSX.Element => {
-  if (state === 0) {
+const stateChip = (state: String): JSX.Element => {
+  if (state === 'IN_REVIEW') {
     return <Chip label="To Review" color="primary" />;
-  } else if (state === 1) {
+  } else if (state === 'ACTIVE') {
     return <Chip label="Active" color="primary" />;
   } else {
     return <Chip label="Archived" color="primary" />;

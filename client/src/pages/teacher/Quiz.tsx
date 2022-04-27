@@ -31,7 +31,7 @@ import { Question } from "../../models/states/QuestionState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { addQuestion, retrieveQuestionList } from "../../slice/questionSlice";
-import { retrieveQuiz } from "../../slice/quizSlice";
+import { retrieveQuiz, setQuizAsActive, setQuizAsArchived } from "../../slice/quizSlice";
 
 const SetQuizAsActiveModal = (props: any) => {
   const handleClose = () => {
@@ -162,8 +162,6 @@ const Quiz = (props: any) => {
   const [selectedState, setSelectedState] = useState("Add");
   const [openQuizActiveModal, setOpenQuizActiveModal] = useState(false);
   const [openQuizArchivedModal, setOpenQuizArchivedModal] = useState(false);
-  const [name, setName] = useState("");
-  const [state, setState] = useState(null);
 
   const quiz = useSelector((state: RootState) =>
     state.quiz.quizList.find((quiz) => quiz.id === quizId)
@@ -177,7 +175,7 @@ const Quiz = (props: any) => {
   useEffect(() => {
     console.log(classroomId, quizId);
     if (classroomId && quizId) {
-      dispatch(retrieveQuiz({quizId, classroomId}));
+      dispatch(retrieveQuiz({ quizId, classroomId }));
       dispatch(retrieveQuestionList({ classroomId, quizId }));
     }
   }, [dispatch, classroomId, quizId]);
@@ -204,8 +202,11 @@ const Quiz = (props: any) => {
     }
   };
 
-  const setQuizAsActive = () => {
-    handleCloseQuizActiveModal();
+  const setQuizAsActiveFunction = () => {
+    if (classroomId && quizId) {
+      dispatch(setQuizAsActive({ classroomId, quizId }));
+      handleCloseQuizActiveModal()
+    }
   };
 
   const handleOpenQuizActiveModal = () => {
@@ -216,8 +217,11 @@ const Quiz = (props: any) => {
     setOpenQuizActiveModal(false);
   };
 
-  const setQuizAsArchived = () => {
-    handleCloseQuizArchivedModal();
+  const setQuizAsArchivedFunction = () => {
+    if (classroomId && quizId) {
+      dispatch(setQuizAsArchived({ classroomId, quizId }));
+      handleCloseQuizArchivedModal()
+    }
   };
 
   const handleOpenQuizArchivedModal = () => {
@@ -232,17 +236,17 @@ const Quiz = (props: any) => {
     return (
       <React.Fragment>
         <Grid item xs={4}>
-          {quiz?.state === 'IN_REVIEW' && (
+          {quiz?.state === "IN_REVIEW" && (
             <Button onClick={() => handleOpenQuizActiveModal()}>
               Set as active
             </Button>
           )}
-          {quiz?.state === 'ACTIVE' && (
+          {quiz?.state === "ACTIVE" && (
             <Button onClick={() => handleOpenQuizArchivedModal()}>
               Archive Quiz
             </Button>
           )}
-          {quiz?.state === 'ARCHIVED' && <div>Archived </div>}
+          {quiz?.state === "ARCHIVED" && <div>Archived </div>}
         </Grid>
         <TableContainer component={Paper}>
           <Table aria-label="collapsible table">
@@ -274,13 +278,13 @@ const Quiz = (props: any) => {
         <SetQuizAsActiveModal
           openModal={openQuizActiveModal}
           handleClose={handleCloseQuizActiveModal}
-          setQuizAsActive={setQuizAsActive}
+          setQuizAsActive={setQuizAsActiveFunction}
         />
 
         <SetQuizAsArchivedModal
           openModal={openQuizArchivedModal}
           handleClose={handleCloseQuizArchivedModal}
-          setQuizAsArchived={setQuizAsArchived}
+          setQuizAsArchived={setQuizAsArchivedFunction}
         />
 
         <Fab onClick={handleClickOpen} color="secondary" aria-label="add">
