@@ -4,7 +4,24 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import { Classroom, ClassroomState } from "../models/states/ClassroomState";
+import { studentService } from "../services/StudentService";
 import { teacherDashboardService } from "../services/TeacherService";
+
+export const retrieveStudentClassroomList = createAsyncThunk(
+  "classroom/retrieveStudentClassroomList",
+  async (): Promise<Classroom[]> => {
+    const response: Classroom[] = await studentService.getClassrooms();
+    return response;
+  }
+);
+
+export const retrieveStudentClassroom = createAsyncThunk(
+  "classroom/retrieveStudentClassroom",
+  async (classroomId: string): Promise<Classroom> => {
+    const response: Classroom = await studentService.getClassroom(classroomId);
+    return response;
+  }
+);
 
 export const retrieveClassroomList = createAsyncThunk(
   "classroom/retrieveClassroomList",
@@ -71,6 +88,43 @@ export const classroomSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder: ActionReducerMapBuilder<ClassroomState>) => {
+    builder.addCase(
+      retrieveStudentClassroomList.pending,
+      (state: ClassroomState) => {
+        state.isLoading = true;
+      }
+    );
+
+    builder.addCase(
+      retrieveStudentClassroomList.fulfilled,
+      (state: ClassroomState, { payload }) => {
+        return { ...state, classroomList: payload, isLoading: false };
+      }
+    );
+
+    builder.addCase(
+      retrieveStudentClassroom.pending,
+      (state: ClassroomState) => {
+        state.isLoading = true;
+      }
+    );
+
+    builder.addCase(
+      retrieveStudentClassroom.fulfilled,
+      (state: ClassroomState, { payload }) => {
+        const index: number = state.classroomList.findIndex(
+          (classroom) => classroom.id === payload.id
+        );
+
+        if (index === -1) {
+          state.classroomList.push(payload);
+        } else {
+          state.classroomList[index] = payload;
+        }
+        state.isLoading = true;
+      }
+    );
+
     builder.addCase(retrieveClassroomList.pending, (state: ClassroomState) => {
       state.isLoading = true;
     });

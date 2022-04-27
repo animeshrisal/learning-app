@@ -4,7 +4,33 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import { Lesson, LessonState } from "../models/states/LessonState";
+import { studentService } from "../services/StudentService";
 import { teacherDashboardService } from "../services/TeacherService";
+
+export const retrieveStudentLessonList = createAsyncThunk(
+  "lesson/retrieveStudentLessonList",
+  async (classroomId: string): Promise<Lesson[]> => {
+    const response: Lesson[] = await studentService.getLessons(classroomId);
+    return response;
+  }
+);
+
+export const retrieveStudentLesson = createAsyncThunk(
+  "lesson/retrieveStudentLesson",
+  async ({
+    lessonId,
+    classroomId,
+  }: {
+    lessonId: string;
+    classroomId: string;
+  }): Promise<Lesson> => {
+    const response: Lesson = await studentService.getLesson(
+      classroomId,
+      lessonId
+    );
+    return response;
+  }
+);
 
 export const retrieveLessonList = createAsyncThunk(
   "lesson/retrieveLessonList",
@@ -97,6 +123,37 @@ export const lessonSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder: ActionReducerMapBuilder<LessonState>) => {
+    builder.addCase(retrieveStudentLessonList.pending, (state: LessonState) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(
+      retrieveStudentLessonList.fulfilled,
+      (state: LessonState, { payload }) => {
+        return { ...state, lessonList: payload, isLoading: false };
+      }
+    );
+
+    builder.addCase(retrieveStudentLesson.pending, (state: LessonState) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(
+      retrieveStudentLesson.fulfilled,
+      (state: LessonState, { payload }) => {
+        const index: number = state.lessonList.findIndex(
+          (lesson) => lesson.id === payload.id
+        );
+
+        if (index === -1) {
+          state.lessonList.push(payload);
+        } else {
+          state.lessonList[index] = payload;
+        }
+        state.isLoading = true;
+      }
+    );
+
     builder.addCase(retrieveLessonList.pending, (state: LessonState) => {
       state.isLoading = true;
     });
