@@ -41,7 +41,7 @@ export const getQuiz = async (req: Request, res: Response) => {
 };
 
 export const setQuizAsActive = async (req: Request, res: Response) => {
-  const id: string = req.params.id;
+  const id: string = req.params.quizId;
   const quiz: Quiz = await prisma.quiz.update({
     where: {
       id,
@@ -54,7 +54,7 @@ export const setQuizAsActive = async (req: Request, res: Response) => {
 };
 
 export const setQuizAsArchived = async (req: Request, res: Response) => {
-  const id: string = req.params.id;
+  const id: string = req.params.quizId;
   const quiz: Quiz = await prisma.quiz.update({
     where: {
       id,

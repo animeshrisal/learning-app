@@ -106,15 +106,15 @@ router.post(
 );
 
 //Create a new classroom
-router.post(
-  "/classroom/:classroomId/quiz/:quizId/setAsActive",
+router.put(
+  "/classroom/:classroomId/quiz/:quizId/active",
   [checkJwt, checkRole(["TEACHER"])],
   setQuizAsActive
 );
 
 //Create a new classroom
-router.post(
-  "/classroom/:classroomId/quiz/:quizId/setAsArchived",
+router.put(
+  "/classroom/:classroomId/quiz/:quizId/archive",
   [checkJwt, checkRole(["TEACHER"])],
   setQuizAsArchived
 );
