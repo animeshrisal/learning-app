@@ -36,7 +36,6 @@ const AddLessonPage = (props: any) => {
   const [body, setBody] = useState<string>("");
 
   useEffect(() => {
-    console.log(lesson);
     if (state.action === "edit" && lesson) {
       setName(lesson.name);
       setDescription(lesson.description);

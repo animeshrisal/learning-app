@@ -12,10 +12,9 @@ import { User } from "@prisma/client";
 import { UserResponse } from "../model/UserResponse";
 
 export const login = async (req: Request, res: Response) => {
-  console.log(req.body);
   const username: string = req.body.username;
   let password: string = req.body.password;
-  console.log(req.body);
+
 
   if (!(username && password)) {
     res.status(400).send();

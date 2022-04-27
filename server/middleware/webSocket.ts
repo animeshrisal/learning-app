@@ -22,7 +22,6 @@ export const socket = (expressServer: HttpServer): void => {
 export const adminMessage = () => {
   console.log(websocketServer.clients);
   websocketServer.clients.forEach(function each(client) {
-    console.log(client);
     client.send("aaaa");
   });
 };

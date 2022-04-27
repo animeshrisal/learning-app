@@ -12,8 +12,6 @@ interface MulterRequest extends Request {
 export const createClassroom = async (req: Request, res: Response) => {
   const { subject, description, image, activeStatus } = req.body;
   const userId = res.locals.jwtPayload.userId;
-  console.log(req.body);
-  console.log((req as MulterRequest).file);
 
   const booleanValue = activeStatus === 'true' ? true : false;
 

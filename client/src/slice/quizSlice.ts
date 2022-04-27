@@ -59,7 +59,6 @@ export const setQuizAsActive = createAsyncThunk(
     classroomId: string;
     quizId: string;
   }): Promise<Quiz> => {
-    console.log("AAAAA")
     const response: Quiz = await teacherDashboardService.setQuizAsActive(
       classroomId,
       quizId

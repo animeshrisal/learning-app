@@ -173,7 +173,6 @@ const Quiz = (props: any) => {
 
   const isLoading = useSelector((state: RootState) => state.question.isLoading);
   useEffect(() => {
-    console.log(classroomId, quizId);
     if (classroomId && quizId) {
       dispatch(retrieveQuiz({ quizId, classroomId }));
       dispatch(retrieveQuestionList({ classroomId, quizId }));
