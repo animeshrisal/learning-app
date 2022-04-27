@@ -81,6 +81,12 @@ model Lesson {
   @@unique([id, order])
 }
 
+enum QuizState {
+  IN_REVIEW
+  ACTIVE
+  ARCHIVED
+}
+
 model Quiz {
   id String @id @default(cuid())
 
@@ -88,7 +94,7 @@ model Quiz {
   classroomId String
 
   name     String
-  state    Int        @default(1)
+  state    QuizState        @default(IN_REVIEW)
   question Question[]
 }
 
