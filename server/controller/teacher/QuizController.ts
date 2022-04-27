@@ -31,7 +31,7 @@ export const listQuizzes = async (req: Request, res: Response) => {
 };
 
 export const getQuiz = async (req: Request, res: Response) => {
-  const id: string = req.params.id;
+  const id: string = req.params.quizId;
   const quiz: Quiz = await prisma.quiz.findUnique({
     where: {
       id,
@@ -47,7 +47,7 @@ export const setQuizAsActive = async (req: Request, res: Response) => {
       id,
     },
     data: {
-      state: 1
+      state: 'ACTIVE'
     }
   });
   res.send(quiz);
@@ -60,7 +60,7 @@ export const setQuizAsArchived = async (req: Request, res: Response) => {
       id,
     },
     data: {
-      state: 2
+      state: 'ARCHIVED'
     }
   });
   res.send(quiz);

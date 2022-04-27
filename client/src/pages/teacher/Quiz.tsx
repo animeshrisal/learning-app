@@ -31,6 +31,7 @@ import { Question } from "../../models/states/QuestionState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { addQuestion, retrieveQuestionList } from "../../slice/questionSlice";
+import { retrieveQuiz } from "../../slice/quizSlice";
 
 const SetQuizAsActiveModal = (props: any) => {
   const handleClose = () => {
@@ -164,15 +165,19 @@ const Quiz = (props: any) => {
   const [name, setName] = useState("");
   const [state, setState] = useState(null);
 
+  const quiz = useSelector((state: RootState) =>
+    state.quiz.quizList.find((quiz) => quiz.id === quizId)
+  );
+
   const questionList = useSelector(
     (state: RootState) => state.question.questionList
   );
 
   const isLoading = useSelector((state: RootState) => state.question.isLoading);
-  console.log("AAAA");
   useEffect(() => {
     console.log(classroomId, quizId);
     if (classroomId && quizId) {
+      dispatch(retrieveQuiz({quizId, classroomId}));
       dispatch(retrieveQuestionList({ classroomId, quizId }));
     }
   }, [dispatch, classroomId, quizId]);
@@ -227,17 +232,17 @@ const Quiz = (props: any) => {
     return (
       <React.Fragment>
         <Grid item xs={4}>
-          {state === 0 && (
+          {quiz?.state === 'IN_REVIEW' && (
             <Button onClick={() => handleOpenQuizActiveModal()}>
               Set as active
             </Button>
           )}
-          {state === 1 && (
+          {quiz?.state === 'ACTIVE' && (
             <Button onClick={() => handleOpenQuizArchivedModal()}>
               Archive Quiz
             </Button>
           )}
-          {state === 2 && <div>Archived </div>}
+          {quiz?.state === 'ARCHIVED' && <div>Archived </div>}
         </Grid>
         <TableContainer component={Paper}>
           <Table aria-label="collapsible table">

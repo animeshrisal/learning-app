@@ -1,7 +1,7 @@
 export interface Quiz {
   id?: string;
   name: string;
-  state: number;
+  state: 'IN_REVIEW' | 'ACTIVE' | 'ARCHIVED';
 }
 
 export interface QuizState {
