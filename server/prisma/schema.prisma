@@ -52,8 +52,8 @@ model Classroom {
 
   quizzes     Quiz[]
   Annoucement Annoucement[]
-  User        User?         @relation(fields: [userId], references: [id])
-  userId      String?
+  User        User        @relation(fields: [userId], references: [id])
+  userId      String
 
   image String?
 }
