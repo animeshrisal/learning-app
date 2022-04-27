@@ -29,7 +29,7 @@ model User {
   classes         Classroom[] //For teacher
   Comment         Comment[]
   Annoucement     Annoucement[]
-  UserLesson      UserLesson[]
+  userLesson      UserLesson[]
 
   UserQuestion UserQuestion[]
 
@@ -78,7 +78,8 @@ model Lesson {
 
   Classroom   Classroom    @relation(fields: [classroomId], references: [id])
   classroomId String
-  UserLesson  UserLesson[]
+
+  userLesson  UserLesson[]
 
   nextId      String? @unique
   next        Lesson? @relation("NextLesson", fields: [nextId], references: [id])
