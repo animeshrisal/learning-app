@@ -25,14 +25,23 @@ model User {
   firstName String?
   lastName  String?
 
-  ClassroomStudent   Classroom?    @relation("student", fields: [classroomStudentId], references: [id])
-  classroomStudentId String?
-  classes            Classroom[]
-  Comment            Comment[]
-  Annoucement        Annoucement[]
-  UserLesson         UserLesson[]
+  classesEnrolled Enrollment[]
+  classes         Classroom[] //For teacher
+  Comment         Comment[]
+  Annoucement     Annoucement[]
+  UserLesson      UserLesson[]
 
   UserQuestion UserQuestion[]
+
+}
+
+model Enrollment {
+  classroom   Classroom @relation(fields: [classroomId], references: [id])
+  classroomId String // relation scalar field (used in the `@relation` attribute above)
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String // relation scalar field (used in the `@relation` attribute above)
+
+  @@id([userId, classroomId])
 }
 
 model Category {
@@ -41,8 +50,7 @@ model Category {
 }
 
 model Classroom {
-  id       String @id @default(cuid())
-  students User[] @relation("student")
+  id String @id @default(cuid())
 
   subject     String
   description String
@@ -52,10 +60,12 @@ model Classroom {
 
   quizzes     Quiz[]
   Annoucement Annoucement[]
-  User        User        @relation(fields: [userId], references: [id])
+  User        User          @relation(fields: [userId], references: [id])
   userId      String
 
   image String?
+
+  enrolledStudents Enrollment[]
 }
 
 model Lesson {
@@ -94,7 +104,7 @@ model Quiz {
   classroomId String
 
   name     String
-  state    QuizState        @default(IN_REVIEW)
+  state    QuizState  @default(IN_REVIEW)
   question Question[]
 }
 
