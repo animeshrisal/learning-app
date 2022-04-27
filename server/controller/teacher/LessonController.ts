@@ -58,12 +58,12 @@ export const listLessons = async (req: Request, res: Response) => {
 
 export const getLesson = async (req: Request, res: Response) => {
   const id: string = req.params.id;
-  const classroom: Classroom = await prisma.classroom.findUnique({
+  const lesson: Lesson = await prisma.lesson.findUnique({
     where: {
       id,
     },
   });
-  res.send(classroom);
+  res.send(lesson);
 };
 
 export const updateLesson = async (req: Request, res: Response) => {
