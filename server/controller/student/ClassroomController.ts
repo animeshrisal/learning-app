@@ -3,11 +3,23 @@ import * as jwt from "jsonwebtoken";
 import { validate } from "class-validator";
 
 import { prisma } from "../../prisma/prisma";
-import { Classroom } from "@prisma/client";
+import { Classroom, Prisma } from "@prisma/client";
+import { UserClassroom } from "../../model/ClasssroomResponse";
 
 export const listClassroom = async (req: Request, res: Response) => {
-  const classrooms: Classroom[] = await prisma.classroom.findMany();
-  res.send(classrooms);
+  const userId = res.locals.jwtPayload.userId;
+  const result: UserClassroom = await prisma.$queryRaw(
+    Prisma.sql`select
+    c.*,
+    e."classroomId"  is not null as enrolled
+  from
+    "Classroom" c
+  left join "Enrollment" e on
+    e."classroomId"  = c.id
+    and e."userId"  = ${userId}'
+  `
+  );
+  res.send(result);
 };
 
 export const getClassroom = async (req: Request, res: Response) => {
@@ -15,6 +27,9 @@ export const getClassroom = async (req: Request, res: Response) => {
   const classroom: Classroom = await prisma.classroom.findUnique({
     where: {
       id,
+    },
+    include: {
+      enrolledStudents: true,
     },
   });
   res.send(classroom);

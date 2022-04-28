@@ -11,6 +11,9 @@ export const listLessons = async (req: Request, res: Response) => {
     orderBy: {
       order: "asc",
     },
+    include: {
+      userLesson: true,
+    },
   });
   res.send(lessons);
 };
@@ -20,6 +23,9 @@ export const getLesson = async (req: Request, res: Response) => {
   const lesson: Lesson = await prisma.lesson.findUnique({
     where: {
       id,
+    },
+    include: {
+      userLesson: true,
     },
   });
   res.send(lesson);
