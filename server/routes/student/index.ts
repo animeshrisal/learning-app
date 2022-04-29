@@ -15,6 +15,9 @@ router.get("/classroom", [checkJwt], listClassroom);
 router.get("/classroom/:id", [checkJwt], getClassroom);
 
 // Get one user
+router.get("/classroom/:id/lesson", [checkJwt], getClassroom);
+
+// Get one user
 router.put("/classroom/:id/enroll", [checkJwt], enrollToClass);
 
 export default router;
