@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
-import * as jwt from "jsonwebtoken";
-import { validate } from "class-validator";
 
 import { prisma } from "../../prisma/prisma";
-import { Classroom, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { UserClassroom } from "../../model/ClasssroomResponse";
 
 export const listClassroom = async (req: Request, res: Response) => {
