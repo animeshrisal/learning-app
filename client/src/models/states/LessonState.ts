@@ -6,6 +6,7 @@ export interface Lesson {
   body: string;
   nextId?: string;
   previousId?: string;
+  completed?: string;
 }
 
 export interface LessonState {

@@ -9,7 +9,7 @@ import { UserClassroom } from "../../model/ClasssroomResponse";
 export const listClassroom = async (req: Request, res: Response) => {
   const userId = res.locals.jwtPayload.userId;
 
-  const result: UserClassroom = await prisma.$queryRaw(
+  const result: UserClassroom[] = await prisma.$queryRaw(
     Prisma.sql`select
     c.*,
     e."classroomId"  is not null as enrolled
@@ -56,5 +56,5 @@ export const enrollToClass = async (req: Request, res: Response) => {
     },
   });
 
-  return res.status(401);
+  return res.status(204);
 };

@@ -1,21 +1,24 @@
-import { Lesson } from "@prisma/client";
+import { Lesson, Prisma } from "@prisma/client";
 import { Request, Response } from "express";
+import { UserLesson } from "../../model/LessonResponse";
 import { prisma } from "../../prisma/prisma";
 
 export const listLessons = async (req: Request, res: Response) => {
   const classroomId: string = req.params.classroomId;
-  const lessons: Lesson[] = await prisma.lesson.findMany({
-    where: {
-      classroomId: classroomId,
-    },
-    orderBy: {
-      order: "asc",
-    },
-    include: {
-      userLesson: true,
-    },
-  });
-  res.send(lessons);
+  const userId = res.locals.jwtPayload.userId;
+
+  const result: UserLesson[] = await prisma.$queryRaw(
+    Prisma.sql`select
+    l.*,
+    ul."lessonId" is not null as enrolled
+  from
+    "Lesson" l
+  left join "UserLesson" ul on
+    ul."lessonId" = l.id
+    and ul."userId" = ${userId} where l."classroomId" = ${classroomId};
+  `
+  );
+  res.send(result);
 };
 
 export const getLesson = async (req: Request, res: Response) => {
@@ -23,9 +26,6 @@ export const getLesson = async (req: Request, res: Response) => {
   const lesson: Lesson = await prisma.lesson.findUnique({
     where: {
       id,
-    },
-    include: {
-      userLesson: true,
     },
   });
   res.send(lesson);

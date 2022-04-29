@@ -8,6 +8,7 @@ import AddLessonPage from "./pages/teacher/AddLesson";
 import QuizList from "./pages/teacher/QuizList";
 import Quiz from "./pages/teacher/Quiz";
 import StudentClassroomList from "./pages/student/ClassroomList";
+import StudentClassroom from "./pages/student/Classroom";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/auth/login/" element={<Login />} />
           <Route path="/student/" element={<StudentClassroomList />} />
+          <Route path="/student/:classroomId" element={<StudentClassroom />} />
           <Route path="/teacher/" element={<TeacherClassList />} />
           <Route path="/teacher/:classroomId" element={<TeacherClass />} />
           <Route

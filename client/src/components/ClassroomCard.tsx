@@ -32,6 +32,7 @@ const ClassroomCard = (props: any): JSX.Element => {
         <Button onClick={goToClassroomPage} size="small">
           View Class
         </Button>
+        {props.enrolled && <div>AAAA</div>}
       </CardActions>
     </Card>
   );

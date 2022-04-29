@@ -4,6 +4,7 @@ export interface Classroom {
   description: string;
   activeStatus: boolean;
   image: string;
+  enrolled?: boolean;
 }
 
 export interface ClassroomState {
