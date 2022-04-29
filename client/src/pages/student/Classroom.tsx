@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ClassroomCard from "../../components/ClassroomCard";
 import { Classroom } from "../../models/states/ClassroomState";
 import { retrieveStudentLessonList } from "../../slice/lessonSlice";
-import { retrieveStudentClassroom } from "../../slice/classroomSlice";
+import { enrollStudent, retrieveStudentClassroom } from "../../slice/classroomSlice";
 import { Lesson } from "../../models/states/LessonState";
 
 const StudentClassroom = (props: any): JSX.Element => {
@@ -48,7 +48,11 @@ const StudentClassroom = (props: any): JSX.Element => {
     }
   }, [classroomId, dispatch]);
 
-  const createEnrollment = () => {};
+  const createEnrollment = () => {
+    if (classroomId) {
+      dispatch(enrollStudent(classroomId))
+    }
+  };
 
   const goToUserQuiz = () => {
     navigate(`quiz_list/`);

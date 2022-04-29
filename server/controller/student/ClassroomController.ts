@@ -37,7 +37,7 @@ export const getClassroom = async (req: Request, res: Response) => {
 };
 
 export const enrollToClass = async (req: Request, res: Response) => {
-  const classroomId: string = req.params.classroomId;
+  const classroomId: string = req.params.id;
   const userId = res.locals.jwtPayload.userId;
   await prisma.classroom.update({
     where: {
@@ -48,7 +48,7 @@ export const enrollToClass = async (req: Request, res: Response) => {
         create: [
           {
             user: {
-              connect: userId,
+              connect: { id: userId },
             },
           },
         ],
@@ -56,5 +56,5 @@ export const enrollToClass = async (req: Request, res: Response) => {
     },
   });
 
-  return res.status(204);
+  res.status(204);
 };

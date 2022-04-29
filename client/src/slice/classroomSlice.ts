@@ -15,6 +15,14 @@ export const retrieveStudentClassroomList = createAsyncThunk(
   }
 );
 
+export const enrollStudent = createAsyncThunk(
+  "classroom/enrollStudent",
+  async (classroomId: string): Promise<string> => {
+    const response: string = await studentService.createEnrollment(classroomId);
+    return response;
+  }
+);
+
 export const retrieveStudentClassroom = createAsyncThunk(
   "classroom/retrieveStudentClassroom",
   async (classroomId: string): Promise<Classroom> => {
@@ -103,6 +111,26 @@ export const classroomSlice = createSlice({
     );
 
     builder.addCase(
+      enrollStudent.pending,
+      (state: ClassroomState) => {
+        state.isLoading = true;
+      }
+    );
+
+    builder.addCase(
+      enrollStudent.fulfilled,
+      (state: ClassroomState, { payload }) => {
+        const index: number = state.classroomList.findIndex(
+          (classroom) => classroom.id === payload
+        );
+
+        state.classroomList[index].enrolled = true;
+
+        state.isLoading = false;
+      }
+    );
+
+    builder.addCase(
       retrieveStudentClassroom.pending,
       (state: ClassroomState) => {
         state.isLoading = true;
@@ -173,7 +201,7 @@ export const classroomSlice = createSlice({
 
     builder.addCase(
       updateClassroom.pending,
-      (state: ClassroomState, { payload }) => {
+      (state: ClassroomState) => {
         state.isLoading = true;
       }
     );

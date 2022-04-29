@@ -74,11 +74,11 @@ const getLesson = (classroomId: string, lessonId: string): Promise<Lesson> => {
 const createEnrollment = (classroomId: string): Promise<string> => {
   return fetch(
     `${URL}/student/classroom/${classroomId}/enroll`,
-    authenticatedRequestGenerator({}, "POST")
+    authenticatedRequestGenerator({}, "PUT")
   )
     .then(handleResponse)
-    .then((enrollment: string) => {
-      return enrollment;
+    .then(() => {
+      return classroomId;
     });
 };
 
