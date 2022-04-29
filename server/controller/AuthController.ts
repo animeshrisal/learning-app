@@ -90,7 +90,7 @@ export const changePassword = async (req: Request, res: Response) => {
 };
 
 export const getUserResponse = async (user: User): Promise<UserResponse> => {
-  const { password, classroomStudentId, ...userResponse } =
+  const { password, ...userResponse } =
     user;
   return userResponse;
 };
