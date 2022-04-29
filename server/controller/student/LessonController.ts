@@ -4,7 +4,7 @@ import { UserLesson } from "../../model/LessonResponse";
 import { prisma } from "../../prisma/prisma";
 
 export const listLessons = async (req: Request, res: Response) => {
-  const classroomId: string = req.params.classroomId;
+  const classroomId: string = req.params.id;
   const userId = res.locals.jwtPayload.userId;
 
   const result: UserLesson[] = await prisma.$queryRaw(

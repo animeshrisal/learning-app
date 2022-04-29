@@ -25,15 +25,19 @@ export const listClassroom = async (req: Request, res: Response) => {
 
 export const getClassroom = async (req: Request, res: Response) => {
   const id: string = req.params.id;
-  const classroom: Classroom = await prisma.classroom.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      enrolledStudents: true,
-    },
-  });
-  res.send(classroom);
+  const result: UserClassroom = await prisma.$queryRaw(
+    Prisma.sql`select
+    c.*,
+    e."classroomId"  is not null as enrolled
+  from
+    "Classroom" c
+  left join "Enrollment" e on
+    e."classroomId"  = c.id
+	where e."classroomId" = ${id}
+  `
+  );
+
+  res.send(result[0]);
 };
 
 export const enrollToClass = async (req: Request, res: Response) => {
@@ -56,5 +60,5 @@ export const enrollToClass = async (req: Request, res: Response) => {
     },
   });
 
-  res.status(204);
+  return res.status(204);
 };
