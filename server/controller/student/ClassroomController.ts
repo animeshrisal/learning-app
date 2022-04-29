@@ -8,6 +8,7 @@ import { UserClassroom } from "../../model/ClasssroomResponse";
 
 export const listClassroom = async (req: Request, res: Response) => {
   const userId = res.locals.jwtPayload.userId;
+
   const result: UserClassroom = await prisma.$queryRaw(
     Prisma.sql`select
     c.*,
@@ -16,7 +17,7 @@ export const listClassroom = async (req: Request, res: Response) => {
     "Classroom" c
   left join "Enrollment" e on
     e."classroomId"  = c.id
-    and e."userId"  = ${userId}'
+    and e."userId"  = ${userId};
   `
   );
   res.send(result);
