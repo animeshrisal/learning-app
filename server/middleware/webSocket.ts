@@ -1,4 +1,4 @@
-import WebSocket, { Server, WebSocketServer } from "ws";
+import WebSocket, { Server } from "ws";
 import { Server as HttpServer } from "http";
 let websocketServer: Server;
 
@@ -8,7 +8,7 @@ export const socket = (expressServer: HttpServer): void => {
   });
 
   websocketServer.on("connection", (socket: WebSocket) => {
-    socket.on("message", (message) => {});
+    socket.on("message", () => {});
     socket.on("disconnect", () => console.log("AAAA"));
   });
 

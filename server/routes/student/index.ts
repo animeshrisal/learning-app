@@ -4,7 +4,7 @@ import {
   getClassroom,
   listClassroom,
 } from "../../controller/student/ClassroomController";
-import { getLesson, listLessons } from "../../controller/student/LessonController";
+import { listLessons } from "../../controller/student/LessonController";
 import { checkJwt } from "../../middleware/checkJwt";
 
 const router: Router = Router();

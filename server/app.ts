@@ -1,17 +1,14 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response,  } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import routes from "./routes";
-import { adminMessage, socket } from "./middleware/webSocket";
+import {  socket } from "./middleware/webSocket";
 import { Server } from "http";
 import * as dotenv from "dotenv";
 
 const app = express();
 const path = require("path");
-const http = require("http");
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
 
 // Call midlewares
 app.use(cors({ origin: '*'}));
