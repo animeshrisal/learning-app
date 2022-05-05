@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../slice/authSlice";
 import { RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader";
 
 function Login() {
   const navigate = useNavigate();
@@ -42,7 +43,10 @@ function Login() {
   };
 
   return (
-    <div />
+    <div>
+      {" "}
+      <Loader />
+    </div>
   );
 }
 
