@@ -20,11 +20,10 @@
       color: #143969;
     }
 
-    .login-form-email,
-    .login-form-password {
+    .login-form-input {
       padding: 12px;
       width: 65%;
-      margin: 15px;
+      margin: 4px;
       border: 1px solid black;
       outline: none;
       border-radius: 20px;
@@ -33,7 +32,7 @@
     .login-form-submit {
       padding: 12px 30px;
       width: 40%;
-      margin-top: 40px;
+      margin-top: 20px;
       font-weight: bold;
       background-color: black;
       color: white;

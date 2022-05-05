@@ -9,6 +9,7 @@ import QuizList from "./pages/teacher/QuizList";
 import Quiz from "./pages/teacher/Quiz";
 import StudentClassroomList from "./pages/student/ClassroomList";
 import StudentClassroom from "./pages/student/Classroom";
+import Register from "./pages/auth/Register";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/auth/login/" element={<Login />} />
+          <Route path="/auth/register/" element={<Register />} />
           <Route path="/student/" element={<StudentClassroomList />} />
           <Route path="/student/:classroomId" element={<StudentClassroom />} />
           <Route path="/teacher/" element={<TeacherClassList />} />

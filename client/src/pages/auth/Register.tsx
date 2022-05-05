@@ -8,15 +8,21 @@ import Loader from "../../components/Loader";
 import "./Auth.scss";
 import { Link } from "react-router-dom";
 
-function Login() {
+function Register() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
   const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(event.target.value);
+  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setEmail(event.target.value);
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(event.target.value);
+  const handlePasswordConfirmation = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setPasswordConfirmation(event.target.value);
 
   const dispatch = useDispatch();
   const authState = useSelector((state: RootState) => state.auth);
@@ -49,14 +55,22 @@ function Login() {
     <div>
       <div className="container">
         <form className="login-form">
-          <h2>Sign In</h2>
+          <h2>Register</h2>
           <input
             autoComplete="off"
             type="text"
             name="username"
             onChange={handleUsername}
             className="login-form-input"
-            placeholder="Enter your username"
+            placeholder="Enter a username"
+          />
+            <input
+            autoComplete="off"
+            type="email"
+            name="email"
+            onChange={handleEmail}
+            className="login-form-input"
+            placeholder="Enter your email"
           />
           <input
             autoComplete="off"
@@ -66,15 +80,24 @@ function Login() {
             className="login-form-input"
             placeholder="Enter your passsword"
           />
+          <input
+            autoComplete="off"
+            type="password"
+            name="password"
+            onChange={handlePasswordConfirmation}
+            className="login-form-input"
+            placeholder="Type your password again"
+          />
           <button onClick={handleLogin} className={"login-form-submit"}>
-            {authState.isLoading ? <Loader /> : <span>Login</span>}
+            {authState.isLoading ? <Loader /> : <span>Register</span>}
           </button>
           <Link to="/auth/forgot-password">
             <span>Forgot Password</span>
           </Link>
-          <Link to="/auth/register">
-            <span>Not a member ? Create a new account</span>
+          <Link to="/auth/login">
+            <span>Already a member ? Login</span>
           </Link>
+
         </form>
         <div className="side">
           <div className="side-content"></div>
@@ -84,4 +107,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
