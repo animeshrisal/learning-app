@@ -38,7 +38,7 @@ const upload: Multer = multer({ dest: "uploads/" });
 //Get all users
 router.get(
   "/classroom",
-  [checkJwt, checkClassroom(), checkRole(["TEACHER"])],
+  [checkJwt, checkRole(["TEACHER"])],
   listClassroom
 );
 
