@@ -1,32 +1,13 @@
-import {
-  Button,
-  CardContent,
-  CardMedia,
-  CircularProgress,
-  Container,
-  Fab,
-  Grid,
-  IconButton,
-  Paper,
-  Skeleton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
+
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import EditIcon from "@mui/icons-material/Edit";
+
 import { retrieveClassroom, updateClassroom } from "../../slice/classroomSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Classroom } from "../../models/states/ClassroomState";
 import { RootState } from "../../app/store";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
-import Edit from "@mui/icons-material/Edit";
 import { retrieveLessonList } from "../../slice/lessonSlice";
 
 export type RouteParams = {

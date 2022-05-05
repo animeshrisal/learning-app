@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
 
-import AddQuestionDialogue from "../../components/AddQuestionDialogue";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
-import EditIcon from "@mui/icons-material/Edit";
 import { Question } from "../../models/states/QuestionState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";

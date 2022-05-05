@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 
 import { useLocation, useParams } from "react-router-dom";
-import { Theme } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { addLesson } from "../../slice/lessonSlice";
 import { Lesson } from "../../models/states/LessonState";
