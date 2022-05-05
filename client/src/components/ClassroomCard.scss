@@ -1,0 +1,37 @@
+.card-container {
+  display: flex;
+  box-shadow: 1px 1px 5px;
+  width: 300px;
+  height: 300px;
+  flex-direction: column;
+
+  img {
+    height: 40%;
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 60%;
+    padding-left: 0.5rem;
+
+    .card-container-subject {
+      margin: 0;
+    }
+
+    .card-container-description {
+      margin: 0;
+      flex: 2;
+    }
+
+    .card-container-link {
+      text-decoration: none;
+      color: blue;
+      font-weight: bold;
+      align-self: flex-end;
+      padding-right: 15px;
+      padding-bottom: 15px;
+    }
+  }
+}

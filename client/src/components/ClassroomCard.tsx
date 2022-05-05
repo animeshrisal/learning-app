@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import "./ClassroomCard.scss";
 
 const ClassroomCard = (props: any): JSX.Element => {
   const goToClassroomPage = () => {
@@ -6,9 +8,16 @@ const ClassroomCard = (props: any): JSX.Element => {
   };
 
   return (
-    <div>
-      {props.id}
-      asd
+    <div className="card-container">
+      <img src={props.image} alt={props.subject} />
+      <div className="card-content">
+        <h2 className="card-container-subject">{props.subject}</h2>
+        <div className="card-container-description">{props.description}</div>
+        <div className="card-container-status"> {props.activeStatus}</div>
+        <Link className="card-container-link" to={`classroom/${props.id}`}>
+          Go to class
+        </Link>
+      </div>
     </div>
   );
 };
