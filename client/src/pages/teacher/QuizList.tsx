@@ -17,11 +17,9 @@ import { addQuiz, retrieveQuizList } from "../../slice/quizSlice";
 
 const stateChip = (state: String): JSX.Element => {
   if (state === 'IN_REVIEW') {
-    return <Chip label="To Review" color="primary" />;
-  } else if (state === 'ACTIVE') {
-    return <Chip label="Active" color="primary" />;
+    return <div></div>
   } else {
-    return <Chip label="Archived" color="primary" />;
+    return <div></div>
   }
 };
 
@@ -59,49 +57,7 @@ const QuizList = (props: any): JSX.Element => {
 
   return (
     <React.Fragment>
-      <Grid container spacing={2}>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Quiz</TableCell>
-                <TableCell align="right">Status</TableCell>
-                <TableCell align="right">View</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {quizList.map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{stateChip(row.state)}</TableCell>
-                  <TableCell align="right">
-                    <IconButton
-                      onClick={() => goToQuizPage(row.id)}
-                      sx={{ p: 0 }}
-                    >
-                      <ArrowForwardIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <AddQuizDialogue
-          openModal={openModal}
-          addQuiz={createQuiz}
-          handleClose={handleClose}
-          state="Add"
-        />
-      </Grid>
-      <Fab onClick={handleClickOpen} color="secondary" aria-label="add">
-        <AddIcon />
-      </Fab>
+
     </React.Fragment>
   );
 };

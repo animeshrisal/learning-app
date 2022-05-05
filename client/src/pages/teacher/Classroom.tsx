@@ -80,84 +80,16 @@ const TeacherClass = (): JSX.Element => {
 
   if (classroom) {
     return (
-      <Container>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <CardMedia
-              component="img"
-              height="140"
-              image={`http://localhost:8000/uploads/${classroom.image}`}
-              alt="green iguana"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {classroom.subject}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {classroom.description}
-              </Typography>
-            </CardContent>
-          </Grid>
-          <Grid item xs={2}>
-            <Button onClick={() => goToAddLessonPage()}>Add new lesson</Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Button onClick={() => goToQuizList()}>Go to quiz</Button>
-          </Grid>
-          <Grid item xs={12}>
-            {!isLoading ? (
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Lesson Name</TableCell>
-                      <TableCell align="right">Actions</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {lessonList.map((row) => (
-                      <TableRow
-                        key={row.id}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
-                        <TableCell align="right">
-                          <IconButton
-                            onClick={() => goToAddLessonPage("edit", row.id)}
-                            color="primary"
-                            component="span"
-                          >
-                            <EditIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            ) : (
-              <Skeleton animation="wave" />
-            )}
-          </Grid>
-        </Grid>
-        <Fab onClick={handleClickOpen} color="secondary" aria-label="add">
-          <Edit />
-        </Fab>
-        <AddClassroomDialogue
-          state="Edit"
-          classroomId={classroom.id}
-          openModal={openModal}
-          addClassroom={editClassroom}
-          handleClose={handleClose}
-        />
-      </Container>
+      <div>
+
+      </div>
     );
   } else {
-    return <CircularProgress />;
+    return (
+      <div>
+        
+      </div>
+    );
   }
 };
 

@@ -1,10 +1,8 @@
-import { Fab, Grid } from "@mui/material";
+
 import React, { useEffect, useState } from "react";
 
-import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
-import AddClassroomDialogue from "../../components/AddClassroomDialogue";
-import ClassroomCard from "../../components/ClassroomCard";
+
 import { RootState } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -45,28 +43,7 @@ const TeacherClassList = (props: any): JSX.Element => {
   }
 
   return (
-    <React.Fragment>
-      <Grid container spacing={2}>
-        {data.classroomList.map((classroom) => (
-          <Grid key={classroom.id} item xs={4}>
-            <ClassroomCard
-              key={classroom.id}
-              {...classroom}
-              goToClassroomPage={goToClassroomPage}
-            />
-          </Grid>
-        ))}
-        <AddClassroomDialogue
-          openModal={openModal}
-          addClassroom={addNewClassroom}
-          handleClose={handleClose}
-          state="Add"
-        />
-      </Grid>
-      <Fab onClick={handleClickOpen} color="secondary" aria-label="add">
-        <AddIcon />
-      </Fab>
-    </React.Fragment>
+    <div></div>
   );
 };
 

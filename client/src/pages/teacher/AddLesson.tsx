@@ -1,12 +1,4 @@
-import { ThemeProvider } from "@emotion/react";
-import {
-  Button,
-  createTheme,
-  CssBaseline,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+
 import React, { useEffect, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 
@@ -17,7 +9,6 @@ import { addLesson } from "../../slice/lessonSlice";
 import { Lesson } from "../../models/states/LessonState";
 import { RootState } from "../../app/store";
 
-const theme: Theme = createTheme();
 
 const AddLessonPage = (props: any) => {
   const { state }: { state: any } = useLocation();
@@ -59,49 +50,7 @@ const AddLessonPage = (props: any) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Grid container>
-        <CssBaseline />
-        <Grid item xs={12}>
-          <Typography component="h1" variant="h5">
-            New Lesson
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            margin="normal"
-            value={name}
-            onChange={handleName}
-            required
-            fullWidth
-            id="name"
-            label="Name"
-            name="name"
-            autoComplete="name"
-            autoFocus
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="description"
-            label="Description"
-            type="description"
-            id="description"
-            value={description}
-            onChange={handleDescription}
-            autoComplete="description"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          Body
-          <MDEditor value={body} onChange={handleBody} />
-        </Grid>
-        <Button onClick={createLesson}>Add lesson</Button>
-      </Grid>
-    </ThemeProvider>
+    <div></div>
   );
 };
 

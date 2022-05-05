@@ -1,4 +1,3 @@
-import { Grid } from "@mui/material";
 import React, { useEffect } from "react";
 import ClassroomCard from "../../components/ClassroomCard";
 import { useNavigate } from "react-router-dom";
@@ -29,17 +28,6 @@ const StudentClassroomList = (props: any): JSX.Element => {
 
   return (
     <React.Fragment>
-      <Grid container spacing={2}>
-        {data.classroomList.map((classroom: Classroom) => (
-          <Grid key={classroom.id} item xs={4}>
-            <ClassroomCard
-              key={classroom.id}
-              {...classroom}
-              goToClassroomPage={goToClassroomPage}
-            />
-          </Grid>
-        ))}
-      </Grid>
     </React.Fragment>
   );
 };
