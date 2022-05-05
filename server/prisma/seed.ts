@@ -7,13 +7,29 @@ const prisma: PrismaClient = new PrismaClient();
 const admin: Prisma.UserCreateInput = {
   username: "admin",
   password: hashPassword("admin123"),
-  email: "animeshrisal2@gmail.com",
+  email: "animeshrisal99@gmail.com",
+  role: Role.ADMIN,
+};
+
+const teacher: Prisma.UserCreateInput = {
+  username: "teacher",
+  password: hashPassword("teacher123"),
+  email: "animesh.function@gmail.com",
+  role: Role.TEACHER,
+};
+
+const student: Prisma.UserCreateInput = {
+  username: "student",
+  password: hashPassword("student123"),
+  email: "wintergensokyo@gmail.com",
   role: Role.USER,
 };
 
+
+
 async function main() {
-  await prisma.user.create({
-    data: admin,
+  await prisma.user.createMany({
+    data: [admin, teacher, student],
   });
 }
 
