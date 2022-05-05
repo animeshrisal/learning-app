@@ -5,6 +5,8 @@ import { loginUser } from "../../slice/authSlice";
 import { RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
+import "./Login.scss";
+import { Link } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
@@ -38,14 +40,41 @@ function Login() {
     }
   }, [authState.token, authState.role, navigate]);
 
-  const handleLogin = () => {
+  const handleLogin = (e: any) => {
+    e.preventDefault()
     dispatch(loginUser({ username, password }));
   };
 
   return (
     <div>
-      {" "}
-      <Loader />
+      <div className="container">
+        <form className="login-form">
+          <h2>Sign In</h2>
+          <input
+            type="email"
+            name="email"
+            onChange={handleUsername}
+            className="login-form-email"
+            placeholder="Enter your email"
+          />
+          <input
+            type="password"
+            name="password"
+            onChange={handlePassword}
+            className="login-form-password"
+            placeholder="Enter your passsword"
+          />
+          <button onClick={handleLogin} className={"login-form-submit"}>
+            {authState.isLoading ?  <Loader /> : <span>Login</span>}
+            </button>
+          <Link to="/forgot-password">
+            <a>Forgot Password</a>
+          </Link>
+        </form>
+        <div className="side">
+        <div className="side-content"></div>
+      </div>
+      </div>
     </div>
   );
 }
