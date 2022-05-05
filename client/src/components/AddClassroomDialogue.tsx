@@ -1,13 +1,3 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Switch,
-  TextField,
-} from "@mui/material";
-import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
@@ -61,62 +51,7 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
     setActiveStatus(e.target.checked);
 
   return (
-    <Dialog open={props.openModal} onClose={handleClose}>
-      <DialogTitle>{props.state} Classroom</DialogTitle>
-      <DialogContent>
-        <Switch
-          checked={activeStatus}
-          onChange={handleActiveStatus}
-          inputProps={{ "aria-label": "controlled" }}
-        />
-        <TextField
-          margin="normal"
-          value={subject}
-          onChange={handleSubject}
-          required
-          fullWidth
-          id="subject"
-          label="Subject"
-          name="subject"
-          autoComplete="subject"
-          autoFocus
-        />
-        <TextField
-          margin="normal"
-          value={description}
-          onChange={handleDescription}
-          required
-          fullWidth
-          id="description"
-          label="Description"
-          name="description"
-          autoComplete="description"
-          autoFocus
-        />
-        <input
-          accept="image/*"
-          type="file"
-          id="select-image"
-          style={{ display: "none" }}
-          onChange={handleImage}
-        />
-        <label htmlFor="select-image">
-          <Button variant="contained" color="primary" component="span">
-            Upload Image
-          </Button>
-        </label>
-        {imageUrl && (
-          <Box mt={2} textAlign="center">
-            <div>Image Preview:</div>
-            <img src={imageUrl} alt={"asd"} height="100px" />
-          </Box>
-        )}
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={addClassroom}>Add Classroom</Button>
-      </DialogActions>
-    </Dialog>
+    <div></div>
   );
 };
 
