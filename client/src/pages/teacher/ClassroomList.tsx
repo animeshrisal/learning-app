@@ -10,6 +10,7 @@ import {
   retrieveClassroomList,
 } from "../../slice/classroomSlice";
 import { Classroom } from "../../models/states/ClassroomState";
+import ClassroomCard from "../../components/ClassroomCard";
 
 const TeacherClassList = (props: any): JSX.Element => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const TeacherClassList = (props: any): JSX.Element => {
   return (
     <React.Fragment>
       {data.classroomList.map(classroom => 
-        <div>ASDASD</div>
+        <ClassroomCard {...classroom} />
       )}
     </React.Fragment>
   );
