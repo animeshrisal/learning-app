@@ -41,7 +41,7 @@ function Login() {
   }, [authState.token, authState.role, navigate]);
 
   const handleLogin = (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(loginUser({ username, password }));
   };
 
@@ -51,6 +51,7 @@ function Login() {
         <form className="login-form">
           <h2>Sign In</h2>
           <input
+            autoComplete="off"
             type="email"
             name="email"
             onChange={handleUsername}
@@ -58,6 +59,7 @@ function Login() {
             placeholder="Enter your email"
           />
           <input
+            autoComplete="off"
             type="password"
             name="password"
             onChange={handlePassword}
@@ -65,15 +67,15 @@ function Login() {
             placeholder="Enter your passsword"
           />
           <button onClick={handleLogin} className={"login-form-submit"}>
-            {authState.isLoading ?  <Loader /> : <span>Login</span>}
-            </button>
+            {authState.isLoading ? <Loader /> : <span>Login</span>}
+          </button>
           <Link to="/forgot-password">
             <a>Forgot Password</a>
           </Link>
         </form>
         <div className="side">
-        <div className="side-content"></div>
-      </div>
+          <div className="side-content"></div>
+        </div>
       </div>
     </div>
   );
