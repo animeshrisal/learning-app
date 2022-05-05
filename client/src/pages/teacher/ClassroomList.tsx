@@ -43,7 +43,11 @@ const TeacherClassList = (props: any): JSX.Element => {
   }
 
   return (
-    <div></div>
+    <React.Fragment>
+      {data.classroomList.map(classroom => 
+        <div>ASDASD</div>
+      )}
+    </React.Fragment>
   );
 };
 

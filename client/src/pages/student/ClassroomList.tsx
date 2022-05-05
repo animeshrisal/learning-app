@@ -28,6 +28,9 @@ const StudentClassroomList = (props: any): JSX.Element => {
 
   return (
     <React.Fragment>
+      {data.classroomList.map(classroom => 
+        <div>ASDASD</div>
+      )}
     </React.Fragment>
   );
 };

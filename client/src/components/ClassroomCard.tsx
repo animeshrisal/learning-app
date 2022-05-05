@@ -6,7 +6,10 @@ const ClassroomCard = (props: any): JSX.Element => {
   };
 
   return (
-    <div></div>
+    <div>
+      {props.id}
+      asd
+    </div>
   );
 };
 
