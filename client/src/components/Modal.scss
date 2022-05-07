@@ -5,8 +5,8 @@
     margin: 0 auto;
     top: 40%;
     left: 40%;
-    min-width: 20rem;
-    min-height: 20rem;
+    min-width: 15rem;
+    min-height: 15rem;
 
     display: flex;
     flex-direction: column;
@@ -19,6 +19,7 @@
     }
 
     .modal-body {
+        margin-top: 2rem;
         flex: 10
     }
     .modal-buttons {
@@ -29,7 +30,7 @@
 
         button {
             margin-left: 1rem;
-            padding: 0 15px;
+            padding: 10px 15px;
             color: white;
             background-color: #143969;
             border: none;

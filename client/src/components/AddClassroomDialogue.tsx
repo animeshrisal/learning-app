@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
+import Modal from "./Modal";
+import "./AddClassroomDialogue.scss";
 
 const AddClassroomDialogue = (props: any): JSX.Element => {
   const [subject, setSubject] = useState("");
@@ -45,13 +47,46 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
 
   const handleSubject = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSubject(e.target.value);
-  const handleDescription = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setDescription(e.target.value);
   const handleActiveStatus = (e: React.ChangeEvent<HTMLInputElement>) =>
     setActiveStatus(e.target.checked);
 
   return (
-    <div></div>
+    <Modal
+      title="Add Classroom"
+      submit="Submit"
+      cancel="Cancel"
+      open={props.open}
+      closeModal={handleClose}
+      submitModal={addClassroom}
+    >
+      <div className="form-container">
+        <div className="form-input">
+          <label htmlFor="html">Subject</label>
+          <input onChange={handleSubject} type="text" />
+        </div>
+        <div className="form-input">
+          <label htmlFor="html">Description</label>
+          <textarea onChange={handleDescription} />
+        </div>
+        <div className="form-input">
+          <label htmlFor="checkBox">Active</label>
+          <input onChange={handleActiveStatus} type="checkbox" />
+        </div>
+
+        <div className="form-upload-image">
+          <input type="file" onChange={handleImage} />
+          {console.log(imageUrl, image)}
+          {imageUrl && image && (
+            <div>
+              <div>Image Preview:</div>
+              <img src={imageUrl} alt={image.name} height="300px" />
+            </div>
+          )}
+        </div>
+      </div>
+    </Modal>
   );
 };
 

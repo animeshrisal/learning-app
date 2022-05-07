@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -11,6 +10,8 @@ import {
 } from "../../slice/classroomSlice";
 import { Classroom } from "../../models/states/ClassroomState";
 import ClassroomCard from "../../components/ClassroomCard";
+import Modal from "../../components/Modal";
+import AddClassroomDialogue from "../../components/AddClassroomDialogue";
 
 const TeacherClassList = (props: any): JSX.Element => {
   const navigate = useNavigate();
@@ -45,9 +46,13 @@ const TeacherClassList = (props: any): JSX.Element => {
 
   return (
     <React.Fragment>
-      {data.classroomList.map(classroom => 
+      {data.classroomList.map((classroom) => (
         <ClassroomCard {...classroom} />
-      )}
+      ))}
+
+      <AddClassroomDialogue open={openModal} handleClose={handleClose} addClassroom={addNewClassroom} />
+
+      <button onClick={handleClickOpen}>Open</button>
     </React.Fragment>
   );
 };
