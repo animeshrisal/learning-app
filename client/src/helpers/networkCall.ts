@@ -4,7 +4,6 @@ function authHeader(contentType: string): HeadersInit {
   if (user) {
     return {
       Authorization: JSON.parse(user).token,
-      'Content-Type': contentType
     };
   } else {
     return {};
