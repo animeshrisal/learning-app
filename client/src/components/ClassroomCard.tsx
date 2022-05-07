@@ -9,7 +9,7 @@ const ClassroomCard = (props: any): JSX.Element => {
 
   return (
     <div className="card-container">
-      <img src={props.image} alt={props.subject} />
+      <img src={`http://127.0.0.1:8000/uploads/${props.image}`} alt={props.subject} />
       <div className="card-content">
         <h2 className="card-container-subject">{props.subject}</h2>
         <div className="card-container-description">{props.description}</div>
