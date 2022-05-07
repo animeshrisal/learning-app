@@ -12,6 +12,7 @@ import { Classroom } from "../../models/states/ClassroomState";
 import ClassroomCard from "../../components/ClassroomCard";
 import Modal from "../../components/Modal";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
+import "./ClassroomList.scss"
 
 const TeacherClassList = (props: any): JSX.Element => {
   const navigate = useNavigate();
@@ -45,15 +46,23 @@ const TeacherClassList = (props: any): JSX.Element => {
   }
 
   return (
-    <React.Fragment>
-      {data.classroomList.map((classroom) => (
-        <ClassroomCard {...classroom} />
-      ))}
+    <div className="classroom-list-container">
+      <div className="grid-container">
+        {data.classroomList.map((classroom) => (
+          <div className="grid-item">
+          <ClassroomCard {...classroom} />
+          </div>
+        ))}
+      </div>
 
-      <AddClassroomDialogue open={openModal} handleClose={handleClose} addClassroom={addNewClassroom} />
+      <AddClassroomDialogue
+        open={openModal}
+        handleClose={handleClose}
+        addClassroom={addNewClassroom}
+      />
 
       <button onClick={handleClickOpen}>Open</button>
-    </React.Fragment>
+    </div>
   );
 };
 
