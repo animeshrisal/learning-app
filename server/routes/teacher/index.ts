@@ -31,9 +31,23 @@ import {
   listQuestions,
 } from "../../controller/teacher/QuestionController";
 import { checkClassroom } from "../../middleware/checkClass";
+import * as path from 'path';
 
 const router: Router = Router();
-const upload: Multer = multer({ dest: "uploads/" });
+
+const storage: multer.StorageEngine = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+  }
+})
+
+const upload: Multer = multer({
+  storage: storage
+});
+
 
 //Get all users
 router.get(
