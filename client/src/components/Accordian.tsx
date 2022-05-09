@@ -30,7 +30,7 @@ const Accordian = (props: any): JSX.Element => {
         <div className="accordian-item">
           <div className="accordian-title" onClick={() => toggle(index)}>
             <h2>{data.title}</h2>
-            <span>{selected === index ? "-" : "+"}</span>
+            <span className="accordian-icon">{selected === index ? "-" : "+"}</span>
           </div>
           <div
             className={
@@ -40,6 +40,7 @@ const Accordian = (props: any): JSX.Element => {
             }
           >
             {data.body}
+            <button className="accordian-button">Go to classroom</button>
           </div>
         </div>
       ))}

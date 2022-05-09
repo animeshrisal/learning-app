@@ -14,6 +14,11 @@
       cursor: pointer;
     }
 
+    .accordian-icon {
+      font-size: 26px;
+      font-weight: bolder;
+    }
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,10 +28,18 @@
     color: black;
     max-height: 0;
     overflow: hidden;
-  }
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
 
-  .accordian-body.show {
-    max-height: 9999px;
-    height: 100%;
+    &.show {
+      max-height: 9999px;
+      height: 100%;
+    }
+
+    .accordian-button {
+      align-self: flex-end;
+      border: none;
+    }
   }
 }
