@@ -40,6 +40,10 @@
     .accordian-button {
       align-self: flex-end;
       border: none;
+
+      &.hover {
+        cursor: pointer;
+      }
     }
   }
 }

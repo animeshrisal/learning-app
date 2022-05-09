@@ -26,10 +26,10 @@ const Accordian = (props: any): JSX.Element => {
   };
   return (
     <div className="accordian">
-      {data.map((data: any, index: number) => (
+      {props.lesson.map((data: any, index: number) => (
         <div className="accordian-item">
           <div className="accordian-title" onClick={() => toggle(index)}>
-            <h2>{data.title}</h2>
+            <h2>{data.name}</h2>
             <span className="accordian-icon">{selected === index ? "-" : "+"}</span>
           </div>
           <div
@@ -40,7 +40,7 @@ const Accordian = (props: any): JSX.Element => {
             }
           >
             {data.body}
-            <button className="accordian-button">Go to classroom</button>
+            <button className="accordian-button" onClick={}>Go to classroom</button>
           </div>
         </div>
       ))}
