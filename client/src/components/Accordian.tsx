@@ -40,7 +40,7 @@ const Accordian = (props: any): JSX.Element => {
             }
           >
             {data.body}
-            <button className="accordian-button" onClick={}>Go to classroom</button>
+            <button className="accordian-button">Go to classroom</button>
           </div>
         </div>
       ))}
