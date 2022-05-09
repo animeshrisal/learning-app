@@ -1,0 +1,32 @@
+.accordian {
+  width: 300px;
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 1px;
+
+  .accordian-item {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid;
+  }
+
+  .accordian-title {
+    &.hover {
+      cursor: pointer;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .accordian-body {
+    color: black;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .accordian-body.show {
+    max-height: 9999px;
+    height: 100%;
+  }
+}

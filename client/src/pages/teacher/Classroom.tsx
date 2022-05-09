@@ -9,6 +9,7 @@ import { Classroom } from "../../models/states/ClassroomState";
 import { RootState } from "../../app/store";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
 import { retrieveLessonList } from "../../slice/lessonSlice";
+import Accordian from "../../components/Accordian";
 
 export type RouteParams = {
   classroomId: string;
@@ -62,13 +63,13 @@ const TeacherClass = (): JSX.Element => {
   if (classroom) {
     return (
       <div>
-
+        <Accordian />
       </div>
     );
   } else {
     return (
       <div>
-        
+                <Accordian />
       </div>
     );
   }

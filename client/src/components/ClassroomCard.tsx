@@ -14,7 +14,7 @@ const ClassroomCard = (props: any): JSX.Element => {
         <h2 className="card-container-subject">{props.subject}</h2>
         <div className="card-container-description">{props.description}</div>
         <div className="card-container-status"> {props.activeStatus}</div>
-        <Link className="card-container-link" to={`classroom/${props.id}`}>
+        <Link className="card-container-link" to={`${props.id}`}>
           Go to class
         </Link>
       </div>
