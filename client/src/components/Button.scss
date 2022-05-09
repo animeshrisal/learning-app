@@ -1,0 +1,18 @@
+.generic-button {
+    padding: 12px 30px;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    background-color: #143969;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    outline: none;
+    transition: 0.2s linear;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #112b4e;
+    }
+}
