@@ -4,8 +4,8 @@ import "./Loader.scss";
 const Loader = (): JSX.Element => {
   return (
     <div className="spinner">
-        <div></div>
-        <div></div>
+      <div></div>
+      <div></div>
     </div>
   );
 };

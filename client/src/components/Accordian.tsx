@@ -30,13 +30,13 @@ const Accordian = (props: any): JSX.Element => {
         <div className="accordian-item">
           <div className="accordian-title" onClick={() => toggle(index)}>
             <h2>{data.name}</h2>
-            <span className="accordian-icon">{selected === index ? "-" : "+"}</span>
+            <span className="accordian-icon">
+              {selected === index ? "-" : "+"}
+            </span>
           </div>
           <div
             className={
-              selected === index
-                ? "accordian-body show"
-                : "accordian-body"
+              selected === index ? "accordian-body show" : "accordian-body"
             }
           >
             {data.body}

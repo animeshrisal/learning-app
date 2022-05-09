@@ -16,9 +16,7 @@ const AddQuizDialogue = (props: any) => {
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) =>
     setName(e.target.value);
 
-  return (
-    <div></div>
-  );
+  return <div></div>;
 };
 
 export default AddQuizDialogue;
