@@ -1,7 +1,5 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 
 import { retrieveClassroom, updateClassroom } from "../../slice/classroomSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +8,9 @@ import { RootState } from "../../app/store";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
 import { retrieveLessonList } from "../../slice/lessonSlice";
 import Accordian from "../../components/Accordian";
+import Loader from "../../components/Loader";
+import "./Classroom.scss";
+import { Button } from "../../components/Button";
 
 export type RouteParams = {
   classroomId: string;
@@ -62,14 +63,24 @@ const TeacherClass = (): JSX.Element => {
 
   if (classroom) {
     return (
-      <div>
-        <Accordian />
+      <div className="classroom-container">
+        <div className="classroom-heading">
+          <h1 className="classroom-title">{classroom.subject}</h1>
+          <div className="classroom-heading-button-group">
+            <Button onClick={goToAddLessonPage} title="Add new lesson" />
+            <Button onClick={goToQuizList} title="Quiz List" />
+          </div>
+        </div>
+        <div className="classroom-lesson">
+          <h2>Lessons</h2>
+          <Accordian lesson={lessonList} />
+        </div>
       </div>
     );
   } else {
     return (
       <div>
-                <Accordian />
+        <Loader />
       </div>
     );
   }
