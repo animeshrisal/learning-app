@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Modal from "./Modal";
 
 const AddQuestionDialogue = (props: any) => {
   const [question, setQuestion] = useState("");
@@ -49,7 +50,18 @@ const AddQuestionDialogue = (props: any) => {
     setFourthChoice(e.target.value);
   // const handleCorrectChoice = (e: SelectChangeEvent<string>) => setCorrectChoice(e.target.value);
 
-  return <div></div>;
+  return (
+    <Modal
+      title="Add Question"
+      submit="Submit"
+      cancel="Cancel"
+      open={props.open}
+      closeModal={handleClose}
+      submitModal={addQuestion}
+    >
+      <div>ASDASD</div>
+    </Modal>
+  );
 };
 
 export default AddQuestionDialogue;
