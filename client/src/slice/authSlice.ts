@@ -12,7 +12,7 @@ export const loginUser = createAsyncThunk(
   async (user: UserLoginRequest) => {
     const response: AuthState = await authenticationService.login(user);
     return response;
-  }
+  },
 );
 
 let initialState: AuthState = {
