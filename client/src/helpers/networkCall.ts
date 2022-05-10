@@ -1,10 +1,12 @@
 function authHeader(contentType: string): HeadersInit {
   const user = localStorage.getItem("user");
-
   if (user) {
-    return {
-      Authorization: JSON.parse(user).token,
-    };
+    const header: any = { Authorization: JSON.parse(user).token };
+    if (contentType === "application/json") {
+      header['Content-Type'] = "application/json";
+    }
+    console.log(header)
+    return header;
   } else {
     return {};
   }
