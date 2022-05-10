@@ -5,7 +5,15 @@ import { Question } from "../../models/states/QuestionState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { addQuestion, retrieveQuestionList } from "../../slice/questionSlice";
-import { retrieveQuiz, setQuizAsActive, setQuizAsArchived } from "../../slice/quizSlice";
+import {
+  retrieveQuiz,
+  setQuizAsActive,
+  setQuizAsArchived,
+} from "../../slice/quizSlice";
+import Loader from "../../components/Loader";
+import { Button } from "../../components/Button";
+import AddQuestionDialogue from "../../components/AddQuestionDialogue";
+import Modal from "../../components/Modal";
 
 const SetQuizAsActiveModal = (props: any) => {
   const handleClose = () => {
@@ -17,7 +25,13 @@ const SetQuizAsActiveModal = (props: any) => {
   };
 
   return (
-    <div></div>
+    <Modal title="Warning">
+      <div>
+        {" "}
+        Are you sure you want to set this quiz as active ? You will be unable to
+        later edit it.
+      </div>
+    </Modal>
   );
 };
 
@@ -31,22 +45,13 @@ const SetQuizAsArchivedModal = (props: any) => {
   };
 
   return (
-    <div></div>
-  );
-};
-
-const Row = (props: any) => {
-  const { row } = props;
-  const [open, setOpen] = useState(false);
-
-  const editRow = (id: any) => {
-    props.selectedRow(id);
-  };
-
-  return (
-    <React.Fragment>
-
-    </React.Fragment>
+    <Modal title="Warning">
+      <div>
+        {" "}
+        Are you sure you want to set this quiz as archived ? If you archived it
+        students will no longer be able to participate in the quiz.
+      </div>
+    </Modal>
   );
 };
 
@@ -76,6 +81,7 @@ const Quiz = (props: any) => {
   }, [dispatch, classroomId, quizId]);
 
   const handleClickOpen = () => {
+    console.log("ASDASD")
     setSelectedRow(0);
     setSelectedState("Add");
     setOpenModal(true);
@@ -100,7 +106,7 @@ const Quiz = (props: any) => {
   const setQuizAsActiveFunction = () => {
     if (classroomId && quizId) {
       dispatch(setQuizAsActive({ classroomId, quizId }));
-      handleCloseQuizActiveModal()
+      handleCloseQuizActiveModal();
     }
   };
 
@@ -115,7 +121,7 @@ const Quiz = (props: any) => {
   const setQuizAsArchivedFunction = () => {
     if (classroomId && quizId) {
       dispatch(setQuizAsArchived({ classroomId, quizId }));
-      handleCloseQuizArchivedModal()
+      handleCloseQuizArchivedModal();
     }
   };
 
@@ -129,10 +135,39 @@ const Quiz = (props: any) => {
 
   if (!isLoading) {
     return (
-      <div></div>
+      <div className="quiz-container">
+        <Button onClick={handleClickOpen} title="Add new question" />
+        <ul> 
+          {questionList.map((question) => (
+            <div>{question.id}</div>
+          ))}
+        </ul>
+
+        <AddQuestionDialogue
+          addQuestionToQuiz={addQuestionToQuiz}
+          classroomId={classroomId}
+          handleClose={handleClose}
+          open={openModal}
+          selectedRow={selectedRow}
+          state={selectedState}
+          quizId={quizId}
+        />
+
+        <SetQuizAsActiveModal
+          openModal={openQuizActiveModal}
+          handleClose={handleCloseQuizActiveModal}
+          setQuizAsActive={setQuizAsActive}
+        />
+
+        <SetQuizAsArchivedModal
+          openModal={openQuizArchivedModal}
+          handleClose={handleCloseQuizArchivedModal}
+          setQuizAsArchived={setQuizAsArchived}
+        />
+      </div>
     );
   } else {
-    return <div></div>;
+    return <Loader />;
   }
 };
 
