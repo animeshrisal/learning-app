@@ -19,14 +19,16 @@
   }
 
   .modal-body {
-    margin-top: 2rem;
-    flex: 10;
+    label {
+      font-weight: bold;
+    }
   }
   .modal-buttons {
     flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    align-items: flex-end;
 
     button {
       margin-left: 1rem;
