@@ -1,0 +1,23 @@
+.quiz-list {
+  padding: 2rem;
+  .quiz-list-row {
+    display: flex;
+
+    .quiz-list-row-index {
+      margin-right: 2rem;
+    }
+
+    .quiz-list-row-state {
+      text-align: left;
+      margin-right: 10rem;
+    }
+
+    :first-child {
+      margin-right: auto;
+    }
+
+    svg {
+        font-size: 1.5rem;
+    }
+  }
+}

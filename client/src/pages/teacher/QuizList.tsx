@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -7,11 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { addQuiz, retrieveQuizList } from "../../slice/quizSlice";
 
-const stateChip = (state: String): JSX.Element => {
-  if (state === 'IN_REVIEW') {
-    return <div></div>
+import "./QuizList.scss";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faArrowRight, faCoffee, fas } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+const StateChip = (props: any): JSX.Element => {
+  if (props.state === "IN_REVIEW") {
+    return <div>In Review</div>;
   } else {
-    return <div></div>
+    return <div>Active</div>;
   }
 };
 
@@ -48,9 +52,32 @@ const QuizList = (props: any): JSX.Element => {
   };
 
   return (
-    <React.Fragment>
-
-    </React.Fragment>
+    <div className="quiz-list-container">
+      <ul className="quiz-list">
+        <li className="quiz-list-row">
+          <div className="quiz-list-row-name heading">
+            <h2>Quizzes</h2>
+          </div>
+          <div className="quiz-list-row-state heading">
+            <h2>State</h2>
+          </div>
+          <div className="quiz-list-row-action heading">
+            <h2>Action</h2>
+          </div>
+        </li>
+        {quizList.map((quiz) => (
+          <li className="quiz-list-row" key={quiz.id}>
+            <div className="quiz-list-row-name">{quiz.name}</div>
+            <div className="quiz-list-row-state">
+              <StateChip state={quiz.state} />
+            </div>
+            <div className="quiz-list-row-action">
+              <FontAwesomeIcon onClick={() => goToQuizPage(quiz.id)} icon={faArrowRight} />
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
