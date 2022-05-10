@@ -1,23 +1,31 @@
-.quiz-list {
-  padding: 2rem;
-  .quiz-list-row {
-    display: flex;
+.quiz-list-container {
+  display: flex;
+  flex-direction: column;
+  > button {
+      align-self: flex-end;
+      margin-right: 1.5rem;
+  }
+  .quiz-list {
+    padding: 2rem;
+    .quiz-list-row {
+      display: flex;
 
-    .quiz-list-row-index {
-      margin-right: 2rem;
-    }
+      .quiz-list-row-index {
+        margin-right: 2rem;
+      }
 
-    .quiz-list-row-state {
-      text-align: left;
-      margin-right: 10rem;
-    }
+      .quiz-list-row-state {
+        text-align: left;
+        margin-right: 10rem;
+      }
 
-    :first-child {
-      margin-right: auto;
-    }
+      :first-child {
+        margin-right: auto;
+      }
 
-    svg {
+      svg {
         font-size: 1.5rem;
+      }
     }
   }
 }

@@ -10,6 +10,8 @@ import "./QuizList.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faArrowRight, faCoffee, fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "../../components/Button";
+import AddQuizDialogue from "../../components/AddQuizDialogue";
 
 const StateChip = (props: any): JSX.Element => {
   if (props.state === "IN_REVIEW") {
@@ -53,6 +55,7 @@ const QuizList = (props: any): JSX.Element => {
 
   return (
     <div className="quiz-list-container">
+      <Button onClick={handleClickOpen} title="Add new quiz" />
       <ul className="quiz-list">
         <li className="quiz-list-row">
           <div className="quiz-list-row-name heading">
@@ -72,11 +75,19 @@ const QuizList = (props: any): JSX.Element => {
               <StateChip state={quiz.state} />
             </div>
             <div className="quiz-list-row-action">
-              <FontAwesomeIcon onClick={() => goToQuizPage(quiz.id)} icon={faArrowRight} />
+              <FontAwesomeIcon
+                onClick={() => goToQuizPage(quiz.id)}
+                icon={faArrowRight}
+              />
             </div>
           </li>
         ))}
       </ul>
+      <AddQuizDialogue
+        addQuiz={createQuiz}
+        open={openModal}
+        handleClose={handleClose}
+      />
     </div>
   );
 };
