@@ -13,6 +13,7 @@ import ClassroomCard from "../../components/ClassroomCard";
 import Modal from "../../components/Modal";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
 import "./ClassroomList.scss"
+import { Button } from "../../components/Button";
 
 const TeacherClassList = (props: any): JSX.Element => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const TeacherClassList = (props: any): JSX.Element => {
         addClassroom={addNewClassroom}
       />
 
-      <button onClick={handleClickOpen}>Open</button>
+      <Button title="Add New Classroom" onClick={handleClickOpen} />
     </div>
   );
 };
