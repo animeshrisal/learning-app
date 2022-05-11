@@ -5,7 +5,7 @@ export interface Question {
   secondChoice: string;
   thirdChoice: string;
   fourthChoice: string;
-  correctChoice: string;
+  correctChoice: Number;
   order?: string;
 }
 
