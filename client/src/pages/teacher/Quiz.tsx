@@ -88,7 +88,7 @@ const QuestionCard = (props: Question) => {
 };
 
 const Quiz = (props: any) => {
-  const [state, setState] = useState(0);
+  const [state, setState] = useState('');
 
   const { classroomId, quizId } = useParams();
   const dispatch = useDispatch();
@@ -115,7 +115,6 @@ const Quiz = (props: any) => {
   }, [dispatch, classroomId, quizId]);
 
   const handleClickOpen = () => {
-    console.log("ASDASD");
     setSelectedRow(0);
     setSelectedState("Add");
     setOpenModal(true);
@@ -168,18 +167,19 @@ const Quiz = (props: any) => {
   };
 
   if (!isLoading) {
+    console.log(quiz)
     return (
       <div className="quiz-container">
-        {state === 0 && (
+        {quiz?.state === 'IN_REVIEW' && (
           <Button onClick={handleOpenQuizActiveModal} title="Set as active" />
         )}
-        {state === 1 && (
+        {quiz?.state === 'ACTIVE' && (
           <Button
             title="Set as archived"
             onClick={handleOpenQuizArchivedModal}
           />
         )}
-        {state === 2 && <div>Archived </div>}
+        {quiz?.state === 'ARCHIVED' && <div>Archived </div>}
         <Button onClick={handleClickOpen} title="Add new question" />
         <ul className="question-list">
           {questionList.map((question, index) => (
