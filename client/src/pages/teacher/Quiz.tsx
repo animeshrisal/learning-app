@@ -29,7 +29,14 @@ const SetQuizAsActiveModal = (props: any) => {
   };
 
   return (
-    <Modal title="Warning">
+    <Modal
+      closeModal={handleClose}
+      submitModal={setQuizAsActive}
+      submit="Submit"
+      cancel="Cancel"
+      open={props.open}
+      title="Warning"
+    >
       <div>
         {" "}
         Are you sure you want to set this quiz as active ? You will be unable to
@@ -44,12 +51,19 @@ const SetQuizAsArchivedModal = (props: any) => {
     props.handleClose();
   };
 
-  const setQuizAsActive = () => {
+  const setQuizAsArchived = () => {
     props.setQuizAsArchived();
   };
 
   return (
-    <Modal title="Warning">
+    <Modal
+      closeModal={handleClose}
+      submitModal={setQuizAsArchived}
+      submit="Submit"
+      cancel="Cancel"
+      open={props.open}
+      title="Warning"
+    >
       <div>
         {" "}
         Are you sure you want to set this quiz as archived ? If you archived it
@@ -74,6 +88,8 @@ const QuestionCard = (props: Question) => {
 };
 
 const Quiz = (props: any) => {
+  const [state, setState] = useState(0);
+
   const { classroomId, quizId } = useParams();
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
@@ -128,7 +144,7 @@ const Quiz = (props: any) => {
     }
   };
 
-  const handleOpenQuizActiveModal = () => {
+  const handleOpenQuizActiveModal = (e: any) => {
     setOpenQuizActiveModal(true);
   };
 
@@ -143,7 +159,7 @@ const Quiz = (props: any) => {
     }
   };
 
-  const handleOpenQuizArchivedModal = () => {
+  const handleOpenQuizArchivedModal = (e: any) => {
     setOpenQuizArchivedModal(true);
   };
 
@@ -154,6 +170,16 @@ const Quiz = (props: any) => {
   if (!isLoading) {
     return (
       <div className="quiz-container">
+        {state === 0 && (
+          <Button onClick={handleOpenQuizActiveModal} title="Set as active" />
+        )}
+        {state === 1 && (
+          <Button
+            title="Set as archived"
+            onClick={handleOpenQuizArchivedModal}
+          />
+        )}
+        {state === 2 && <div>Archived </div>}
         <Button onClick={handleClickOpen} title="Add new question" />
         <ul className="question-list">
           {questionList.map((question, index) => (
@@ -174,15 +200,15 @@ const Quiz = (props: any) => {
         />
 
         <SetQuizAsActiveModal
-          openModal={openQuizActiveModal}
+          open={openQuizActiveModal}
           handleClose={handleCloseQuizActiveModal}
-          setQuizAsActive={setQuizAsActive}
+          setQuizAsActive={setQuizAsActiveFunction}
         />
 
         <SetQuizAsArchivedModal
-          openModal={openQuizArchivedModal}
+          open={openQuizArchivedModal}
           handleClose={handleCloseQuizArchivedModal}
-          setQuizAsArchived={setQuizAsArchived}
+          setQuizAsArchived={setQuizAsArchivedFunction}
         />
       </div>
     );
