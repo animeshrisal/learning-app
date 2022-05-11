@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+import "./AddQuestionDialogue.scss";
 
 const AddQuestionDialogue = (props: any) => {
   const [question, setQuestion] = useState("");
@@ -48,7 +49,9 @@ const AddQuestionDialogue = (props: any) => {
     setThirdChoice(e.target.value);
   const handleFourthChoice = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFourthChoice(e.target.value);
-  // const handleCorrectChoice = (e: SelectChangeEvent<string>) => setCorrectChoice(e.target.value);
+  const handleCorrectChoice = (e: any) => 
+  {console.log(e.target.value)
+    setCorrectChoice(e.target.value);}
 
   return (
     <Modal
@@ -59,7 +62,42 @@ const AddQuestionDialogue = (props: any) => {
       closeModal={handleClose}
       submitModal={addQuestion}
     >
-      <div>ASDASD</div>
+      <form className="add-question-form">
+        <div className="form-input">
+          <label>Question</label>
+          <input onChange={handleQuestion} type="text" />
+        </div>
+        <div className="form-input">
+          <label>Answer 1</label>
+          <input onChange={handleFirstChoice} type="text" />
+        </div>
+        <div className="form-input">
+          <label>Answer 2</label>
+          <input onChange={handleSecondChoice} type="text" />
+        </div>
+        <div className="form-input">
+          <label>Answer 3</label>
+          <input onChange={handleThirdChoice} type="text" />
+        </div>
+        <div className="form-input">
+          <label>Answer 4</label>
+          <input onChange={handleFourthChoice}  type="text" />
+        </div>
+        <h3>Choose the correct option</h3>
+        <div onChange={handleCorrectChoice} className="form-input-radio">
+          <label>Answer 1</label>
+          <input name="correct" type="radio" value={1} />
+
+          <label>Answer 2</label>
+          <input name="correct" type="radio" value={2} />
+
+          <label>Answer 3</label>
+          <input name="correct" type="radio" value={3} />
+
+          <label>Answer 4</label>
+          <input name="correct" type="radio" value={4} />
+        </div>
+      </form>
     </Modal>
   );
 };
