@@ -50,7 +50,7 @@ const AddQuestionDialogue = (props: any) => {
   const handleFourthChoice = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFourthChoice(e.target.value);
   const handleCorrectChoice = (e: any) => 
-  {console.log(e.target.value)
+  {
     setCorrectChoice(e.target.value);}
 
   return (

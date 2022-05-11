@@ -5,7 +5,6 @@ function authHeader(contentType: string): HeadersInit {
     if (contentType === "application/json") {
       header['Content-Type'] = "application/json";
     }
-    console.log(header)
     return header;
   } else {
     return {};

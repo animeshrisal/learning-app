@@ -38,7 +38,6 @@ const TeacherClass = (): JSX.Element => {
   }, [classroomId, dispatch]);
 
   const goToAddLessonPage = (event: any, action: string = "post", id: String = "asd") => {
-    console.log(action, id)
     navigate(`create/`, { state: { action, id } });
   };
 

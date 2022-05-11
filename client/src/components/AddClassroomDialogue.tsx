@@ -77,7 +77,6 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
 
         <div className="form-upload-image">
           <input type="file" onChange={handleImage} />
-          {console.log(imageUrl, image)}
           {imageUrl && image && (
             <div>
               <div>Image Preview:</div>
