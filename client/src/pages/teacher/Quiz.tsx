@@ -4,7 +4,10 @@ import { useParams } from "react-router-dom";
 import { Question } from "../../models/states/QuestionState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { addQuestion, retrieveQuestionList } from "../../slice/questionSlice";
+import questionSlice, {
+  addQuestion,
+  retrieveQuestionList,
+} from "../../slice/questionSlice";
 import {
   retrieveQuiz,
   setQuizAsActive,
@@ -14,6 +17,7 @@ import Loader from "../../components/Loader";
 import { Button } from "../../components/Button";
 import AddQuestionDialogue from "../../components/AddQuestionDialogue";
 import Modal from "../../components/Modal";
+import "./Quiz.scss";
 
 const SetQuizAsActiveModal = (props: any) => {
   const handleClose = () => {
@@ -55,6 +59,20 @@ const SetQuizAsArchivedModal = (props: any) => {
   );
 };
 
+const QuestionCard = (props: Question) => {
+  return (
+    <div className="question-card">
+      <h1>{props.question}</h1>
+      <div>
+        <div className="question-card-item active">1. {props.firstChoice}</div>
+        <div className="question-card-item">2. {props.secondChoice}</div>
+        <div className="question-card-item">3. {props.thirdChoice}</div>
+        <div className="question-card-item">4. {props.fourthChoice}</div>
+      </div>
+    </div>
+  );
+};
+
 const Quiz = (props: any) => {
   const { classroomId, quizId } = useParams();
   const dispatch = useDispatch();
@@ -81,7 +99,7 @@ const Quiz = (props: any) => {
   }, [dispatch, classroomId, quizId]);
 
   const handleClickOpen = () => {
-    console.log("ASDASD")
+    console.log("ASDASD");
     setSelectedRow(0);
     setSelectedState("Add");
     setOpenModal(true);
@@ -137,9 +155,11 @@ const Quiz = (props: any) => {
     return (
       <div className="quiz-container">
         <Button onClick={handleClickOpen} title="Add new question" />
-        <ul> 
-          {questionList.map((question) => (
-            <div>{question.id}</div>
+        <ul className="question-list">
+          {questionList.map((question, index) => (
+            <li className="question-list-item" key={question.id}>
+              <QuestionCard {...question} />
+            </li>
           ))}
         </ul>
 

@@ -1,0 +1,21 @@
+.quiz-container {
+  .question-list {
+    .question-list-item {
+      list-style-type: none;
+    }
+  }
+}
+
+.question-card {
+  border: 1px solid;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+
+  .active {
+    :after {
+    }
+    content: "-";
+  }
+}
