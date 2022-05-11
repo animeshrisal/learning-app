@@ -14,8 +14,6 @@
   flex-direction: column;
 
   .active {
-    :after {
-    }
-    content: "-";
+    background-color: yellow;
   }
 }

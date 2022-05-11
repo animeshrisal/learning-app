@@ -78,17 +78,49 @@ const QuestionCard = (props: Question) => {
     <div className="question-card">
       <h1>{props.question}</h1>
       <div>
-        <div className="question-card-item active">1. {props.firstChoice}</div>
-        <div className="question-card-item">2. {props.secondChoice}</div>
-        <div className="question-card-item">3. {props.thirdChoice}</div>
-        <div className="question-card-item">4. {props.fourthChoice}</div>
+        <div
+          className={
+            props.correctChoice === 1
+              ? "question-card-item active"
+              : "question-card-item"
+          }
+        >
+          1. {props.firstChoice}
+        </div>
+        <div
+          className={
+            props.correctChoice === 2
+              ? "question-card-item active"
+              : "question-card-item"
+          }
+        >
+          2. {props.secondChoice}
+        </div>
+        <div
+          className={
+            props.correctChoice === 3
+              ? "question-card-item active"
+              : "question-card-item"
+          }
+        >
+          3. {props.thirdChoice}
+        </div>
+        <div
+          className={
+            props.correctChoice === 4
+              ? "question-card-item active"
+              : "question-card-item"
+          }
+        >
+          4. {props.fourthChoice}
+        </div>
       </div>
     </div>
   );
 };
 
 const Quiz = (props: any) => {
-  const [state, setState] = useState('');
+  const [state, setState] = useState("");
 
   const { classroomId, quizId } = useParams();
   const dispatch = useDispatch();
@@ -167,19 +199,18 @@ const Quiz = (props: any) => {
   };
 
   if (!isLoading) {
-    console.log(quiz)
     return (
       <div className="quiz-container">
-        {quiz?.state === 'IN_REVIEW' && (
+        {quiz?.state === "IN_REVIEW" && (
           <Button onClick={handleOpenQuizActiveModal} title="Set as active" />
         )}
-        {quiz?.state === 'ACTIVE' && (
+        {quiz?.state === "ACTIVE" && (
           <Button
             title="Set as archived"
             onClick={handleOpenQuizArchivedModal}
           />
         )}
-        {quiz?.state === 'ARCHIVED' && <div>Archived </div>}
+        {quiz?.state === "ARCHIVED" && <div>Archived </div>}
         <Button onClick={handleClickOpen} title="Add new question" />
         <ul className="question-list">
           {questionList.map((question, index) => (
