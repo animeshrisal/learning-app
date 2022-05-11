@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { retrieveStudentClassroomList } from "../../slice/classroomSlice";
 import { Classroom, ClassroomState } from "../../models/states/ClassroomState";
 import { RootState } from "../../app/store";
+import "./ClassroomList.scss";
 
 const StudentClassroomList = (props: any): JSX.Element => {
   const dispatch = useDispatch();
@@ -27,11 +28,13 @@ const StudentClassroomList = (props: any): JSX.Element => {
   }
 
   return (
-    <React.Fragment>
-      {data.classroomList.map(classroom => 
-        <div>ASDASD</div>
-      )}
-    </React.Fragment>
+    <div className="classroom-list-container">
+      <div className="grid-container">
+        {data.classroomList.map((classroom) => (
+          <ClassroomCard {...classroom} />
+        ))}
+      </div>
+    </div>
   );
 };
 
