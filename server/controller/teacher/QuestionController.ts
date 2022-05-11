@@ -32,7 +32,7 @@ export const createQuestion = async (req: Request, res: Response) => {
       secondChoice,
       thirdChoice,
       fourthChoice,
-      correctChoice,
+      correctChoice: Number(correctChoice),
       quizId,
       previousId: previousQuestion !== null ? previousQuestion.id : null,
       order: previousQuestion !== null ? previousQuestion.order + 1 : 1,
