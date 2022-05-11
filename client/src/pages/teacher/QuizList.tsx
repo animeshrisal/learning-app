@@ -16,8 +16,10 @@ import AddQuizDialogue from "../../components/AddQuizDialogue";
 const StateChip = (props: any): JSX.Element => {
   if (props.state === "IN_REVIEW") {
     return <div>In Review</div>;
-  } else {
+  } else if (props.state === "ACTIVE") {
     return <div>Active</div>;
+  } else {
+    return <div>Archived</div>;
   }
 };
 
