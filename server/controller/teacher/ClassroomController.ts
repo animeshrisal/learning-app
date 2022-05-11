@@ -46,7 +46,6 @@ export const getClassroom = async (req: Request, res: Response) => {
 export const updateClassroom = async (req: Request, res: Response) => {
   const { subject, description, activeStatus } = req.body;
   const id: string = req.params.id;
-  console.log(req.body)
   const booleanValue = activeStatus === 'true' ? true : false;
   const classroom: Classroom = await prisma.classroom.update({
     where: {
