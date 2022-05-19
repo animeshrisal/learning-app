@@ -6,9 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addLesson } from "../../slice/lessonSlice";
 import { Lesson } from "../../models/states/LessonState";
 import { RootState } from "../../app/store";
-import { Button } from "../../components/Button";
 
-import "./AddLesson.scss";
+import { Button } from "@chakra-ui/react";
 
 const AddLessonPage = (props: any) => {
   const { state }: { state: any } = useLocation();
@@ -66,7 +65,7 @@ const AddLessonPage = (props: any) => {
           <MDEditor value={body} onChange={handleBody} />
           <span>*Right side will show you the preview</span>
         </div>
-        <Button onClick={createLesson} title="Create" />
+        <Button onClick={createLesson}>Create </Button>
       </form>
     </div>
   );

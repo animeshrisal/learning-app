@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import ClassroomCard from "../../components/ClassroomCard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveStudentClassroomList } from "../../slice/classroomSlice";
 import { Classroom, ClassroomState } from "../../models/states/ClassroomState";
 import { RootState } from "../../app/store";
-import "./ClassroomList.scss";
+import { ClassroomCard } from "../../components/ClassroomCard";
 
 const StudentClassroomList = (props: any): JSX.Element => {
   const dispatch = useDispatch();
@@ -31,7 +30,7 @@ const StudentClassroomList = (props: any): JSX.Element => {
     <div className="classroom-list-container">
       <div className="grid-container">
         {data.classroomList.map((classroom) => (
-          <ClassroomCard {...classroom} />
+          <ClassroomCard />
         ))}
       </div>
     </div>

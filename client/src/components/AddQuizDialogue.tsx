@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Modal from "./Modal";
 import "./AddQuizDialogue.scss";
 
 const AddQuizDialogue = (props: any) => {
@@ -19,19 +18,7 @@ const AddQuizDialogue = (props: any) => {
     setName(e.target.value);
 
   return (
-    <Modal
-      title="Add Quiz"
-      submit="Submit"
-      cancel="Cancel"
-      open={props.open}
-      closeModal={handleClose}
-      submitModal={addQuiz}
-    >
-      <form className="add-quiz-form">
-        <label>Name</label>
-        <input onChange={handleName} type="text" />
-      </form>
-    </Modal>
+    <div>ASD</div>
   );
 };
 

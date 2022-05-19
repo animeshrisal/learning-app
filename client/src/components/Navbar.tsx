@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../app/store";
-import "./Navbar.scss";
 
 const Navbar = (props: any): JSX.Element => {
   const auth = useSelector((reduxState: RootState) => reduxState.auth);
@@ -9,7 +8,7 @@ const Navbar = (props: any): JSX.Element => {
   const handleLogout = () => {
 
   }
-  
+
   return (
     <nav className="navbar">
       <ul className="navbar-nav">

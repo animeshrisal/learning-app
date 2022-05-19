@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../slice/authSlice";
 import { RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";
-import Loader from "../../components/Loader";
-import "./Auth.scss";
 import { Link } from "react-router-dom";
+import { Spinner } from "@chakra-ui/react";
 
 function Login() {
   const navigate = useNavigate();
@@ -67,7 +66,7 @@ function Login() {
             placeholder="Enter your passsword"
           />
           <button onClick={handleLogin} className={"login-form-submit"}>
-            {authState.isLoading ? <Loader /> : <span>Login</span>}
+            {authState.isLoading ? <Spinner /> : <span>Login</span>}
           </button>
           <Link to="/auth/forgot-password">
             <span>Forgot Password</span>

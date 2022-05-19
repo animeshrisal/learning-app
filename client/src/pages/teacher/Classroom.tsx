@@ -7,10 +7,7 @@ import { Classroom } from "../../models/states/ClassroomState";
 import { RootState } from "../../app/store";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
 import { retrieveLessonList } from "../../slice/lessonSlice";
-import Accordian from "../../components/Accordian";
-import Loader from "../../components/Loader";
-import "./Classroom.scss";
-import { Button } from "../../components/Button";
+import { Button, Spinner } from "@chakra-ui/react";
 
 export type RouteParams = {
   classroomId: string;
@@ -67,20 +64,20 @@ const TeacherClass = (): JSX.Element => {
         <div className="classroom-heading">
           <h1 className="classroom-title">{classroom.subject}</h1>
           <div className="classroom-heading-button-group">
-            <Button onClick={goToAddLessonPage} title="Add new lesson" />
-            <Button onClick={goToQuizList} title="Quiz List" />
+            <Button onClick={goToAddLessonPage}> Add new lesson" </Button>
+            <Button onClick={goToQuizList} > Quiz List </Button>
           </div>
         </div>
         <div className="classroom-lesson">
           <h2>Lessons</h2>
-          <Accordian lesson={lessonList} />
+          {/* <Accordian lesson={lessonList} /> */}
         </div>
       </div>
     );
   } else {
     return (
       <div>
-        <Loader />
+        <Spinner />
       </div>
     );
   }

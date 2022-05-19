@@ -9,11 +9,10 @@ import {
   retrieveClassroomList,
 } from "../../slice/classroomSlice";
 import { Classroom } from "../../models/states/ClassroomState";
-import ClassroomCard from "../../components/ClassroomCard";
-import Modal from "../../components/Modal";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
-import "./ClassroomList.scss"
-import { Button } from "../../components/Button";
+import "./ClassroomList.scss";
+import { Button } from "@chakra-ui/react";
+import { ClassroomCard } from "../../components/ClassroomCard";
 
 const TeacherClassList = (props: any): JSX.Element => {
   const navigate = useNavigate();
@@ -51,7 +50,7 @@ const TeacherClassList = (props: any): JSX.Element => {
       <div className="grid-container">
         {data.classroomList.map((classroom) => (
           <div className="grid-item">
-          <ClassroomCard {...classroom} />
+            <ClassroomCard  />
           </div>
         ))}
       </div>
@@ -62,7 +61,7 @@ const TeacherClassList = (props: any): JSX.Element => {
         addClassroom={addNewClassroom}
       />
 
-      <Button title="Add New Classroom" onClick={handleClickOpen} />
+      <Button onClick={handleClickOpen}>Add New Classroom</Button>
     </div>
   );
 };

@@ -13,11 +13,9 @@ import {
   setQuizAsActive,
   setQuizAsArchived,
 } from "../../slice/quizSlice";
-import Loader from "../../components/Loader";
-import { Button } from "../../components/Button";
 import AddQuestionDialogue from "../../components/AddQuestionDialogue";
-import Modal from "../../components/Modal";
 import "./Quiz.scss";
+import { Button, Spinner } from "@chakra-ui/react";
 
 const SetQuizAsActiveModal = (props: any) => {
   const handleClose = () => {
@@ -29,20 +27,7 @@ const SetQuizAsActiveModal = (props: any) => {
   };
 
   return (
-    <Modal
-      closeModal={handleClose}
-      submitModal={setQuizAsActive}
-      submit="Submit"
-      cancel="Cancel"
-      open={props.open}
-      title="Warning"
-    >
-      <div>
-        {" "}
-        Are you sure you want to set this quiz as active ? You will be unable to
-        later edit it.
-      </div>
-    </Modal>
+    <div>ASDASD</div>
   );
 };
 
@@ -56,20 +41,7 @@ const SetQuizAsArchivedModal = (props: any) => {
   };
 
   return (
-    <Modal
-      closeModal={handleClose}
-      submitModal={setQuizAsArchived}
-      submit="Submit"
-      cancel="Cancel"
-      open={props.open}
-      title="Warning"
-    >
-      <div>
-        {" "}
-        Are you sure you want to set this quiz as archived ? If you archived it
-        students will no longer be able to participate in the quiz.
-      </div>
-    </Modal>
+    <div>ASD</div>
   );
 };
 
@@ -202,13 +174,12 @@ const Quiz = (props: any) => {
     return (
       <div className="quiz-container">
         {quiz?.state === "IN_REVIEW" && (
-          <Button onClick={handleOpenQuizActiveModal} title="Set as active" />
+          <Button onClick={handleOpenQuizActiveModal}>Set as active </Button>
         )}
         {quiz?.state === "ACTIVE" && (
           <Button
-            title="Set as archived"
             onClick={handleOpenQuizArchivedModal}
-          />
+          >Set as archived</Button>
         )}
         {quiz?.state === "ARCHIVED" && <div>Archived </div>}
         <Button onClick={handleClickOpen} title="Add new question" />
@@ -244,7 +215,7 @@ const Quiz = (props: any) => {
       </div>
     );
   } else {
-    return <Loader />;
+    return <Spinner />;
   }
 };
 

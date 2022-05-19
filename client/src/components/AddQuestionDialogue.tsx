@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Modal from "./Modal";
 import "./AddQuestionDialogue.scss";
 
 const AddQuestionDialogue = (props: any) => {
@@ -54,51 +53,7 @@ const AddQuestionDialogue = (props: any) => {
     setCorrectChoice(e.target.value);}
 
   return (
-    <Modal
-      title="Add Question"
-      submit="Submit"
-      cancel="Cancel"
-      open={props.open}
-      closeModal={handleClose}
-      submitModal={addQuestion}
-    >
-      <form className="add-question-form">
-        <div className="form-input">
-          <label>Question</label>
-          <input onChange={handleQuestion} type="text" />
-        </div>
-        <div className="form-input">
-          <label>Answer 1</label>
-          <input onChange={handleFirstChoice} type="text" />
-        </div>
-        <div className="form-input">
-          <label>Answer 2</label>
-          <input onChange={handleSecondChoice} type="text" />
-        </div>
-        <div className="form-input">
-          <label>Answer 3</label>
-          <input onChange={handleThirdChoice} type="text" />
-        </div>
-        <div className="form-input">
-          <label>Answer 4</label>
-          <input onChange={handleFourthChoice}  type="text" />
-        </div>
-        <h3>Choose the correct option</h3>
-        <div onChange={handleCorrectChoice} className="form-input-radio">
-          <label>Answer 1</label>
-          <input name="correct" type="radio" value={1} />
-
-          <label>Answer 2</label>
-          <input name="correct" type="radio" value={2} />
-
-          <label>Answer 3</label>
-          <input name="correct" type="radio" value={3} />
-
-          <label>Answer 4</label>
-          <input name="correct" type="radio" value={4} />
-        </div>
-      </form>
-    </Modal>
+    <div>ASd</div>
   );
 };
 

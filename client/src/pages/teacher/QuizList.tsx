@@ -10,8 +10,8 @@ import "./QuizList.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faArrowRight, faCoffee, fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "../../components/Button";
 import AddQuizDialogue from "../../components/AddQuizDialogue";
+import { Button } from "@chakra-ui/react";
 
 const StateChip = (props: any): JSX.Element => {
   if (props.state === "IN_REVIEW") {

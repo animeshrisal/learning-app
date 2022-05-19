@@ -1,9 +1,10 @@
+import { Spinner } from "@chakra-ui/react";
 import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import { RootState } from "../../app/store";
-import Loader from "../../components/Loader";
+
 import { Lesson } from "../../models/states/LessonState";
 import { retrieveStudentLesson } from "../../slice/lessonSlice";
 
@@ -32,7 +33,7 @@ const StudentLesson = (props: any): JSX.Element => {
       </div>
     );
   } else {
-    return <Loader />;
+    return <Spinner />;
   }
 };
 
