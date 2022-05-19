@@ -110,12 +110,9 @@ export const classroomSlice = createSlice({
       }
     );
 
-    builder.addCase(
-      enrollStudent.pending,
-      (state: ClassroomState) => {
-        state.isLoading = true;
-      }
-    );
+    builder.addCase(enrollStudent.pending, (state: ClassroomState) => {
+      state.isLoading = true;
+    });
 
     builder.addCase(
       enrollStudent.fulfilled,
@@ -199,12 +196,9 @@ export const classroomSlice = createSlice({
       }
     );
 
-    builder.addCase(
-      updateClassroom.pending,
-      (state: ClassroomState) => {
-        state.isLoading = true;
-      }
-    );
+    builder.addCase(updateClassroom.pending, (state: ClassroomState) => {
+      state.isLoading = true;
+    });
 
     builder.addCase(
       updateClassroom.fulfilled,

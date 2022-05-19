@@ -6,6 +6,10 @@ import "./Navbar.scss";
 const Navbar = (props: any): JSX.Element => {
   const auth = useSelector((reduxState: RootState) => reduxState.auth);
 
+  const handleLogout = () => {
+
+  }
+  
   return (
     <nav className="navbar">
       <ul className="navbar-nav">
@@ -21,7 +25,7 @@ const Navbar = (props: any): JSX.Element => {
                 Profile
               </Link>
             </li>
-            <li><span>Logout</span></li>
+            <li><span onClick={handleLogout}>Logout</span></li>
           </>
         ) : (
           <>

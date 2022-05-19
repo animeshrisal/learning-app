@@ -10,6 +10,7 @@ import Quiz from "./pages/teacher/Quiz";
 import StudentClassroomList from "./pages/student/ClassroomList";
 import StudentClassroom from "./pages/student/Classroom";
 import Register from "./pages/auth/Register";
+import StudentLesson from "./pages/student/StudentLesson";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/auth/register/" element={<Register />} />
           <Route path="/student/" element={<StudentClassroomList />} />
           <Route path="/student/:classroomId" element={<StudentClassroom />} />
+          <Route path="/student/:classroomId/lesson/:lessonId" element={<StudentLesson />} />
           <Route path="/teacher/" element={<TeacherClassList />} />
           <Route path="/teacher/:classroomId" element={<TeacherClass />} />
           <Route

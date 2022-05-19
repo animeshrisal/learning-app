@@ -10,6 +10,7 @@ import {
   retrieveStudentClassroom,
 } from "../../slice/classroomSlice";
 import { Lesson } from "../../models/states/LessonState";
+import { Spinner } from "@chakra-ui/react";
 
 const StudentClassroom = (props: any): JSX.Element => {
   const { classroomId } = useParams();
@@ -44,25 +45,16 @@ const StudentClassroom = (props: any): JSX.Element => {
     navigate(`quiz_list/`);
   };
 
-  const goToLessonPage = (id: string | undefined) => {
-    if (id) {
+  const goToLessonPage = (id: string) => {
       navigate(`lesson/${id}`);
-    }
   };
 
-  if (classroom) {
+  if (!isLoading) {
     return (
-      <ul>
-        {lessonList.map((lesson) => (
-          <div>
-            <div>{lesson.name}</div>
-            <div>{lesson.description}</div>
-          </div>
-        ))}
-      </ul>
+      <Accordian handleClick={goToLessonPage} lesson={lessonList} />
     );
   } else {
-    return <div />;
+    return <Spinner />;
   }
 };
 
