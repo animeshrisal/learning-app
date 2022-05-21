@@ -52,8 +52,9 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
     props.handleClose();
   };
 
-  const addClassroom = () => {
-    props.addClassroom(props.state);
+  const addClassroom = (data: any) => {
+    const { subject, description, image } = data;
+    props.addClassroom({ subject, description, image: image[0] });
     handleClose();
   };
 
@@ -65,7 +66,7 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
         <ModalCloseButton />
         <ModalBody>
           <Box>
-            <form onSubmit={handleSubmit(addClassroom)}>
+            <form>
               <Stack
                 spacing={4}
                 p="1rem"
@@ -102,10 +103,12 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleClose}>
+          <Button colorScheme="blue" mr={3}>
             Close
           </Button>
-          <Button variant="ghost">Submit</Button>
+          <Button variant="ghost" onClick={handleSubmit(addClassroom)}>
+            Submit
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
