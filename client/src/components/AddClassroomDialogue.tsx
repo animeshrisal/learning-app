@@ -1,13 +1,32 @@
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  Heading,
+  Image,
+  Input,
+  InputGroup,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
+  Textarea,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
-import "./AddClassroomDialogue.scss";
 
 const AddClassroomDialogue = (props: any): JSX.Element => {
-  const [subject, setSubject] = useState("");
-  const [description, setDescription] = useState("");
+  const { register, handleSubmit, formState, watch } = useForm();
+  const { isSubmitting } = formState;
+
   const [image, setImage] = useState<any>(null);
-  const [activeStatus, setActiveStatus] = useState<boolean>(true);
   const [imageUrl, setImageUrl] = useState("");
 
   const classroom = useSelector((state: RootState) =>
@@ -16,11 +35,15 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
     )
   );
 
+  const subscription = watch((value, { name, type }) => {
+    if (name === "image") {
+      setImage(value.image[0]);
+      setImageUrl(URL.createObjectURL(value.image[0]));
+    }
+  });
+
   useEffect(() => {
     if (props.state === "Edit" && classroom) {
-      setSubject(classroom.subject);
-      setDescription(classroom.description);
-      setActiveStatus(classroom.activeStatus);
       setImageUrl(`http://localhost:8000/uploads/${classroom.image}`);
     }
   }, [props.state, classroom]);
@@ -30,29 +53,62 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
   };
 
   const addClassroom = () => {
-    props.addClassroom(
-      { subject, description, image, activeStatus },
-      props.state
-    );
-    setSubject("");
-    setDescription("");
+    props.addClassroom(props.state);
     handleClose();
   };
 
-  const handleImage = (e: any) => {
-    setImage(e.target.files[0]);
-    setImageUrl(URL.createObjectURL(e.target.files[0]));
-  };
-
-  const handleSubject = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setSubject(e.target.value);
-  const handleDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-    setDescription(e.target.value);
-  const handleActiveStatus = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setActiveStatus(e.target.checked);
-
   return (
-    <div>AA</div>
+    <Modal isOpen={props.open} onClose={handleClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Add Classroom</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <Box>
+            <form onSubmit={handleSubmit(addClassroom)}>
+              <Stack
+                spacing={4}
+                p="1rem"
+                backgroundColor="whiteAlpha.900"
+                boxShadow="md"
+              >
+                <FormControl>
+                  <Input
+                    {...register("subject")}
+                    placeholder="Subject"
+                    id="subject"
+                    type="text"
+                  />
+                </FormControl>
+                <FormControl>
+                  <Textarea
+                    {...register("description")}
+                    placeholder="Description"
+                    id="description"
+                  />
+                </FormControl>
+                <FormControl>
+                  <Input
+                    {...register("image")}
+                    placeholder="Image"
+                    id="image"
+                    type="file"
+                  />
+                </FormControl>
+                {image && imageUrl && <Image src={imageUrl} />}
+              </Stack>
+            </form>
+          </Box>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="ghost">Submit</Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 };
 
