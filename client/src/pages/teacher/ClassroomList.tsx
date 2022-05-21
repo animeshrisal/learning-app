@@ -50,7 +50,7 @@ const TeacherClassList = (props: any): JSX.Element => {
       <div className="grid-container">
         {data.classroomList.map((classroom) => (
           <div className="grid-item">
-            <ClassroomCard  />
+            <ClassroomCard {...classroom} />
           </div>
         ))}
       </div>
