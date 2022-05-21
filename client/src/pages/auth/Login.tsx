@@ -20,7 +20,8 @@ import { useForm } from "react-hook-form";
 import { UserLoginRequest } from "../../models/requests/UserRequest";
 
 function Login() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState } = useForm();
+  const { isSubmitting } = formState;
   const [data, setData] = useState("");
 
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ function Login() {
   }, [authState.token, authState.role, navigate]);
 
   const handleLogin = (data: any) => {
-    dispatch(loginUser(data))
+    dispatch(loginUser(data));
   };
 
   return (
@@ -73,7 +74,9 @@ function Login() {
           />
         </FormControl>
         <Flex justifyContent="flex-end">
-          <Button type="submit" colorScheme="teal">Login</Button>
+          <Button type="submit" colorScheme="teal" isLoading={isSubmitting}>
+            Login
+          </Button>
         </Flex>
       </form>
     </Container>
