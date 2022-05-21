@@ -5,17 +5,25 @@ import { loginUser } from "../../slice/authSlice";
 import { RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+  Spinner,
+} from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import { UserLoginRequest } from "../../models/requests/UserRequest";
 
 function Login() {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const { register, handleSubmit } = useForm();
+  const [data, setData] = useState("");
 
-  const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setUsername(event.target.value);
-  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setPassword(event.target.value);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const authState = useSelector((state: RootState) => state.auth);
@@ -39,47 +47,36 @@ function Login() {
     }
   }, [authState.token, authState.role, navigate]);
 
-  const handleLogin = (e: any) => {
-    e.preventDefault();
-    dispatch(loginUser({ username, password }));
+  const handleLogin = (data: any) => {
+    dispatch(loginUser(data))
   };
 
   return (
-    <div>
-      <div className="container">
-        <form className="login-form">
-          <h2>Sign In</h2>
-          <input
-            autoComplete="off"
+    <Container>
+      <form onSubmit={handleSubmit(handleLogin)}>
+        <FormControl>
+          <FormLabel htmlFor="username">Email address</FormLabel>
+          <Input
+            {...register("username")}
+            placeholder="First name"
+            id="username"
             type="text"
-            name="username"
-            onChange={handleUsername}
-            className="login-form-input"
-            placeholder="Enter your username"
           />
-          <input
-            autoComplete="off"
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="password">Password</FormLabel>
+          <Input
+            {...register("password")}
+            placeholder="Password"
+            id="password"
             type="password"
-            name="password"
-            onChange={handlePassword}
-            className="login-form-input"
-            placeholder="Enter your passsword"
           />
-          <button onClick={handleLogin} className={"login-form-submit"}>
-            {authState.isLoading ? <Spinner /> : <span>Login</span>}
-          </button>
-          <Link to="/auth/forgot-password">
-            <span>Forgot Password</span>
-          </Link>
-          <Link to="/auth/register">
-            <span>Not a member ? Create a new account</span>
-          </Link>
-        </form>
-        <div className="side">
-          <div className="side-content"></div>
-        </div>
-      </div>
-    </div>
+        </FormControl>
+        <Flex justifyContent="flex-end">
+          <Button type="submit" colorScheme="teal">Login</Button>
+        </Flex>
+      </form>
+    </Container>
   );
 }
 

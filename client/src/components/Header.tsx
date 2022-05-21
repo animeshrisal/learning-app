@@ -24,16 +24,16 @@ function NavBar(props: any) {
         <Spacer />
         <ButtonGroup gap="2">
           {auth.token ? (
+            <Button colorScheme="teal">Sign Out</Button>
+          ) : (
             <>
               <Button colorScheme="teal">
-                <Link to="/auth/signup">Register</Link>
+                <Link to="/auth/register">Register</Link>
               </Button>
               <Button colorScheme="teal">
-                <Link to="/auth/signin">Sign In</Link>
+                <Link to="/auth/login">Sign In</Link>
               </Button>
             </>
-          ) : (
-            <Button colorScheme="teal">Sign Out</Button>
           )}
         </ButtonGroup>
       </Flex>
