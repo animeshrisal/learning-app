@@ -11,10 +11,11 @@ import StudentClassroom from "./pages/student/Classroom";
 import Register from "./pages/auth/Register";
 import StudentLesson from "./pages/student/StudentLesson";
 import NavBar from "./components/Header";
+import { Box } from "@chakra-ui/react";
 
 function App() {
   return (
-    <div className="App">
+    <Box height="100vh" backgroundColor="gray.200">
       <BrowserRouter>
         <NavBar />
         <Routes>
@@ -22,7 +23,10 @@ function App() {
           <Route path="/auth/register/" element={<Register />} />
           <Route path="/student/" element={<StudentClassroomList />} />
           <Route path="/student/:classroomId" element={<StudentClassroom />} />
-          <Route path="/student/:classroomId/lesson/:lessonId" element={<StudentLesson />} />
+          <Route
+            path="/student/:classroomId/lesson/:lessonId"
+            element={<StudentLesson />}
+          />
           <Route path="/teacher/" element={<TeacherClassList />} />
           <Route path="/teacher/:classroomId" element={<TeacherClass />} />
           <Route
@@ -36,7 +40,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-    </div>
+    </Box>
   );
 }
 

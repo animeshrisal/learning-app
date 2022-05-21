@@ -14,7 +14,7 @@ function NavBar(props: any) {
   const auth = useSelector((reduxState: RootState) => reduxState.auth);
 
   return (
-    <Box padding="0.5rem" boxShadow="0.5px 0.5px 1px">
+    <Box    backgroundColor="whiteAlpha.900" padding="0.5rem" boxShadow="0.5px 0.5px 1px">
       <Flex minWidth="max-content" alignItems="center" gap="2">
         <Box p="2">
           <Heading size="md">
