@@ -6,13 +6,14 @@ import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import { createRoot } from "react-dom/client";
 import { ChakraProvider } from "@chakra-ui/react";
+import customTheme from "./utils/theme";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
 
 root.render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider theme={customTheme}>
       <Provider store={store}>
         <App />
       </Provider>

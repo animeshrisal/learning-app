@@ -2,7 +2,6 @@ import "./App.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import TeacherClassList from "./pages/teacher/ClassroomList";
-import Navbar from "./components/Navbar";
 import TeacherClass from "./pages/teacher/Classroom";
 import AddLessonPage from "./pages/teacher/AddLesson";
 import QuizList from "./pages/teacher/QuizList";
@@ -11,12 +10,13 @@ import StudentClassroomList from "./pages/student/ClassroomList";
 import StudentClassroom from "./pages/student/Classroom";
 import Register from "./pages/auth/Register";
 import StudentLesson from "./pages/student/StudentLesson";
+import NavBar from "./components/Header";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <NavBar />
         <Routes>
           <Route path="/auth/login/" element={<Login />} />
           <Route path="/auth/register/" element={<Register />} />
