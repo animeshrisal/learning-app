@@ -4,15 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../slice/authSlice";
 import { RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import {
   Avatar,
   Box,
   Button,
   Flex,
   FormControl,
-  FormHelperText,
-  FormLabel,
   Heading,
   Input,
   InputGroup,
@@ -25,8 +22,7 @@ import { TriangleDownIcon } from "@chakra-ui/icons";
 function Login() {
   const { register, handleSubmit, formState } = useForm();
   const { isSubmitting } = formState;
-  const [data, setData] = useState("");
-
+ 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
