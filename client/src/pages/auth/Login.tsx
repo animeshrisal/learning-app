@@ -6,18 +6,21 @@ import { RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
+  Avatar,
   Box,
   Button,
   Flex,
   FormControl,
   FormHelperText,
   FormLabel,
+  Heading,
   Input,
-  Spinner,
+  InputGroup,
+  InputLeftElement,
+  Stack,
 } from "@chakra-ui/react";
-import { Container } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { UserLoginRequest } from "../../models/requests/UserRequest";
+import { TriangleDownIcon } from "@chakra-ui/icons";
 
 function Login() {
   const { register, handleSubmit, formState } = useForm();
@@ -53,33 +56,71 @@ function Login() {
   };
 
   return (
-    <Container>
-      <form onSubmit={handleSubmit(handleLogin)}>
-        <FormControl>
-          <FormLabel htmlFor="username">Email address</FormLabel>
-          <Input
-            {...register("username")}
-            placeholder="First name"
-            id="username"
-            type="text"
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="password">Password</FormLabel>
-          <Input
-            {...register("password")}
-            placeholder="Password"
-            id="password"
-            type="password"
-          />
-        </FormControl>
-        <Flex justifyContent="flex-end">
-          <Button type="submit" colorScheme="teal" isLoading={isSubmitting}>
-            Login
-          </Button>
-        </Flex>
-      </form>
-    </Container>
+    <Flex
+      flexDirection="column"
+      width="100wh"
+      height="60vh"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Stack
+        flexDir="column"
+        mb="2"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Avatar bg="teal.500" />
+        <Heading color="teal.400">Welcome</Heading>
+        <Box minW={{ base: "90%", md: "468px" }}>
+          <form onSubmit={handleSubmit(handleLogin)}>
+            <Stack
+              spacing={4}
+              p="1rem"
+              backgroundColor="whiteAlpha.900"
+              boxShadow="md"
+            >
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<TriangleDownIcon color="gray.300" />}
+                  />
+                  <Input
+                    {...register("username")}
+                    placeholder="Username"
+                    id="username"
+                    type="text"
+                  />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<TriangleDownIcon color="gray.300" />}
+                  />
+                  <Input
+                    {...register("password")}
+                    placeholder="Password"
+                    id="password"
+                    type="password"
+                  />
+                </InputGroup>
+              </FormControl>
+              <Flex justifyContent="flex-end">
+                <Button
+                  type="submit"
+                  colorScheme="teal"
+                  isLoading={isSubmitting}
+                >
+                  Login
+                </Button>
+              </Flex>
+            </Stack>
+          </form>
+        </Box>
+      </Stack>
+    </Flex>
   );
 }
 
