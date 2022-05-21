@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AddQuestionDialogue.scss";
+
 
 const AddQuestionDialogue = (props: any) => {
   const [question, setQuestion] = useState("");

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AddQuizDialogue.scss";
+
 
 const AddQuizDialogue = (props: any) => {
   const [name, setName] = useState<string>("");
