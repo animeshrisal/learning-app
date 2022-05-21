@@ -5,9 +5,10 @@ import { ClassroomProps } from "../models/states/ClassroomState";
 
 export function ClassroomCard(props: ClassroomProps) {
   return (
-    <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Image src={`http://127.0.0.1:8000/uploads/${props.image}`} alt={props.subject} />
-
+    <Box maxW="sm" borderWidth="1px" borderRadius="lg" maxHeight="20rem">
+      <Box maxW="sm" height="15rem" overflow="hidden">
+      <Image  overflow="hidden"  src={`http://127.0.0.1:8000/uploads/${props.image}`} alt={props.subject} />
+      </Box>
       <Box p="6">
         <Box
           mt="1"
