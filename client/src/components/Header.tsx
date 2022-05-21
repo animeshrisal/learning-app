@@ -14,7 +14,11 @@ function NavBar(props: any) {
   const auth = useSelector((reduxState: RootState) => reduxState.auth);
 
   return (
-    <Box    backgroundColor="whiteAlpha.900" padding="0.5rem" boxShadow="0.5px 0.5px 1px">
+    <Box
+      backgroundColor="whiteAlpha.900"
+      padding="0.5rem"
+      boxShadow="0.5px 0.5px 1px"
+    >
       <Flex minWidth="max-content" alignItems="center" gap="2">
         <Box p="2">
           <Heading size="md">
@@ -27,12 +31,13 @@ function NavBar(props: any) {
             <Button colorScheme="teal">Sign Out</Button>
           ) : (
             <>
-              <Button colorScheme="teal">
-                <Link to="/auth/register">Register</Link>
-              </Button>
-              <Button colorScheme="teal">
-                <Link to="/auth/login">Sign In</Link>
-              </Button>
+              <Link to="/auth/register">
+                <Button colorScheme="teal">Register</Button>
+              </Link>
+
+              <Link to="/auth/login">
+                <Button colorScheme="teal">Sign In</Button>
+              </Link>
             </>
           )}
         </ButtonGroup>
