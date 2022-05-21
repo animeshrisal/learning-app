@@ -11,3 +11,5 @@ export interface ClassroomState {
   isLoading: boolean;
   classroomList: Classroom[];
 }
+
+export interface ClassroomProps extends Classroom {}
