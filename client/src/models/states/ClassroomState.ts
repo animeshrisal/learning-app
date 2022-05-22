@@ -12,4 +12,6 @@ export interface ClassroomState {
   classroomList: Classroom[];
 }
 
-export interface ClassroomProps extends Classroom {}
+export interface ClassroomProps extends Classroom {
+  handleClassroom: (id: string) => void;
+}
