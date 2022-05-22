@@ -14,7 +14,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../app/store";
 
 import { Lesson } from "../../models/states/LessonState";
-import { retrieveStudentLesson } from "../../slice/lessonSlice";
+import { completeLesson, retrieveStudentLesson } from "../../slice/lessonSlice";
 
 const StudentLesson = (props: any): JSX.Element => {
   const { classroomId, lessonId } = useParams();
@@ -40,20 +40,25 @@ const StudentLesson = (props: any): JSX.Element => {
   };
 
   const goToPreviousLesson = () => {
-    navigate(
-      `/student/${classroomId}/lesson/${lesson!.previousId}`
-    );
+    navigate(`/student/${classroomId}/lesson/${lesson!.previousId}`);
   };
 
-  const completeLesson = () => {
-    
-  }
+  const completeLessonHandler = () => {
+    if (lessonId && classroomId) {
+      dispatch(completeLesson({ lessonId, classroomId }));
+    }
+  };
 
   if (!isLoading && lesson) {
     return (
       <Box margin="2rem">
         <Flex justifyContent="flex-end">
           <ButtonGroup>
+            {!lesson.completed ? (
+              <Button onClick={completeLessonHandler}>Complete Lesson</Button>
+            ) : (
+              <Button disabled={true}>Completed</Button>
+            )}
             {lesson.previousId && (
               <Button onClick={goToPreviousLesson}>Previous Lesson</Button>
             )}
