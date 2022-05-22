@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { addQuiz, retrieveQuizList } from "../../slice/quizSlice";
 
-import "./QuizList.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faArrowRight, faCoffee, fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
