@@ -11,15 +11,29 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faArrowRight, faCoffee, fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddQuizDialogue from "../../components/AddQuizDialogue";
-import { Button } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Button,
+  Stat,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 
 const StateChip = (props: any): JSX.Element => {
   if (props.state === "IN_REVIEW") {
-    return <div>In Review</div>;
+    return <Badge colorScheme='green'>In Review</Badge>;
   } else if (props.state === "ACTIVE") {
-    return <div>Active</div>;
+    return <Badge>Active</Badge>;
   } else {
-    return <div>Archived</div>;
+    return <Badge>Archived</Badge>;
   }
 };
 
@@ -56,41 +70,34 @@ const QuizList = (props: any): JSX.Element => {
   };
 
   return (
-    <div className="quiz-list-container">
-      <Button onClick={handleClickOpen} title="Add new quiz" />
-      <ul className="quiz-list">
-        <li className="quiz-list-row">
-          <div className="quiz-list-row-name heading">
-            <h2>Quizzes</h2>
-          </div>
-          <div className="quiz-list-row-state heading">
-            <h2>State</h2>
-          </div>
-          <div className="quiz-list-row-action heading">
-            <h2>Action</h2>
-          </div>
-        </li>
-        {quizList.map((quiz) => (
-          <li className="quiz-list-row" key={quiz.id}>
-            <div className="quiz-list-row-name">{quiz.name}</div>
-            <div className="quiz-list-row-state">
-              <StateChip state={quiz.state} />
-            </div>
-            <div className="quiz-list-row-action">
-              <FontAwesomeIcon
-                onClick={() => goToQuizPage(quiz.id)}
-                icon={faArrowRight}
-              />
-            </div>
-          </li>
-        ))}
-      </ul>
+    <Box>
+      <TableContainer margin="2rem">
+        <Table variant="simple">
+          <TableCaption>Quiz List</TableCaption>
+          <Thead>
+            <Tr>
+              <Th width="80%">Quiz Name</Th>
+              <Th >State</Th>
+              <Th isNumeric>Action</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {quizList.map((quiz) => (
+              <Tr>
+                <Td>{quiz.name}</Td>
+                <Td><StateChip state={quiz.state} /></Td>
+                <Td isNumeric><Button onClick={()=> goToQuizPage(quiz.id)} colorScheme="teal">View</Button></Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
       <AddQuizDialogue
         addQuiz={createQuiz}
         open={openModal}
         handleClose={handleClose}
       />
-    </div>
+    </Box>
   );
 };
 
