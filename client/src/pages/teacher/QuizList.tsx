@@ -70,7 +70,7 @@ const QuizList = (props: any): JSX.Element => {
   };
 
   return (
-    <Box>
+    <Box bgColor="white">
       <TableContainer margin="2rem">
         <Table variant="simple">
           <TableCaption>Quiz List</TableCaption>
