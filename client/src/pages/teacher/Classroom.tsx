@@ -5,7 +5,6 @@ import { retrieveClassroom, updateClassroom } from "../../slice/classroomSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Classroom } from "../../models/states/ClassroomState";
 import { RootState } from "../../app/store";
-import AddClassroomDialogue from "../../components/AddClassroomDialogue";
 import { retrieveLessonList } from "../../slice/lessonSlice";
 import {
   Accordion,
@@ -16,7 +15,6 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Container,
   Flex,
   Heading,
   Spinner,
@@ -101,7 +99,7 @@ const TeacherClass = (): JSX.Element => {
           <Heading>Lessons</Heading>
           <Accordion>
             {lessonList.map((lesson: Lesson) => (
-              <AccordionItem>
+              <AccordionItem key={lesson.id}>
                 <h2>
                   <AccordionButton>
                     <Box flex="1" textAlign="left">
