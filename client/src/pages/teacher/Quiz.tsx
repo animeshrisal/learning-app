@@ -18,6 +18,9 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Container,
+  Flex,
+  Heading,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -25,8 +28,13 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spacer,
   Spinner,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faCoffee, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const SetQuizAsActiveModal = (props: any) => {
   const handleClose = () => {
@@ -90,47 +98,35 @@ const SetQuizAsArchivedModal = (props: any) => {
 
 const QuestionCard = (props: Question) => {
   return (
-    <div className="question-card">
-      <h1>{props.question}</h1>
-      <div>
-        <div
-          className={
-            props.correctChoice === 1
-              ? "question-card-item active"
-              : "question-card-item"
-          }
-        >
-          1. {props.firstChoice}
-        </div>
-        <div
-          className={
-            props.correctChoice === 2
-              ? "question-card-item active"
-              : "question-card-item"
-          }
-        >
-          2. {props.secondChoice}
-        </div>
-        <div
-          className={
-            props.correctChoice === 3
-              ? "question-card-item active"
-              : "question-card-item"
-          }
-        >
-          3. {props.thirdChoice}
-        </div>
-        <div
-          className={
-            props.correctChoice === 4
-              ? "question-card-item active"
-              : "question-card-item"
-          }
-        >
-          4. {props.fourthChoice}
-        </div>
-      </div>
-    </div>
+    <Box margin="2rem" padding="2rem">
+      <Heading>{props.question}</Heading>
+      <Flex flexDirection="row">
+        {props.firstChoice}
+        <Spacer />
+        {props.correctChoice === 1 && <FontAwesomeIcon icon={faCheck} />}
+      </Flex>
+      <Box>
+        <Flex flexDirection="row">
+          {props.secondChoice}
+          <Spacer />
+          {props.correctChoice === 2 && <FontAwesomeIcon icon={faCheck} />}
+        </Flex>
+      </Box>
+      <Box>
+        <Flex flexDirection="row">
+          {props.thirdChoice}
+          <Spacer />
+          {props.correctChoice === 3 && <FontAwesomeIcon icon={faCheck} />}
+        </Flex>
+      </Box>
+      <Box>
+        <Flex flexDirection="row">
+          {props.fourthChoice}
+          <Spacer />
+          {props.correctChoice === 4 && <FontAwesomeIcon icon={faCheck} />}
+        </Flex>
+      </Box>
+    </Box>
   );
 };
 
@@ -215,7 +211,7 @@ const Quiz = (props: any) => {
 
   if (!isLoading) {
     return (
-      <Box>
+      <>
         <ButtonGroup>
           {quiz?.state === "IN_REVIEW" && (
             <Button onClick={handleOpenQuizActiveModal}>Set as active </Button>
@@ -228,13 +224,13 @@ const Quiz = (props: any) => {
           {quiz?.state === "ARCHIVED" && <div>Archived </div>}
           <Button onClick={handleClickOpen}>Add new question </Button>
         </ButtonGroup>
-        <ul className="question-list">
-          {questionList.map((question, index) => (
-            <li className="question-list-item" key={question.id}>
-              <QuestionCard {...question} />
-            </li>
-          ))}
-        </ul>
+        <Container bgColor="white">
+          <Stack>
+            {questionList.map((question, index) => (
+              <QuestionCard key={question.id} {...question} />
+            ))}
+          </Stack>
+        </Container>
 
         <AddQuestionDialogue
           addQuestionToQuiz={addQuestionToQuiz}
@@ -257,7 +253,7 @@ const Quiz = (props: any) => {
           handleClose={handleCloseQuizArchivedModal}
           setQuizAsArchived={setQuizAsArchivedFunction}
         />
-      </Box>
+      </>
     );
   } else {
     return <Spinner />;
