@@ -15,7 +15,19 @@ import {
 } from "../../slice/quizSlice";
 import AddQuestionDialogue from "../../components/AddQuestionDialogue";
 import "./Quiz.scss";
-import { Button, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Spinner,
+} from "@chakra-ui/react";
 
 const SetQuizAsActiveModal = (props: any) => {
   const handleClose = () => {
@@ -27,7 +39,23 @@ const SetQuizAsActiveModal = (props: any) => {
   };
 
   return (
-    <div>ASDASD</div>
+    <Modal isOpen={props.open} onClose={handleClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Modal Title</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>Are you sure you want to set it as active ?</ModalBody>
+
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="ghost" onClick={setQuizAsActive}>
+            Secondary Action
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 };
 
@@ -41,7 +69,23 @@ const SetQuizAsArchivedModal = (props: any) => {
   };
 
   return (
-    <div>ASD</div>
+    <Modal isOpen={props.open} onClose={handleClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Modal Title</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>Are you sure you want to set it as active ?</ModalBody>
+
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="ghost" onClick={setQuizAsArchived}>
+            Secondary Action
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 };
 
@@ -172,17 +216,19 @@ const Quiz = (props: any) => {
 
   if (!isLoading) {
     return (
-      <div className="quiz-container">
-        {quiz?.state === "IN_REVIEW" && (
-          <Button onClick={handleOpenQuizActiveModal}>Set as active </Button>
-        )}
-        {quiz?.state === "ACTIVE" && (
-          <Button
-            onClick={handleOpenQuizArchivedModal}
-          >Set as archived</Button>
-        )}
-        {quiz?.state === "ARCHIVED" && <div>Archived </div>}
-        <Button onClick={handleClickOpen} title="Add new question" />
+      <Box>
+        <ButtonGroup>
+          {quiz?.state === "IN_REVIEW" && (
+            <Button onClick={handleOpenQuizActiveModal}>Set as active </Button>
+          )}
+          {quiz?.state === "ACTIVE" && (
+            <Button onClick={handleOpenQuizArchivedModal}>
+              Set as archived
+            </Button>
+          )}
+          {quiz?.state === "ARCHIVED" && <div>Archived </div>}
+          <Button onClick={handleClickOpen}>Add new question </Button>
+        </ButtonGroup>
         <ul className="question-list">
           {questionList.map((question, index) => (
             <li className="question-list-item" key={question.id}>
@@ -212,7 +258,7 @@ const Quiz = (props: any) => {
           handleClose={handleCloseQuizArchivedModal}
           setQuizAsArchived={setQuizAsArchivedFunction}
         />
-      </div>
+      </Box>
     );
   } else {
     return <Spinner />;
