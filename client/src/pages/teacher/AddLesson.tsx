@@ -18,7 +18,7 @@ import {
 import { useForm } from "react-hook-form";
 
 const AddLessonPage = (props: any) => {
-  const { register, handleSubmit, formState, watch } = useForm();
+  const { register, handleSubmit, formState } = useForm();
   const { isSubmitting } = formState;
   const { state }: { state: any } = useLocation();
   const [body, setBody] = useState<string>("");
@@ -40,7 +40,8 @@ const AddLessonPage = (props: any) => {
 
   const createLesson = (data: any) => {
     if (classroomId) {
-      dispatch(addLesson({ classroomId, ...data, body }));
+      const lesson: Lesson = {...data, body}
+      dispatch(addLesson({ classroomId, lesson }));
     }
   };
 
@@ -66,9 +67,9 @@ const AddLessonPage = (props: any) => {
               type="text"
             />
             <Input
-              {...register("question")}
-              placeholder="Question"
-              id="Question"
+              {...register("description")}
+              placeholder="Description"
+              id="description"
               type="text"
             />
           </FormControl>
@@ -77,7 +78,7 @@ const AddLessonPage = (props: any) => {
             <MDEditor value={body} onChange={handleBody} />
             <span>*Right side will show you the preview</span>
           </Box>
-          <Button onClick={createLesson}>Create </Button>
+          <Button onClick={handleSubmit(createLesson)}>Create </Button>
         </Stack>
       </form>
     </Box>

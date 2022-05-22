@@ -36,14 +36,18 @@ const StudentLesson = (props: any): JSX.Element => {
   }, [classroomId, lessonId, dispatch]);
 
   const goToNextLesson = () => {
-    navigate(`/dashboard/classroom/${classroomId}/lesson/${lesson!.nextId}`);
+    navigate(`/student/${classroomId}/lesson/${lesson!.nextId}`);
   };
 
   const goToPreviousLesson = () => {
     navigate(
-      `/dashboard/classroom/${classroomId}/lesson/${lesson!.previousId}`
+      `/student/${classroomId}/lesson/${lesson!.previousId}`
     );
   };
+
+  const completeLesson = () => {
+    
+  }
 
   if (!isLoading && lesson) {
     return (
