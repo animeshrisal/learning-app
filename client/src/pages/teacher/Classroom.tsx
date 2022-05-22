@@ -7,7 +7,22 @@ import { Classroom } from "../../models/states/ClassroomState";
 import { RootState } from "../../app/store";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
 import { retrieveLessonList } from "../../slice/lessonSlice";
-import { Button, Spinner } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Button,
+  ButtonGroup,
+  Container,
+  Flex,
+  Heading,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
+import { Lesson } from "../../models/states/LessonState";
 
 export type RouteParams = {
   classroomId: string;
@@ -34,12 +49,20 @@ const TeacherClass = (): JSX.Element => {
     }
   }, [classroomId, dispatch]);
 
-  const goToAddLessonPage = (event: any, action: string = "post", id: String = "asd") => {
+  const goToAddLessonPage = (
+    event: any,
+    action: string = "post",
+    id: String = "asd"
+  ) => {
     navigate(`create/`, { state: { action, id } });
   };
 
   const goToQuizList = () => {
     navigate(`quizList/`);
+  };
+
+  const goToLessonPage = (id: string) => {
+    navigate(`${id}`);
   };
 
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -60,19 +83,49 @@ const TeacherClass = (): JSX.Element => {
 
   if (classroom) {
     return (
-      <div className="classroom-container">
+      <Box margin="2rem">
         <div className="classroom-heading">
           <h1 className="classroom-title">{classroom.subject}</h1>
-          <div className="classroom-heading-button-group">
-            <Button onClick={goToAddLessonPage}> Add new lesson" </Button>
-            <Button onClick={goToQuizList} > Quiz List </Button>
-          </div>
+          <Flex justifyContent="flex-end">
+            <ButtonGroup spacing={4}  marginRight="2rem">
+              <Button colorScheme="teal" onClick={goToAddLessonPage}>
+                Add new lesson
+              </Button>
+              <Button colorScheme="teal" onClick={goToQuizList}>
+                Quiz List
+              </Button>
+            </ButtonGroup>
+          </Flex>
         </div>
         <div className="classroom-lesson">
-          <h2>Lessons</h2>
-          {/* <Accordian lesson={lessonList} /> */}
+          <Heading>Lessons</Heading>
+          <Accordion>
+            {lessonList.map((lesson: Lesson) => (
+              <AccordionItem>
+                <h2>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      <Text fontWeight="bold">{lesson.name}</Text>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <Box>{lesson.description}</Box>
+                  <Flex justifyContent="flex-end">
+                    <Button
+                      onClick={() => goToLessonPage(lesson.id!)}
+                      colorScheme="teal"
+                    >
+                      Go to lesson
+                    </Button>
+                  </Flex>
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
-      </div>
+      </Box>
     );
   } else {
     return (

@@ -61,7 +61,7 @@ const TeacherClassList = (props: any): JSX.Element => {
         addClassroom={addNewClassroom}
       />
 
-      <Button onClick={handleClickOpen}>Add New Classroom</Button>
+      <Button colorScheme="teal"  onClick={handleClickOpen}>Add New Classroom</Button>
     </div>
   );
 };
