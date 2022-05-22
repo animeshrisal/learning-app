@@ -62,7 +62,7 @@ const StudentClassroom = (props: any): JSX.Element => {
     navigate(`lesson/${id}`);
   };
 
-  if (!isLoading) {
+  if (!isLoading && lessonList) {
     return (
       <Flex direction="column">
         <Accordion>
