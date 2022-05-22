@@ -44,7 +44,7 @@ export const login = async (req: Request, res: Response) => {
 
   const userResponse: UserResponse = await getUserResponse(user);
 
-  res.send({
+  res.status(200).send({
     ...userResponse,
     token,
   });

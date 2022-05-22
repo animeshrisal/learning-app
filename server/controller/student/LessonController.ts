@@ -18,7 +18,9 @@ export const listLessons = async (req: Request, res: Response) => {
     and ul."userId" = ${userId} where l."classroomId" = ${classroomId};
   `
   );
-  res.send(result);
+  
+  console.log(result)
+  res.status(200).send(result);
 };
 
 export const getLesson = async (req: Request, res: Response) => {
@@ -37,7 +39,7 @@ export const getLesson = async (req: Request, res: Response) => {
     and ul."userId" = ${userId} where l."classroomId" = ${classroomId} and l."id" = ${id};
   `
   );
-  res.send(result[0]);
+  res.status(200).send(result[0]);
 };
 
 export const completeLesson = async (req: Request, res: Response) => {
