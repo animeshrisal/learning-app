@@ -22,6 +22,8 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const StudentClassroom = (props: any): JSX.Element => {
   const { classroomId } = useParams();
@@ -71,6 +73,7 @@ const StudentClassroom = (props: any): JSX.Element => {
                   <Box flex="1" textAlign="left">
                     <Text fontWeight="bold">{lesson.name}</Text>
                   </Box>
+                  {lesson.completed && <FontAwesomeIcon icon={faCheck} />}
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
