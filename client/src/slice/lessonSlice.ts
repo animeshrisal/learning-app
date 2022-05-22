@@ -150,7 +150,7 @@ export const lessonSlice = createSlice({
         } else {
           state.lessonList[index] = payload;
         }
-        state.isLoading = true;
+        state.isLoading = false;
       }
     );
 
