@@ -6,7 +6,6 @@ import {
 import { Lesson, LessonState } from "../models/states/LessonState";
 import { studentService } from "../services/StudentService";
 import { teacherDashboardService } from "../services/TeacherService";
-
 export const retrieveStudentLessonList = createAsyncThunk(
   "lesson/retrieveStudentLessonList",
   async (classroomId: string): Promise<Lesson[]> => {
@@ -25,6 +24,23 @@ export const retrieveStudentLesson = createAsyncThunk(
     classroomId: string;
   }): Promise<Lesson> => {
     const response: Lesson = await studentService.getLesson(
+      classroomId,
+      lessonId
+    );
+    return response;
+  }
+);
+
+export const completeLesson = createAsyncThunk(
+  "lesson/completeLesson",
+  async ({
+    lessonId,
+    classroomId,
+  }: {
+    lessonId: string;
+    classroomId: string;
+  }): Promise<string> => {
+    const response: string = await studentService.completeLesson(
       classroomId,
       lessonId
     );
