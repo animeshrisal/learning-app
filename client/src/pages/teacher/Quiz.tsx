@@ -14,7 +14,6 @@ import {
   setQuizAsArchived,
 } from "../../slice/quizSlice";
 import AddQuestionDialogue from "../../components/AddQuestionDialogue";
-import "./Quiz.scss";
 import {
   Box,
   Button,

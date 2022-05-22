@@ -10,7 +10,6 @@ import {
 } from "../../slice/classroomSlice";
 import { Classroom } from "../../models/states/ClassroomState";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
-import "./ClassroomList.scss";
 import { Button } from "@chakra-ui/react";
 import { ClassroomCard } from "../../components/ClassroomCard";
 
