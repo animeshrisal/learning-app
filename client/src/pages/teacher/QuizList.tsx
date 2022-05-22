@@ -11,6 +11,7 @@ import {
   Badge,
   Box,
   Button,
+  Flex,
   Table,
   TableCaption,
   TableContainer,
@@ -23,7 +24,7 @@ import {
 
 const StateChip = (props: any): JSX.Element => {
   if (props.state === "IN_REVIEW") {
-    return <Badge colorScheme='green'>In Review</Badge>;
+    return <Badge colorScheme="green">In Review</Badge>;
   } else if (props.state === "ACTIVE") {
     return <Badge>Active</Badge>;
   } else {
@@ -64,14 +65,17 @@ const QuizList = (props: any): JSX.Element => {
   };
 
   return (
-    <Box bgColor="white">
+    <Flex flexDirection="column" bgColor="white">
+      <Button onClick={handleClickOpen} colorScheme="teal" alignSelf="flex-end">
+        Create Quiz
+      </Button>
       <TableContainer margin="2rem">
         <Table variant="simple">
           <TableCaption>Quiz List</TableCaption>
           <Thead>
             <Tr>
               <Th width="80%">Quiz Name</Th>
-              <Th >State</Th>
+              <Th>State</Th>
               <Th isNumeric>Action</Th>
             </Tr>
           </Thead>
@@ -79,8 +83,17 @@ const QuizList = (props: any): JSX.Element => {
             {quizList.map((quiz) => (
               <Tr>
                 <Td>{quiz.name}</Td>
-                <Td><StateChip state={quiz.state} /></Td>
-                <Td isNumeric><Button onClick={()=> goToQuizPage(quiz.id)} colorScheme="teal">View</Button></Td>
+                <Td>
+                  <StateChip state={quiz.state} />
+                </Td>
+                <Td isNumeric>
+                  <Button
+                    onClick={() => goToQuizPage(quiz.id)}
+                    colorScheme="teal"
+                  >
+                    View
+                  </Button>
+                </Td>
               </Tr>
             ))}
           </Tbody>
@@ -91,7 +104,7 @@ const QuizList = (props: any): JSX.Element => {
         open={openModal}
         handleClose={handleClose}
       />
-    </Box>
+    </Flex>
   );
 };
 
