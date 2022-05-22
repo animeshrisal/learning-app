@@ -85,7 +85,7 @@ const createEnrollment = (classroomId: string): Promise<string> => {
 const completeLesson = (classroomId: string, lessonId: string): Promise<string> => {
   return fetch(
     `${URL}/student/classroom/${classroomId}/lesson/${lessonId}/complete`,
-    authenticatedRequestGenerator({}, "POST")
+    authenticatedRequestGenerator({}, "PUT")
   )
     .then(handleResponse)
     .then((enrollment: string) => {
