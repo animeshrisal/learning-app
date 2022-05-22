@@ -1,10 +1,14 @@
 import { Router } from "express";
 import {
-    enrollToClass,
+  enrollToClass,
   getClassroom,
   listClassroom,
 } from "../../controller/student/ClassroomController";
-import { getLesson, listLessons } from "../../controller/student/LessonController";
+import {
+  completeLesson,
+  getLesson,
+  listLessons,
+} from "../../controller/student/LessonController";
 import { checkJwt } from "../../middleware/checkJwt";
 
 const router: Router = Router();
@@ -23,5 +27,12 @@ router.get("/classroom/:classroomId/lesson/:id", [checkJwt], getLesson);
 
 // Enroll to class
 router.put("/classroom/:id/enroll", [checkJwt], enrollToClass);
+
+// Get classroom lessons
+router.put(
+  "/classroom/:id/lesson/:lessonId/complete",
+  [checkJwt],
+  completeLesson
+);
 
 export default router;
