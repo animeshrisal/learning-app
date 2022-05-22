@@ -4,7 +4,7 @@ import {
   getClassroom,
   listClassroom,
 } from "../../controller/student/ClassroomController";
-import { listLessons } from "../../controller/student/LessonController";
+import { getLesson, listLessons } from "../../controller/student/LessonController";
 import { checkJwt } from "../../middleware/checkJwt";
 
 const router: Router = Router();
@@ -17,6 +17,9 @@ router.get("/classroom/:id", [checkJwt], getClassroom);
 
 // Get one user
 router.get("/classroom/:id/lesson", [checkJwt], listLessons);
+
+// Get one lesson
+router.get("/classroom/:id/lesson/:id", [checkJwt], getLesson);
 
 // Get one user
 router.put("/classroom/:id/enroll", [checkJwt], enrollToClass);
