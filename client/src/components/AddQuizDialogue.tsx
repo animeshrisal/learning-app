@@ -1,5 +1,8 @@
 import {
+  Box,
   Button,
+  FormControl,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -7,20 +10,22 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Stack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const AddQuizDialogue = (props: any) => {
-  const { register, handleSubmit, formState, watch } = useForm();
+  const { register, handleSubmit, formState } = useForm();
   const { isSubmitting } = formState;
 
   const handleClose = () => {
     props.handleClose();
   };
 
-  const addQuiz = () => {
-    // props.addQuiz({ name }, props.state);
+  const addQuiz = (data: any) => {
+    const { name } = data;
+    props.addQuiz({ name }, props.state);
     handleClose();
   };
 
@@ -28,16 +33,35 @@ const AddQuizDialogue = (props: any) => {
     <Modal isOpen={props.open} onClose={handleClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
+        <ModalHeader>Create Quiz</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>Are you sure you want to set it as active ?</ModalBody>
-
+        <ModalBody>
+          <Box>
+            <form>
+              <Stack
+                spacing={4}
+                p="1rem"
+                backgroundColor="whiteAlpha.900"
+                boxShadow="md"
+              >
+                <FormControl>
+                  <Input
+                    {...register("question")}
+                    placeholder="Question"
+                    id="question"
+                    type="text"
+                  />
+                </FormControl>
+              </Stack>
+            </form>
+          </Box>
+        </ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={handleClose}>
             Close
           </Button>
-          <Button variant="ghost" onClick={addQuiz}>
-            Secondary Action
+          <Button variant="ghost" onClick={handleSubmit(addQuiz)}>
+            Create
           </Button>
         </ModalFooter>
       </ModalContent>
