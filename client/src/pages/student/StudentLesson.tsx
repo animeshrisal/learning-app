@@ -10,7 +10,7 @@ import {
 import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../app/store";
 
 import { Lesson } from "../../models/states/LessonState";
@@ -27,6 +27,7 @@ const StudentLesson = (props: any): JSX.Element => {
   const dispatch = useDispatch();
 
   const isLoading = useSelector((state: RootState) => state.lesson.isLoading);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (classroomId && lessonId) {
@@ -34,13 +35,27 @@ const StudentLesson = (props: any): JSX.Element => {
     }
   }, [classroomId, lessonId, dispatch]);
 
+  const goToNextLesson = () => {
+    navigate(`/dashboard/classroom/${classroomId}/lesson/${lesson!.nextId}`);
+  };
+
+  const goToPreviousLesson = () => {
+    navigate(
+      `/dashboard/classroom/${classroomId}/lesson/${lesson!.previousId}`
+    );
+  };
+
   if (!isLoading && lesson) {
     return (
       <Box margin="2rem">
         <Flex justifyContent="flex-end">
           <ButtonGroup>
-            {lesson.previousId && <Button>Previous Lesson</Button>}
-            {lesson.nextId && <Button>Next Lesson</Button>}
+            {lesson.previousId && (
+              <Button onClick={goToPreviousLesson}>Previous Lesson</Button>
+            )}
+            {lesson.nextId && (
+              <Button onClick={goToNextLesson}>Next Lesson</Button>
+            )}
           </ButtonGroup>
         </Flex>
         <Heading>{lesson.name}</Heading>
