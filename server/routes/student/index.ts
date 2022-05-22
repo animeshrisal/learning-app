@@ -9,19 +9,19 @@ import { checkJwt } from "../../middleware/checkJwt";
 
 const router: Router = Router();
 
-//Get all users
+//Get all classrooms
 router.get("/classroom", [checkJwt], listClassroom);
 
-// Get one user
+// Get one classroom
 router.get("/classroom/:id", [checkJwt], getClassroom);
 
-// Get one user
+// Get classroom lessons
 router.get("/classroom/:id/lesson", [checkJwt], listLessons);
 
 // Get one lesson
-router.get("/classroom/:id/lesson/:id", [checkJwt], getLesson);
+router.get("/classroom/:classroomId/lesson/:id", [checkJwt], getLesson);
 
-// Get one user
+// Enroll to class
 router.put("/classroom/:id/enroll", [checkJwt], enrollToClass);
 
 export default router;
