@@ -87,7 +87,7 @@ const TeacherClass = (): JSX.Element => {
         <div className="classroom-heading">
           <h1 className="classroom-title">{classroom.subject}</h1>
           <Flex justifyContent="flex-end">
-            <ButtonGroup spacing={4}  marginRight="2rem">
+            <ButtonGroup spacing={4} marginRight="2rem">
               <Button colorScheme="teal" onClick={goToAddLessonPage}>
                 Add new lesson
               </Button>
@@ -97,7 +97,7 @@ const TeacherClass = (): JSX.Element => {
             </ButtonGroup>
           </Flex>
         </div>
-        <div className="classroom-lesson">
+        <Box marginTop="2rem" padding="2rem" bgColor="white">
           <Heading>Lessons</Heading>
           <Accordion>
             {lessonList.map((lesson: Lesson) => (
@@ -124,7 +124,7 @@ const TeacherClass = (): JSX.Element => {
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
+        </Box>
       </Box>
     );
   } else {
