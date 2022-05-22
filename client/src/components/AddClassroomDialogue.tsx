@@ -103,7 +103,7 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3}>
+          <Button colorScheme="blue" mr={3} onClick={handleClose}>
             Close
           </Button>
           <Button variant="ghost" onClick={handleSubmit(addClassroom)}>
