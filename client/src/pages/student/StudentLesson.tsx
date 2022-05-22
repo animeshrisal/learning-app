@@ -1,4 +1,12 @@
-import { Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Flex,
+  Heading,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,9 +36,18 @@ const StudentLesson = (props: any): JSX.Element => {
 
   if (!isLoading && lesson) {
     return (
-      <div>
-        <ReactMarkdown>{lesson.body}</ReactMarkdown>
-      </div>
+      <Box margin="2rem">
+        <Flex justifyContent="flex-end">
+          <ButtonGroup>
+            {lesson.previousId && <Button>Previous Lesson</Button>}
+            {lesson.nextId && <Button>Next Lesson</Button>}
+          </ButtonGroup>
+        </Flex>
+        <Heading>{lesson.name}</Heading>
+        <Box bgColor="white">
+          <ReactMarkdown>{lesson.body}</ReactMarkdown>
+        </Box>
+      </Box>
     );
   } else {
     return <Spinner />;
