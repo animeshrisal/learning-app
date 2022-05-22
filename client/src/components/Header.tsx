@@ -6,13 +6,19 @@ import {
   Heading,
   Spacer,
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../app/store";
+import { logoutUser } from "../slice/authSlice";
 
 function NavBar(props: any) {
   const auth = useSelector((reduxState: RootState) => reduxState.auth);
 
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
   return (
     <Box
       backgroundColor="whiteAlpha.900"
@@ -28,7 +34,9 @@ function NavBar(props: any) {
         <Spacer />
         <ButtonGroup gap="2">
           {auth.token ? (
-            <Button colorScheme="teal">Sign Out</Button>
+            <Button onClick={handleLogout} colorScheme="teal">
+              Sign Out
+            </Button>
           ) : (
             <>
               <Link to="/auth/register">

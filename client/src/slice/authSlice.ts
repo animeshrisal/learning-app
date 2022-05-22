@@ -12,8 +12,13 @@ export const loginUser = createAsyncThunk(
   async (user: UserLoginRequest) => {
     const response: AuthState = await authenticationService.login(user);
     return response;
-  },
+  }
 );
+
+export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
+  await authenticationService.logout();
+  return null;
+});
 
 let initialState: AuthState = {
   username: "",
@@ -32,11 +37,7 @@ if (user !== null) {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    logout: (state: AuthState) => {
-      state = initialState;
-    },
-  },
+  reducers: {},
   extraReducers: (builder: ActionReducerMapBuilder<AuthState>) => {
     builder.addCase(loginUser.pending, (state: AuthState) => {
       state.isLoading = true;
@@ -50,9 +51,16 @@ export const authSlice = createSlice({
       state.isLoading = false;
       state.errors = payload;
     });
+
+    builder.addCase(logoutUser.pending, (state: AuthState) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(logoutUser.fulfilled, (state: AuthState) => {
+      state.isLoading = false;
+      state = initialState;
+    });
   },
 });
-
-export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;
