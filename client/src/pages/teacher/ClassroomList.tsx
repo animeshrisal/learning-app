@@ -10,7 +10,7 @@ import {
 } from "../../slice/classroomSlice";
 import { Classroom } from "../../models/states/ClassroomState";
 import AddClassroomDialogue from "../../components/AddClassroomDialogue";
-import { Button } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem } from "@chakra-ui/react";
 import { ClassroomCard } from "../../components/ClassroomCard";
 
 const TeacherClassList = (props: any): JSX.Element => {
@@ -45,23 +45,28 @@ const TeacherClassList = (props: any): JSX.Element => {
   }
 
   return (
-    <div className="classroom-list-container">
-      <div className="grid-container">
-        {data.classroomList.map((classroom) => (
-          <div className="grid-item">
-            <ClassroomCard {...classroom} handleClassroom={goToClassroomPage} />
-          </div>
-        ))}
-      </div>
-
+    <>
+      <Box>
+        <Grid templateColumns='repeat(5, 1fr)' gap={6}>
+          {data.classroomList.map((classroom) => (
+            <GridItem>
+              <ClassroomCard
+                {...classroom}
+                handleClassroom={goToClassroomPage}
+              />
+            </GridItem>
+          ))}
+        </Grid>
+      </Box>
       <AddClassroomDialogue
         open={openModal}
         handleClose={handleClose}
         addClassroom={addNewClassroom}
       />
-
-      <Button colorScheme="teal"  onClick={handleClickOpen}>Add New Classroom</Button>
-    </div>
+      <Button colorScheme="teal" onClick={handleClickOpen}>
+        Add New Classroom
+      </Button>
+    </>
   );
 };
 
