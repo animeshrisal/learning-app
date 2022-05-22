@@ -1,22 +1,28 @@
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
-
+import { useForm } from "react-hook-form";
 
 const AddQuizDialogue = (props: any) => {
-  const [name, setName] = useState<string>("");
+  const { register, handleSubmit, formState, watch } = useForm();
+  const { isSubmitting } = formState;
 
   const handleClose = () => {
     props.handleClose();
   };
 
   const addQuiz = () => {
-    props.addQuiz({ name }, props.state);
-    setName("");
+    // props.addQuiz({ name }, props.state);
     handleClose();
   };
-
-  const handleName = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setName(e.target.value);
 
   return (
     <Modal isOpen={props.open} onClose={handleClose}>
