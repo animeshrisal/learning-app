@@ -5,6 +5,7 @@ import { retrieveStudentClassroomList } from "../../slice/classroomSlice";
 import { Classroom, ClassroomState } from "../../models/states/ClassroomState";
 import { RootState } from "../../app/store";
 import { ClassroomCard } from "../../components/ClassroomCard";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 
 const StudentClassroomList = (props: any): JSX.Element => {
   const dispatch = useDispatch();
@@ -27,13 +28,18 @@ const StudentClassroomList = (props: any): JSX.Element => {
   }
 
   return (
-    <div className="classroom-list-container">
-      <div className="grid-container">
-        {data.classroomList.map((classroom) => (
-          <ClassroomCard {...classroom} handleClassroom={goToClassroomPage} />
-        ))}
-      </div>
-    </div>
+    <Box>
+    <Grid templateColumns='repeat(5, 1fr)' gap={6}>
+      {data.classroomList.map((classroom) => (
+        <GridItem key={classroom.id}>
+          <ClassroomCard
+            {...classroom}
+            handleClassroom={goToClassroomPage}
+          />
+        </GridItem>
+      ))}
+    </Grid>
+  </Box>
   );
 };
 

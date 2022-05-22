@@ -17,7 +17,10 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Button,
+  Flex,
   Spinner,
+  Text,
 } from "@chakra-ui/react";
 
 const StudentClassroom = (props: any): JSX.Element => {
@@ -59,41 +62,33 @@ const StudentClassroom = (props: any): JSX.Element => {
 
   if (!isLoading) {
     return (
-      <Accordion>
-        <AccordionItem>
-          <h2>
-            <AccordionButton>
-              <Box flex="1" textAlign="left">
-                Section 1 title
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
-
-        <AccordionItem>
-          <h2>
-            <AccordionButton>
-              <Box flex="1" textAlign="left">
-                Section 2 title
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
+      <Flex direction="column">
+        <Accordion>
+          {lessonList.map((lesson: Lesson) => (
+            <AccordionItem key={lesson.id}>
+              <h2>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    <Text fontWeight="bold">{lesson.name}</Text>
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <Box>{lesson.description}</Box>
+                <Flex justifyContent="flex-end">
+                  <Button
+                    onClick={() => goToLessonPage(lesson.id!)}
+                    colorScheme="teal"
+                  >
+                    Go to lesson
+                  </Button>
+                </Flex>
+              </AccordionPanel>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </Flex>
     );
   } else {
     return <Spinner />;
