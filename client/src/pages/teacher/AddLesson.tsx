@@ -7,10 +7,21 @@ import { addLesson } from "../../slice/lessonSlice";
 import { Lesson } from "../../models/states/LessonState";
 import { RootState } from "../../app/store";
 
-import { Button } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  Heading,
+  Input,
+  Stack,
+} from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
 
 const AddLessonPage = (props: any) => {
+  const { register, handleSubmit, formState, watch } = useForm();
+  const { isSubmitting } = formState;
   const { state }: { state: any } = useLocation();
+  const [body, setBody] = useState<string>("");
 
   const dispatch = useDispatch();
 
@@ -21,53 +32,55 @@ const AddLessonPage = (props: any) => {
   );
 
   const { classroomId } = useParams();
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [body, setBody] = useState<string>("");
 
   useEffect(() => {
     if (state.action === "edit" && lesson) {
-      setName(lesson.name);
-      setDescription(lesson.description);
-      setBody(lesson.body);
     }
   }, [state.action, lesson]);
 
-  const handleName = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setName(e.target.value);
-  const handleDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-    setDescription(e.target.value);
+  const createLesson = (data: any) => {
+    if (classroomId) {
+      dispatch(addLesson({ classroomId, ...data, body }));
+    }
+  };
+
   const handleBody = (e: any) => {
     setBody(e);
   };
 
-  const createLesson = (e: any) => {
-    e.preventDefault();
-    if (classroomId) {
-      const lesson: Lesson = { name, body, description };
-      dispatch(addLesson({ classroomId, lesson }));
-    }
-  };
-
   return (
-    <div className="add-lesson-container">
-      <h1>Add new lesson</h1>
-      <form className="lesson-form">
-        <div className="lesson-form-input-group">
-          <label>Lesson Name:</label>
-          <input onChange={handleName} type="text" />
-        </div>
-        <div className="lesson-form-input-group">
-          <label>Description:</label>
-          <textarea onChange={handleDescription} />
-        </div>
-        <div className="lesson-form-md-editor">
-          <MDEditor value={body} onChange={handleBody} />
-          <span>*Right side will show you the preview</span>
-        </div>
-        <Button onClick={createLesson}>Create </Button>
+    <Box>
+      <Heading>Add new lesson</Heading>
+      <form>
+        <Stack
+          spacing={4}
+          p="1rem"
+          backgroundColor="whiteAlpha.900"
+          boxShadow="md"
+        >
+          <FormControl>
+            <Input
+              {...register("name")}
+              placeholder="Name"
+              id="name"
+              type="text"
+            />
+            <Input
+              {...register("question")}
+              placeholder="Question"
+              id="Question"
+              type="text"
+            />
+          </FormControl>
+
+          <Box>
+            <MDEditor value={body} onChange={handleBody} />
+            <span>*Right side will show you the preview</span>
+          </Box>
+          <Button onClick={createLesson}>Create </Button>
+        </Stack>
       </form>
-    </div>
+    </Box>
   );
 };
 
