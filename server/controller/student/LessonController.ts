@@ -1,5 +1,5 @@
 import { Lesson, Prisma } from "@prisma/client";
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import { UserLesson } from "../../model/LessonResponse";
 import { prisma } from "../../prisma/prisma";
 
@@ -10,7 +10,7 @@ export const listLessons = async (req: Request, res: Response) => {
   const result: UserLesson[] = await prisma.$queryRaw(
     Prisma.sql`select
     l.*,
-    ul."lessonId" is not null as enrolled
+    ul."lessonId" is not null as completed
   from
     "Lesson" l
   left join "UserLesson" ul on
@@ -22,13 +22,22 @@ export const listLessons = async (req: Request, res: Response) => {
 };
 
 export const getLesson = async (req: Request, res: Response) => {
+  const classroomId: string = req.params.classroomId;
   const id: string = req.params.id;
-  const lesson: Lesson = await prisma.lesson.findUnique({
-    where: {
-      id,
-    },
-  });
-  res.send(lesson);
+  const userId = res.locals.jwtPayload.userId;
+
+  const result: UserLesson[] = await prisma.$queryRaw(
+    Prisma.sql`select
+    l.*,
+    ul."lessonId" is not null as completed
+  from
+    "Lesson" l
+  left join "UserLesson" ul on
+    ul."lessonId" = l.id
+    and ul."userId" = ${userId} where l."classroomId" = ${classroomId} and l."id" = ${id};
+  `
+  );
+  res.send(result[0]);
 };
 
 export const completeLesson = async (req: Request, res: Response) => {
@@ -44,12 +53,13 @@ export const completeLesson = async (req: Request, res: Response) => {
         create: [
           {
             user: {
-              connect: userId,
+              connect: { id: userId },
             },
-            completed: true,
           },
         ],
       },
     },
   });
+
+  return response.status(204);
 };
