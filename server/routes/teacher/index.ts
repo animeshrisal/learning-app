@@ -13,6 +13,7 @@ import {
   getLesson,
   listLessons,
   updateLesson,
+  updateLessonOrder,
 } from "../../controller/teacher/LessonController";
 
 import { checkJwt } from "../../middleware/checkJwt";
@@ -66,7 +67,7 @@ router.get(
 //Create a new classroom
 router.post(
   "/classroom/create",
-  [checkJwt, checkClassroom(), checkRole(["TEACHER"]), upload.single("image")],
+  [checkJwt, checkRole(["TEACHER"]), upload.single("image")],
   createClassroom
 );
 router.put(
@@ -166,5 +167,14 @@ router.post(
   [checkJwt, checkClassroom(), checkRole(["TEACHER"])],
   createQuestion
 );
+
+//Get all users
+router.put(
+  "/classroom/:classroomId/lesson/update_lesson_order",
+  [checkJwt, checkClassroom(), checkRole(["TEACHER"])],
+  updateLessonOrder
+);
+
+
 
 export default router;
