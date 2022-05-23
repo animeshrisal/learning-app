@@ -44,7 +44,7 @@ const getLessons = (classroomId: string): Promise<Lesson[]> => {
     authenticatedGetRequestOption()
   )
     .then(handleResponse)
-    .then((lessons:Lesson[]) => {
+    .then((lessons: Lesson[]) => {
       return lessons;
     });
 };
@@ -82,7 +82,10 @@ const createEnrollment = (classroomId: string): Promise<string> => {
     });
 };
 
-const completeLesson = (classroomId: string, lessonId: string): Promise<string> => {
+const completeLesson = (
+  classroomId: string,
+  lessonId: string
+): Promise<string> => {
   return fetch(
     `${URL}/student/classroom/${classroomId}/lesson/${lessonId}/complete`,
     authenticatedRequestGenerator({}, "PUT")
@@ -93,7 +96,11 @@ const completeLesson = (classroomId: string, lessonId: string): Promise<string> 
     });
 };
 
-const completeQuiz = (classroomId: string, quizId: string, quizState: any): Promise<any> => {
+const completeQuiz = (
+  classroomId: string,
+  quizId: string,
+  quizState: any
+): Promise<any> => {
   return fetch(
     `${URL}/student/classroom/${classroomId}/quiz/${quizId}/complete`,
     authenticatedRequestGenerator(quizState, "POST")
