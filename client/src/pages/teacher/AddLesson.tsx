@@ -40,7 +40,7 @@ const AddLessonPage = (props: any) => {
 
   const createLesson = (data: any) => {
     if (classroomId) {
-      const lesson: Lesson = {...data, body}
+      const lesson: Lesson = { ...data, body };
       dispatch(addLesson({ classroomId, lesson }));
     }
   };

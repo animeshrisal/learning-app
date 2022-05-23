@@ -4,10 +4,7 @@ import { useParams } from "react-router-dom";
 import { Question } from "../../models/states/QuestionState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import questionSlice, {
-  addQuestion,
-  retrieveQuestionList,
-} from "../../slice/questionSlice";
+import { addQuestion, retrieveQuestionList } from "../../slice/questionSlice";
 import {
   retrieveQuiz,
   setQuizAsActive,
@@ -31,10 +28,9 @@ import {
   Spacer,
   Spinner,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCoffee, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const SetQuizAsActiveModal = (props: any) => {
   const handleClose = () => {

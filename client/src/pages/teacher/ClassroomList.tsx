@@ -47,7 +47,7 @@ const TeacherClassList = (props: any): JSX.Element => {
   return (
     <>
       <Box>
-        <Grid templateColumns='repeat(5, 1fr)' gap={6}>
+        <Grid templateColumns="repeat(5, 1fr)" gap={6}>
           {data.classroomList.map((classroom) => (
             <GridItem key={classroom.id}>
               <ClassroomCard

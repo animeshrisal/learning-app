@@ -9,7 +9,6 @@ import { addQuiz, retrieveQuizList } from "../../slice/quizSlice";
 import AddQuizDialogue from "../../components/AddQuizDialogue";
 import {
   Badge,
-  Box,
   Button,
   Flex,
   Table,
@@ -56,7 +55,7 @@ const QuizList = (props: any): JSX.Element => {
   };
   const createQuiz = (quiz: Quiz) => {
     if (classroomId) {
-      console.log(quiz)
+      console.log(quiz);
       dispatch(addQuiz({ classroomId, quiz }));
     }
   };
