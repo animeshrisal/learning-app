@@ -30,7 +30,6 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import {
-  arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
@@ -61,11 +60,15 @@ const TeacherClass = (): JSX.Element => {
   );
 
   const [isSorting, setIsSorting] = useState<boolean>(true);
-  const [sortedList, setSortedList] = useState<Lesson[]>([]);
 
   const isLoading = useSelector((state: RootState) => state.lesson.isLoading);
+
   const lessonList: Lesson[] = useSelector(
     (state: RootState) => state.lesson.lessonList
+  );
+
+  const lessonListKeyList: string[] = useSelector((state: RootState) =>
+    state.lesson.lessonList.map((x) => x.id)
   );
 
   useEffect(() => {
@@ -97,31 +100,12 @@ const TeacherClass = (): JSX.Element => {
     }
   };
 
-  const sortLessonList = () => {};
-
-  const getUniqueId = (): string[] => {
-    return lessonList.map((x) => x.id);
-  };
-
-  const [items, setItems] = useState(
-    getUniqueId()
-  );
-
   function handleDragEnd(event: any) {
     const { active, over } = event;
 
     if (active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
-
-        return arrayMove(items, oldIndex, newIndex);
-      });
-
       dispatch(sort({ activeId: active.id, overId: over.id }));
     }
-
-    console.log(items);
   }
 
   if (classroom) {
@@ -149,7 +133,7 @@ const TeacherClass = (): JSX.Element => {
               onDragEnd={handleDragEnd}
             >
               <SortableContext
-                items={items}
+                items={lessonListKeyList}
                 strategy={verticalListSortingStrategy}
               >
                 {lessonList.map((lesson: Lesson) => (

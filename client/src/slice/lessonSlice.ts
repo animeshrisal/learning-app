@@ -142,10 +142,10 @@ export const lessonSlice = createSlice({
   reducers: {
     sort: (state, action) => {
       const oldIndex = state.lessonList.findIndex(
-        (x) => x.id === action.payload.activeId
+        (lesson) => lesson.id === action.payload.activeId
       );
       const newIndex = state.lessonList.findIndex(
-        (x) => x.id === action.payload.overId
+        (lesson) => lesson.id === action.payload.overId
       );
 
       state.lessonList = arrayMove(state.lessonList, oldIndex, newIndex);
