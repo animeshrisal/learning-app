@@ -6,6 +6,8 @@ import {
 import { Lesson, LessonState } from "../models/states/LessonState";
 import { studentService } from "../services/StudentService";
 import { teacherDashboardService } from "../services/TeacherService";
+import { arrayMove } from "@dnd-kit/sortable";
+
 export const retrieveStudentLessonList = createAsyncThunk(
   "lesson/retrieveStudentLessonList",
   async (classroomId: string): Promise<Lesson[]> => {
@@ -137,7 +139,18 @@ const initialState: LessonState = {
 export const lessonSlice = createSlice({
   name: "lesson",
   initialState,
-  reducers: {},
+  reducers: {
+    sort: (state, action) => {
+      const oldIndex = state.lessonList.findIndex(
+        (x) => x.id === action.payload.activeId
+      );
+      const newIndex = state.lessonList.findIndex(
+        (x) => x.id === action.payload.overId
+      );
+
+      state.lessonList = arrayMove(state.lessonList, oldIndex, newIndex);
+    },
+  },
   extraReducers: (builder: ActionReducerMapBuilder<LessonState>) => {
     builder.addCase(retrieveStudentLessonList.pending, (state: LessonState) => {
       state.isLoading = true;
@@ -240,4 +253,5 @@ export const lessonSlice = createSlice({
   },
 });
 
+export const { sort } = lessonSlice.actions;
 export default lessonSlice.reducer;

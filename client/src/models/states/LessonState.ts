@@ -1,5 +1,5 @@
 export interface Lesson {
-  id?: string;
+  id: string;
   order?: number;
   name: string;
   description: string;
