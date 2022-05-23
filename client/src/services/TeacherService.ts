@@ -247,6 +247,20 @@ const setQuizAsArchived = (
     });
 };
 
+const updateLessonOrder = (
+  classroomId: string,
+  lessonIds: string[]
+): Promise<Lesson[]> => {
+  return fetch(
+    `${URL}/teacher/classroom/${classroomId}/update_lesson_order/`,
+    authenticatedRequestGenerator({ ids: lessonIds }, "PUT")
+  )
+    .then(handleResponse)
+    .then((lessonList) => {
+      return lessonList;
+    });
+};
+
 export const teacherDashboardService = {
   deleteClassroom,
   deleteLesson,
@@ -267,4 +281,5 @@ export const teacherDashboardService = {
   updateClassroom,
   updateLesson,
   updateQuestion,
+  updateLessonOrder
 };

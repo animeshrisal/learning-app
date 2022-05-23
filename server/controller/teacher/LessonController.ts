@@ -82,6 +82,30 @@ export const updateLesson = async (req: Request, res: Response) => {
   res.send(lesson);
 };
 
+export const updateLessonOrder = async (req: Request, res: Response) => {
+  try {
+    const { lessonIds }: { lessonIds: string[] } = req.body;
+
+    const updateDataList = lessonIds.map((id, index, arr) => {
+      return prisma.lesson.update({
+        where: { id },
+        data: {
+          id: id,
+          previousId: index !== 0 ? arr[index - 1] : null,
+          nextId: index !== arr.length - 1 ? arr[index + 1] : null,
+          order: index,
+        },
+      });
+    });
+
+    await prisma.$transaction(updateDataList);
+
+    res.status(200).send({ data: "updated" });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const deleteLesson = async (req: Request, res: Response) => {
   const id: string = req.params.classroomId;
   await prisma.lesson.delete({

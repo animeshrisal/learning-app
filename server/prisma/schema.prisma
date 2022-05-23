@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
@@ -81,11 +82,11 @@ model Lesson {
 
   userLesson  UserLesson[]
 
-  nextId      String? @unique
+  nextId      String? 
   next        Lesson? @relation("NextLesson", fields: [nextId], references: [id])
   currentNext Lesson? @relation("NextLesson")
 
-  previousId      String? @unique
+  previousId      String? 
   previous        Lesson? @relation("PreviousLesson", fields: [previousId], references: [id])
   currentPrevious Lesson? @relation("PreviousLesson")
 
@@ -123,11 +124,11 @@ model Question {
   quizId       String?
   UserQuestion UserQuestion[]
 
-  nextId      String?   @unique
+  nextId      String?   
   next        Question? @relation("NextQuestion", fields: [nextId], references: [id])
   currentNext Question? @relation("NextQuestion")
 
-  previousId      String?   @unique
+  previousId      String?   
   previous        Question? @relation("PreviousQuestion", fields: [previousId], references: [id])
   currentPrevious Question? @relation("PreviousQuestion")
 

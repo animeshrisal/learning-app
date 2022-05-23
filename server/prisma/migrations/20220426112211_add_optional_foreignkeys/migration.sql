@@ -9,12 +9,6 @@
 ALTER TABLE "Question" ADD COLUMN     "nextId" TEXT,
 ADD COLUMN     "previousId" TEXT;
 
--- CreateIndex
-CREATE UNIQUE INDEX "Question_nextId_key" ON "Question"("nextId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Question_previousId_key" ON "Question"("previousId");
-
 -- AddForeignKey
 ALTER TABLE "Question" ADD CONSTRAINT "Question_nextId_fkey" FOREIGN KEY ("nextId") REFERENCES "Question"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
