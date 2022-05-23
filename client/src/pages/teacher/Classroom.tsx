@@ -5,7 +5,11 @@ import { retrieveClassroom, updateClassroom } from "../../slice/classroomSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Classroom } from "../../models/states/ClassroomState";
 import { RootState } from "../../app/store";
-import { retrieveLessonList, sort } from "../../slice/lessonSlice";
+import {
+  retrieveLessonList,
+  sort,
+  updateLessonOrder,
+} from "../../slice/lessonSlice";
 import {
   Accordion,
   AccordionButton,
@@ -110,7 +114,11 @@ const TeacherClass = (): JSX.Element => {
   }
 
   const handleSorting = () => {
-  }
+    if (classroomId) {
+      dispatch(updateLessonOrder({ classroomId }));
+      setIsSorting(false);
+    }
+  };
 
   if (classroom) {
     return (
@@ -133,9 +141,7 @@ const TeacherClass = (): JSX.Element => {
             <Heading>Lessons</Heading>
             <Spacer />
             {isSorting ? (
-              <Button onClick={handleSorting}>
-                Done Reordering
-              </Button>
+              <Button onClick={handleSorting}>Done Reordering</Button>
             ) : (
               <Button onClick={() => setIsSorting(true)}>Reorder </Button>
             )}

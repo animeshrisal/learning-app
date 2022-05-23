@@ -252,7 +252,7 @@ const updateLessonOrder = (
   lessonIds: string[]
 ): Promise<Lesson[]> => {
   return fetch(
-    `${URL}/teacher/classroom/${classroomId}/update_lesson_order/`,
+    `${URL}/teacher/classroom/${classroomId}/lesson/update_lesson_order/`,
     authenticatedRequestGenerator({ ids: lessonIds }, "PUT")
   )
     .then(handleResponse)

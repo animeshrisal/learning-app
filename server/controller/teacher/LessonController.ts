@@ -84,9 +84,9 @@ export const updateLesson = async (req: Request, res: Response) => {
 
 export const updateLessonOrder = async (req: Request, res: Response) => {
   try {
-    const { lessonIds }: { lessonIds: string[] } = req.body;
+    const { ids }: { ids: string[] } = req.body;
 
-    const updateDataList = lessonIds.map((id, index, arr) =>
+    const updateDataList = ids.map((id, index, arr) =>
       prisma.lesson.update({
         where: { id },
         data: {

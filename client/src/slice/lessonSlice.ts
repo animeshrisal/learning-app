@@ -7,6 +7,8 @@ import { Lesson, LessonState } from "../models/states/LessonState";
 import { studentService } from "../services/StudentService";
 import { teacherDashboardService } from "../services/TeacherService";
 import { arrayMove } from "@dnd-kit/sortable";
+import { RootState } from "../app/store";
+import { Root } from "react-markdown/lib/rehype-filter";
 
 export const retrieveStudentLessonList = createAsyncThunk(
   "lesson/retrieveStudentLessonList",
@@ -131,18 +133,25 @@ export const deleteLesson = createAsyncThunk(
   }
 );
 
-export const sortLesson = createAsyncThunk(
-  "lesson/sortLessonData",
-  async ({
-    lessonIds,
-    classroomId,
-  }: {
-    lessonIds: string[];
-    classroomId: string;
-  }): Promise<Lesson[]> => {
+export const updateLessonOrder = createAsyncThunk(
+  "lesson/updateLessonOrder",
+  async (
+    {
+      classroomId,
+    }: {
+      classroomId: string;
+    },
+    { getState }
+  ): Promise<Lesson[]> => {
+    const state: RootState = getState() as RootState;
+    const lessonListKeyList: string[] = state.lesson.lessonList.map(
+      (x) => x.id
+    );
+
+    console.log(lessonListKeyList)
     const response: Lesson[] = await teacherDashboardService.updateLessonOrder(
       classroomId,
-      lessonIds
+      lessonListKeyList
     );
     return response;
   }
@@ -265,6 +274,20 @@ export const lessonSlice = createSlice({
           ...state,
           lessonList: state.lessonList.filter((item) => item.id !== payload),
         };
+      }
+    );
+
+    builder.addCase(
+      updateLessonOrder.pending,
+      (state: LessonState, { payload }) => {
+        state.isLoading = true;
+      }
+    );
+
+    builder.addCase(
+      updateLessonOrder.fulfilled,
+      (state: LessonState, { payload }) => {
+        state.isLoading = false;
       }
     );
   },
