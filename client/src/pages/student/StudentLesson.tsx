@@ -4,6 +4,7 @@ import {
   ButtonGroup,
   Flex,
   Heading,
+  Spacer,
   Spinner,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
@@ -51,20 +52,21 @@ const StudentLesson = (props: any): JSX.Element => {
   if (!isLoading && lesson) {
     return (
       <Box margin="2rem">
-        <Flex justifyContent="flex-end">
+        <Flex>
           <ButtonGroup>
-            {!lesson.completed ? (
-              <Button onClick={completeLessonHandler}>Complete Lesson</Button>
-            ) : (
-              <Button disabled={true}>Completed</Button>
-            )}
-            {lesson.previousId && (
-              <Button onClick={goToPreviousLesson}>Previous Lesson</Button>
-            )}
-            {lesson.nextId && (
-              <Button onClick={goToNextLesson}>Next Lesson</Button>
-            )}
+            <Button disabled={!lesson.previousId} onClick={goToPreviousLesson}>
+              Previous Lesson
+            </Button>
+            <Button disabled={!lesson.nextId} onClick={goToNextLesson}>
+              Next Lesson
+            </Button>
           </ButtonGroup>
+          <Spacer />
+          {!lesson.completed ? (
+            <Button onClick={completeLessonHandler}>Complete Lesson</Button>
+          ) : (
+            <Button disabled={true}>Completed</Button>
+          )}
         </Flex>
         <Heading>{lesson.name}</Heading>
         <Box bgColor="white">
