@@ -5,12 +5,11 @@ import {
   Flex,
   Heading,
   Spinner,
-  Text,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../app/store";
 
 import { Lesson } from "../../models/states/LessonState";
