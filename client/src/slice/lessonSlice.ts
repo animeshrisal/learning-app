@@ -131,6 +131,23 @@ export const deleteLesson = createAsyncThunk(
   }
 );
 
+export const sortLesson = createAsyncThunk(
+  "lesson/sortLessonData",
+  async ({
+    lessonIds,
+    classroomId,
+  }: {
+    lessonIds: string[];
+    classroomId: string;
+  }): Promise<Lesson[]> => {
+    const response: Lesson[] = await teacherDashboardService.updateLessonOrder(
+      classroomId,
+      lessonIds
+    );
+    return response;
+  }
+);
+
 const initialState: LessonState = {
   isLoading: false,
   lessonList: [],

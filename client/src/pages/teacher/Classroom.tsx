@@ -17,6 +17,7 @@ import {
   ButtonGroup,
   Flex,
   Heading,
+  Spacer,
   Spinner,
   Text,
 } from "@chakra-ui/react";
@@ -108,6 +109,9 @@ const TeacherClass = (): JSX.Element => {
     }
   }
 
+  const handleSorting = () => {
+  }
+
   if (classroom) {
     return (
       <Box margin="2rem">
@@ -125,7 +129,17 @@ const TeacherClass = (): JSX.Element => {
           </Flex>
         </div>
         <Box marginTop="2rem" padding="2rem" bgColor="white">
-          <Heading>Lessons</Heading>
+          <Flex>
+            <Heading>Lessons</Heading>
+            <Spacer />
+            {isSorting ? (
+              <Button onClick={handleSorting}>
+                Done Reordering
+              </Button>
+            ) : (
+              <Button onClick={() => setIsSorting(true)}>Reorder </Button>
+            )}
+          </Flex>
           {isSorting ? (
             <DndContext
               sensors={sensors}
