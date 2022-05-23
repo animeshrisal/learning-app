@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../slice/authSlice";
@@ -22,7 +22,7 @@ import { TriangleDownIcon } from "@chakra-ui/icons";
 function Login() {
   const { register, handleSubmit, formState } = useForm();
   const { isSubmitting } = formState;
- 
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();

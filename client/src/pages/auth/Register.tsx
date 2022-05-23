@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../slice/authSlice";
 import { RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import {
   Avatar,
   Box,
@@ -15,7 +14,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Spinner,
   Stack,
 } from "@chakra-ui/react";
 import { TriangleDownIcon } from "@chakra-ui/icons";
