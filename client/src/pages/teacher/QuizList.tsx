@@ -56,6 +56,7 @@ const QuizList = (props: any): JSX.Element => {
   };
   const createQuiz = (quiz: Quiz) => {
     if (classroomId) {
+      console.log(quiz)
       dispatch(addQuiz({ classroomId, quiz }));
     }
   };

@@ -25,6 +25,7 @@ const AddQuizDialogue = (props: any) => {
 
   const addQuiz = (data: any) => {
     const { name } = data;
+    console.log(name)
     props.addQuiz({ name }, props.state);
     handleClose();
   };
@@ -46,9 +47,9 @@ const AddQuizDialogue = (props: any) => {
               >
                 <FormControl>
                   <Input
-                    {...register("question")}
-                    placeholder="Question"
-                    id="question"
+                    {...register("name")}
+                    placeholder="Name"
+                    id="name"
                     type="text"
                   />
                 </FormControl>
