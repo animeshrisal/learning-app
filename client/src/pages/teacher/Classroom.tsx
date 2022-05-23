@@ -64,7 +64,7 @@ const TeacherClass = (): JSX.Element => {
     })
   );
 
-  const [isSorting, setIsSorting] = useState<boolean>(true);
+  const [isSorting, setIsSorting] = useState<boolean>(false);
 
   const isLoading = useSelector((state: RootState) => state.lesson.isLoading);
 
