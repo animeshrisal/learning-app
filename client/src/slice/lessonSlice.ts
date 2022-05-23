@@ -148,7 +148,6 @@ export const updateLessonOrder = createAsyncThunk(
       (x) => x.id
     );
 
-    console.log(lessonListKeyList)
     const response: Lesson[] = await teacherDashboardService.updateLessonOrder(
       classroomId,
       lessonListKeyList
