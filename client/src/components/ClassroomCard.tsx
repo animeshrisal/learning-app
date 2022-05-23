@@ -1,20 +1,27 @@
 // Sample card from Airbnb
 
-import { Badge, Box, Image } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import { ClassroomProps } from "../models/states/ClassroomState";
 
 export function ClassroomCard(props: ClassroomProps) {
-
   const handleClassroom = () => {
-    props.handleClassroom(props.id)
-  }
+    props.handleClassroom(props.id);
+  };
 
   return (
-    <Box 
-    onClick = {handleClassroom}
-    maxW="sm" borderWidth="1px" borderRadius="lg" maxHeight="20rem">
+    <Box
+      onClick={handleClassroom}
+      maxW="sm"
+      borderWidth="1px"
+      borderRadius="lg"
+      maxHeight="20rem"
+    >
       <Box maxW="sm" height="15rem" overflow="hidden">
-      <Image  overflow="hidden"  src={`http://127.0.0.1:8000/uploads/${props.image}`} alt={props.subject} />
+        <Image
+          overflow="hidden"
+          src={`http://127.0.0.1:8000/uploads/${props.image}`}
+          alt={props.subject}
+        />
       </Box>
       <Box p="6">
         <Box

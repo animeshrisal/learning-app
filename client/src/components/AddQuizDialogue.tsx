@@ -12,7 +12,6 @@ import {
   ModalOverlay,
   Stack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const AddQuizDialogue = (props: any) => {
@@ -25,7 +24,7 @@ const AddQuizDialogue = (props: any) => {
 
   const addQuiz = (data: any) => {
     const { name } = data;
-    console.log(name)
+    console.log(name);
     props.addQuiz({ name }, props.state);
     handleClose();
   };

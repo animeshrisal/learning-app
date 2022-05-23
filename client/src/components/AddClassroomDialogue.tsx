@@ -1,12 +1,9 @@
 import {
   Box,
   Button,
-  Flex,
   FormControl,
-  Heading,
   Image,
   Input,
-  InputGroup,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -35,7 +32,7 @@ const AddClassroomDialogue = (props: any): JSX.Element => {
     )
   );
 
-  const subscription = watch((value, { name, type }) => {
+  watch((value, { name, type }) => {
     if (name === "image") {
       setImage(value.image[0]);
       setImageUrl(URL.createObjectURL(value.image[0]));

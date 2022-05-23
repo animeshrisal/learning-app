@@ -15,8 +15,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import Textarea from "@uiw/react-md-editor/lib/components/TextArea/Textarea";
-import React, { useState } from "react";
+
 import { useForm } from "react-hook-form";
 
 const AddQuestionDialogue = (props: any) => {
@@ -129,7 +128,9 @@ const AddQuestionDialogue = (props: any) => {
           <Button colorScheme="blue" mr={3} onClick={handleClose}>
             Close
           </Button>
-          <Button variant="ghost" onClick={handleSubmit(addQuestion)}>Create</Button>
+          <Button variant="ghost" onClick={handleSubmit(addQuestion)}>
+            Create
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
