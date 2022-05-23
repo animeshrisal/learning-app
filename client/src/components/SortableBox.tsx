@@ -1,6 +1,8 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Flex, Heading, Spacer, Text } from '@chakra-ui/react';
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
+import { faNavicon } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Lesson } from '../models/states/LessonState';
 
 export function SortableItem(props: Lesson) {
@@ -18,10 +20,10 @@ export function SortableItem(props: Lesson) {
   };
   
   return (
-    <Box ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <Box>{props.id}</Box>
-      {props.name}
-      {props.description}
-    </Box>
+    <Flex borderTopWidth="1px" border-color="inherit" padding="0.5rem 1rem" ref={setNodeRef} style={style} {...attributes} {...listeners}>
+      <Text fontWeight="bold">{props.name}</Text>
+      <Spacer />
+      <FontAwesomeIcon icon={faNavicon} />
+    </Flex>
   );
 }
