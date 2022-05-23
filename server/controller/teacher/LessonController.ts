@@ -86,8 +86,8 @@ export const updateLessonOrder = async (req: Request, res: Response) => {
   try {
     const { lessonIds }: { lessonIds: string[] } = req.body;
 
-    const updateDataList = lessonIds.map((id, index, arr) => {
-      return prisma.lesson.update({
+    const updateDataList = lessonIds.map((id, index, arr) =>
+      prisma.lesson.update({
         where: { id },
         data: {
           id: id,
@@ -95,8 +95,8 @@ export const updateLessonOrder = async (req: Request, res: Response) => {
           nextId: index !== arr.length - 1 ? arr[index + 1] : null,
           order: index,
         },
-      });
-    });
+      })
+    );
 
     await prisma.$transaction(updateDataList);
 
