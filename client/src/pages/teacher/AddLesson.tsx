@@ -3,7 +3,7 @@ import MDEditor from "@uiw/react-md-editor";
 
 import { useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addLesson } from "../../slice/lessonSlice";
+import { addLesson, retrieveLesson } from "../../slice/lessonSlice";
 import { Lesson } from "../../models/states/LessonState";
 import { RootState } from "../../app/store";
 
@@ -34,9 +34,10 @@ const AddLessonPage = (props: any) => {
   const { classroomId } = useParams();
 
   useEffect(() => {
-    if (state.action === "edit" && lesson) {
+    if (state.action === "edit" && lesson && classroomId) {
+      dispatch(retrieveLesson({ classroomId, lessonId: lesson.id }));
     }
-  }, [state.action, lesson]);
+  }, [dispatch, state.action, lesson, classroomId]);
 
   const createLesson = (data: any) => {
     if (classroomId) {
@@ -51,7 +52,7 @@ const AddLessonPage = (props: any) => {
 
   return (
     <Box>
-      <Heading>Add new lesson</Heading>
+      <Heading>{state === "edit" ? "Edit" : "Add"} lesson</Heading>
       <form>
         <Stack
           spacing={4}
