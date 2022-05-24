@@ -75,7 +75,11 @@ const StudentLesson = (props: any): JSX.Element => {
       </Box>
     );
   } else {
-    return <Spinner />;
+    return (
+      <Flex height="100vh" alignItems="center" justifyContent="center">
+        <Spinner />
+      </Flex>
+    );
   }
 };
 
