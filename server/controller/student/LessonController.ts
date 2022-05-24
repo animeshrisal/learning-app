@@ -15,7 +15,7 @@ export const listLessons = async (req: Request, res: Response) => {
     "Lesson" l
   left join "UserLesson" ul on
     ul."lessonId" = l.id
-    and ul."userId" = ${userId} where l."classroomId" = ${classroomId};
+    and ul."userId" = ${userId} where l."classroomId" = ${classroomId} ORDER by l.order asc;
   `
   );
   
