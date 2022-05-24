@@ -16,6 +16,7 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
+  Badge,
   Box,
   Button,
   Flex,
@@ -73,7 +74,7 @@ const StudentClassroom = (props: any): JSX.Element => {
                   <Box flex="1" textAlign="left">
                     <Text fontWeight="bold">{lesson.name}</Text>
                   </Box>
-                  {lesson.completed && <FontAwesomeIcon icon={faCheck} />}
+                  {lesson.completed && <Badge marginRight="0.5rem" colorScheme="teal">Completed </Badge>}
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
