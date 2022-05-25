@@ -12,6 +12,7 @@ import Register from "./pages/auth/Register";
 import StudentLesson from "./pages/student/StudentLesson";
 import NavBar from "./components/Header";
 import { Box } from "@chakra-ui/react";
+import UpdateLessonPage from "./pages/teacher/UpdateLesson";
 
 function App() {
   return (
@@ -32,6 +33,10 @@ function App() {
           <Route
             path="/teacher/:classroomId/create"
             element={<AddLessonPage />}
+          />
+          <Route
+            path="/teacher/:classroomId/lesson/:lessonId/"
+            element={<UpdateLessonPage />}
           />
           <Route path="/teacher/:classroomId/quizList" element={<QuizList />} />
           <Route

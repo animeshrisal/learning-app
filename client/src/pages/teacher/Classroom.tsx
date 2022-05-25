@@ -96,7 +96,7 @@ const TeacherClass = (): JSX.Element => {
   };
 
   const goToLessonPage = (id: string) => {
-    navigate(`${id}`);
+    navigate(`lesson/${id}`);
   };
 
   const editClassroom = (classroom: Classroom) => {
