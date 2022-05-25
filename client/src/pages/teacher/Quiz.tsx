@@ -208,7 +208,7 @@ const Quiz = (props: any) => {
   if (!isLoading) {
     return (
       <>
-        <ButtonGroup>
+        <ButtonGroup marginTop="2rem">
           {quiz?.state === "IN_REVIEW" && (
             <Button onClick={handleOpenQuizActiveModal}>Set as active </Button>
           )}
@@ -217,7 +217,11 @@ const Quiz = (props: any) => {
               Set as archived
             </Button>
           )}
-          {quiz?.state === "ARCHIVED" && <div>Archived </div>}
+          {quiz?.state === "ARCHIVED" && (
+            <Button disabled>
+              Set as archived
+            </Button>
+          )}
           <Button onClick={handleClickOpen}>Add new question </Button>
         </ButtonGroup>
         <Container bgColor="white">
