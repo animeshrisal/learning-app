@@ -1,7 +1,10 @@
 import {
   Box,
   Button,
+  Flex,
   FormControl,
+  Grid,
+  GridItem,
   Input,
   Modal,
   ModalBody,
@@ -12,15 +15,60 @@ import {
   ModalOverlay,
   Radio,
   RadioGroup,
+  SimpleGrid,
   Stack,
   Text,
+  useControllableProp,
+  useRadio,
+  useRadioGroup,
 } from "@chakra-ui/react";
+import { forwardRef, useState } from "react";
 
-import { useForm } from "react-hook-form";
+import { Controller, useController, useForm } from "react-hook-form";
+
+const questionChoiceList = [
+  { placeholder: "First Choice", id: "firstChoice" },
+  { placeholder: "Second Choice", id: "secondChoice" },
+  { placeholder: "Third Choice", id: "thirdChoice" },
+  { placeholder: "Fourth Choice", id: "fourthChoice" },
+];
+
+// 1. Create a component that consumes the `useRadio` hook
+function RadioCard(props: any) {
+  const { getInputProps, getCheckboxProps } = useRadio(props);
+
+  const input = getInputProps();
+  const checkbox = getCheckboxProps();
+
+  return (
+    <Box as="label">
+      <input {...input} />
+      <Box
+        {...checkbox}
+        cursor="pointer"
+        borderWidth="1px"
+        borderRadius="md"
+        boxShadow="md"
+        _checked={{
+          bg: "teal.600",
+          color: "white",
+          borderColor: "teal.600",
+        }}
+        _focus={{
+          boxShadow: "outline",
+        }}
+        px={5}
+        py={3}
+      >
+        {props.children}
+      </Box>
+    </Box>
+  );
+}
 
 const AddQuestionDialogue = (props: any) => {
-  const { register, handleSubmit, formState, watch } = useForm();
-  const { isSubmitting } = formState;
+  const { register, handleSubmit, formState } = useForm();
+  const [radioValue, setRadioValue] = useState('0')
 
   const handleClose = () => {
     resetForm();
@@ -34,7 +82,6 @@ const AddQuestionDialogue = (props: any) => {
       secondChoice,
       thirdChoice,
       fourthChoice,
-      correctChoice,
     } = data;
 
     props.addQuestionToQuiz(
@@ -44,13 +91,17 @@ const AddQuestionDialogue = (props: any) => {
         secondChoice,
         thirdChoice,
         fourthChoice,
-        correctChoice,
+        radioValue
       },
       props.state
     );
     handleClose();
   };
-
+  const { getRadioProps } = useRadioGroup({
+    name: "correctAnswer",
+    defaultValue: radioValue,
+    onChange: console.log,
+  });
   const resetForm = () => {};
 
   return (
@@ -76,49 +127,24 @@ const AddQuestionDialogue = (props: any) => {
                     type="text"
                   />
                 </FormControl>
-                <FormControl>
-                  <Input
-                    {...register("firstChoice")}
-                    placeholder="First Choice"
-                    id="firstChoice"
-                    type="text"
-                  />
-                </FormControl>
-                <FormControl>
-                  <Input
-                    {...register("secondChoice")}
-                    placeholder="Second Choice"
-                    id="secondChoice"
-                    type="text"
-                  />
-                </FormControl>
-                <FormControl>
-                  <Input
-                    {...register("thirdChoice")}
-                    placeholder="Third Choice"
-                    id="thirdChoice"
-                    type="text"
-                  />
-                </FormControl>
-                <FormControl>
-                  <Input
-                    {...register("fourthChoice")}
-                    placeholder="Fourth Choice"
-                    id="fourthChoice"
-                    type="text"
-                  />
-                </FormControl>
-                <FormControl>
-                  <RadioGroup>
-                    <Text>Choose the correct Choice</Text>
-                    <Stack direction="row">
-                      <Radio value="1">First</Radio>
-                      <Radio value="2">Second</Radio>
-                      <Radio value="3">Third</Radio>
-                      <Radio value="4">Fourth</Radio>
-                    </Stack>
-                  </RadioGroup>
-                </FormControl>
+                {questionChoiceList.map((questionChoice, index) => {
+                  const radio = getRadioProps({ value: `${index}` });
+                  return (
+                    <Flex direction="row">
+                      <FormControl>
+                        <Input
+                          {...register(`${questionChoice.id}` as const)}
+                          placeholder={questionChoice.placeholder}
+                          id={questionChoice.id}
+                          type="text"
+                        />
+                      </FormControl>
+                      <RadioCard value={`${index}`} {...radio}>
+                        Correct
+                      </RadioCard>
+                    </Flex>
+                  );
+                })}
               </Stack>
             </form>
           </Box>
