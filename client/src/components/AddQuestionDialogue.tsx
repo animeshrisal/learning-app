@@ -3,8 +3,6 @@ import {
   Button,
   Flex,
   FormControl,
-  Grid,
-  GridItem,
   Input,
   Modal,
   ModalBody,
@@ -13,18 +11,13 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Radio,
-  RadioGroup,
-  SimpleGrid,
   Stack,
-  Text,
-  useControllableProp,
   useRadio,
   useRadioGroup,
 } from "@chakra-ui/react";
-import { forwardRef, useState } from "react";
+import { useState } from "react";
 
-import { Controller, useController, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 const questionChoiceList = [
   { placeholder: "First Choice", id: "firstChoice" },
@@ -68,7 +61,7 @@ function RadioCard(props: any) {
 
 const AddQuestionDialogue = (props: any) => {
   const { register, handleSubmit, formState } = useForm();
-  const [radioValue, setRadioValue] = useState('0')
+  const [radioValue, setRadioValue] = useState("0");
 
   const handleClose = () => {
     resetForm();
@@ -76,13 +69,8 @@ const AddQuestionDialogue = (props: any) => {
   };
 
   const addQuestion = (data: any) => {
-    const {
-      question,
-      firstChoice,
-      secondChoice,
-      thirdChoice,
-      fourthChoice,
-    } = data;
+    const { question, firstChoice, secondChoice, thirdChoice, fourthChoice } =
+      data;
 
     props.addQuestionToQuiz(
       {
@@ -91,7 +79,7 @@ const AddQuestionDialogue = (props: any) => {
         secondChoice,
         thirdChoice,
         fourthChoice,
-        radioValue
+        correctChoice: radioValue,
       },
       props.state
     );
@@ -100,7 +88,7 @@ const AddQuestionDialogue = (props: any) => {
   const { getRadioProps } = useRadioGroup({
     name: "correctAnswer",
     defaultValue: radioValue,
-    onChange: console.log,
+    onChange: setRadioValue,
   });
   const resetForm = () => {};
 
